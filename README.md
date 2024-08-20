@@ -46,3 +46,11 @@ project-root/
 ├── package.json # 종속성 및 스크립트 정보
 └── README.md # 프로젝트 설명 파일
 ```
+
+## BaseURL
+
+- src
+
+```js
+import { counterAtom } from "atoms/sample";
+```
