@@ -1,0 +1,100 @@
+/* Reset CSS */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* HTML 및 Body 스타일 */
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #333;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* A 링크 기본 스타일 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 이미지 기본 스타일 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 리스트 기본 스타일 */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 기본 레이아웃 도우미 스타일 */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 기본적인 버튼 스타일 */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* 폼 요소 기본 스타일 */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+/* 테이블 기본 스타일 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
