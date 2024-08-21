@@ -1,0 +1,12 @@
+#!/bin/sh
+# npx eslint를 사용하여 코드 린팅을 수행합니다.
+npx eslint . --fix
+
+# # npx prettier를 사용하여 코드 포맷팅을 수행합니다. (현재 주석 처리됨)
+# npx prettier --write .
+
+# # TypeScript 타입 체크를 수행합니다. (현재 주석 처리됨)
+# npx tsc --noEmit
+
+# # npm test를 사용하여 테스트를 실행합니다. (현재 주석 처리됨)
+# npm test
