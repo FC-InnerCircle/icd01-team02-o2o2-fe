@@ -5,6 +5,8 @@ import Home from "pages/Home";
 import Menu from "pages/Menu";
 import MenuDetail from "pages/MenuDetail";
 import Profile from "pages/Profile";
+import Order from "pages/Order";
+import OrderDetail from "pages/OrderDetail";
 
 //아래 Route외 html Layout 컴포넌트로 변경 예정
 function App() {
@@ -48,9 +50,9 @@ function App() {
             <Route path="/menu" element={<Menu />} />
             {/* 관리자만 */}
             <Route path="/menu/:id" element={<MenuDetail />} />
-            <Route path="/order" element={<Menu />} />
+            <Route path="/order" element={<Order />} />
             {/* 관리자만 */}
-            <Route path="/order/:id" element={<MenuDetail />} />
+            <Route path="/order/:id" element={<OrderDetail />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
