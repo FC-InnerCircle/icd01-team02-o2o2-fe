@@ -48,10 +48,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home role="store-owner" />} />
             <Route path="/menu" element={<Menu />} />
-            {/* 관리자만 */}
             <Route path="/menu/:id" element={<MenuDetail />} />
             <Route path="/order" element={<Order />} />
-            {/* 관리자만 */}
             <Route path="/order/:id" element={<OrderDetail />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
