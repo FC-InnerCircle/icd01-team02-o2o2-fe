@@ -19,7 +19,7 @@ export const useUpdateProfile = (id: number) => {
   return useMutation({
     mutationFn: ({ payload }: { payload:  UpdateProfileRequest}) => updateProfileFn(id, payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.account.updateProfile(id)});
+      queryClient.invalidateQueries({ queryKey: queryKeys.account.profile(id)} );
     },
     onError: (error) => {
       console.error(error);
