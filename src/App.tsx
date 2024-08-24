@@ -7,6 +7,7 @@ import MenuDetail from "pages/MenuDetail";
 import Profile from "pages/Profile";
 import Order from "pages/Order";
 import OrderDetail from "pages/OrderDetail";
+import SignIn from "pages/SignIn";
 
 //아래 Route외 html Layout 컴포넌트로 변경 예정
 function App() {
@@ -52,6 +53,7 @@ function App() {
             <Route path="/order" element={<Order />} />
             <Route path="/order/:id" element={<OrderDetail />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/sign-in" element={<SignIn />} />
           </Routes>
         </main>
       </div>
