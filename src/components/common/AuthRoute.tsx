@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { Navigate, Route } from "react-router-dom";
-import { type UserRole, roleAtom } from "./authAtom";
+import { type UserRole, roleAtom } from "../../atoms/authAtom";
 import { useAtom } from "jotai";
 import { ROUTES } from "constants/common";
 
