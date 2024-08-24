@@ -206,7 +206,7 @@ export type ReviewImage = {
   imageUrl: string;
 };
 
-export type GetReviewsRequest = StoresParams & {
+export type GetReviewsParams = StoresParams & {
   sort?: "GRADE" | "ID";
 };
 

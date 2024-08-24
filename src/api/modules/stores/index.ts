@@ -1,10 +1,11 @@
 import axiosInstance from 'api/core';
-import { CreateStoreRequest, CreateStoreResponse, GetStoreResponse, StoresParams, GetStoresMenuResponse, GetStoresMenuParams, GetMenuDetailResponse, CreateMenuRequest, CreateMenuResponse, GetOrderResponse, GetOrderDetailResponse, UpdateOrderRequest, GetReviewsResponse } from './types';
+import { CreateStoreRequest, CreateStoreResponse, GetStoreResponse, StoresParams, GetStoresMenuResponse, GetStoresMenuParams, GetMenuDetailResponse, CreateMenuRequest, CreateMenuResponse, GetOrderResponse, GetOrderDetailResponse, UpdateOrderRequest, GetReviewsResponse, GetReviewsParams } from './types';
+import { CommonResponseReturnType } from '../commonType';
 
 const URL_ROOT = 'stores';
 
 // 음식정 정보 등록 API
-export const createStoreFn = async (payload: CreateStoreRequest): Promise<CreateStoreResponse> => {
+export const createStoreFn = async (payload: CreateStoreRequest): Promise<CommonResponseReturnType<CreateStoreResponse>> => {
   const res = await axiosInstance.post(`${URL_ROOT}/stores`, payload);
   return res.data;
 }
@@ -71,7 +72,7 @@ export const updateStoresOrderFn = async (storeId: number, orderId: number, payl
 }
 
 // 리뷰 정보 조회
-export const getStoresReviewsFn = async (storeId: number, queryParams: StoresParams): Promise<GetReviewsResponse> => {
+export const getStoresReviewsFn = async (storeId: number, queryParams: GetReviewsParams): Promise<GetReviewsResponse> => {
   const res = await axiosInstance.get(`${URL_ROOT}/stores/${storeId}/reviews`, {
     params: queryParams,
   });

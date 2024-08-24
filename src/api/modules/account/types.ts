@@ -24,3 +24,37 @@ export type UpdateProfileResponse = {
   createdAt: string;
   updatedAt: string;
 }
+
+export type CreateOwnerRequest = {
+  accountId: string;
+  password: string;
+  name: string;
+  contactNumber: string;
+  email: string;
+}
+
+export type CreateOwnerResponse = {
+  id: number;
+  accountId: string;
+  name: string;
+  contactNumber: string;
+  email: string;
+}
+
+export type CreateManagerRequest = {
+  accountId: string;
+  password: string;
+  name: string;
+  contactNumber: string;
+  email: string;
+}
+
+export type CreateManagerResponse = {
+  id: number;
+  accountId: string;
+  name: string;
+  contactNumber: string;
+  email: string;
+  status: string;
+}
+
