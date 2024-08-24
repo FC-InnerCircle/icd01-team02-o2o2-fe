@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Link } from "react-router-dom";
 import { ROUTES } from "constants/common";
 
 import Home from "pages/Home";
@@ -11,6 +11,7 @@ import Order from "pages/Order";
 import OrderDetail from "pages/OrderDetail";
 import SignIn from "pages/SignIn";
 import Reviews from "pages/Reviews";
+import AuthRoute from "components/common/AuthRoute";
 
 //아래 Route외 html Layout 컴포넌트로 변경 예정
 function App() {
@@ -50,14 +51,47 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path={ROUTES.HOME} element={<Home role="store-owner" />} />
-            <Route path={ROUTES.MENU} element={<Menu />} />
-            <Route path={ROUTES.MENU_DETAIL} element={<MenuDetail />} />
-            <Route path={ROUTES.ORDER} element={<Order />} />
-            <Route path={ROUTES.ORDER_DETAIL} element={<OrderDetail />} />
-            <Route path={ROUTES.REVIEW} element={<Reviews />} />
-            <Route path={ROUTES.PROFILE} element={<Profile />} />
-            <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
+            <AuthRoute
+              requiredRoles={["owner", "admin"]}
+              path={ROUTES.HOME}
+              element={<Home role="store-owner" />}
+            />
+            <AuthRoute
+              requiredRoles={["owner", "admin"]}
+              path={ROUTES.MENU}
+              element={<Menu />}
+            />
+            <AuthRoute
+              requiredRoles={["owner", "admin"]}
+              path={ROUTES.MENU_DETAIL}
+              element={<MenuDetail />}
+            />
+            <AuthRoute
+              requiredRoles={["owner", "admin"]}
+              path={ROUTES.ORDER}
+              element={<Order />}
+            />
+            <AuthRoute
+              requiredRoles={["owner", "admin"]}
+              path={ROUTES.ORDER_DETAIL}
+              element={<OrderDetail />}
+            />
+            <AuthRoute
+              requiredRoles={["owner", "admin"]}
+              path={ROUTES.REVIEW}
+              element={<Reviews />}
+            />
+            <AuthRoute
+              requiredRoles={["owner", "admin"]}
+              path={ROUTES.PROFILE}
+              element={<Profile />}
+            />
+            <AuthRoute
+              requiredRoles={["guest"]}
+              path={ROUTES.SIGN_IN}
+              redirectPath="/"
+              element={<SignIn />}
+            />
           </Routes>
         </main>
       </div>
