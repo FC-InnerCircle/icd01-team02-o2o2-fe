@@ -12,6 +12,10 @@ import OrderDetail from "pages/OrderDetail";
 import SignIn from "pages/SignIn";
 import Reviews from "pages/Reviews";
 import AuthRoute from "components/common/AuthRoute";
+import Store from "pages/Store";
+import StoreDetail from "pages/StoreDetail";
+import User from "pages/User";
+import UserDetail from "pages/UserDetail";
 
 //아래 Route외 html Layout 컴포넌트로 변경 예정
 function App() {
@@ -54,7 +58,27 @@ function App() {
             <AuthRoute
               requiredRoles={["owner", "admin"]}
               path={ROUTES.HOME}
-              element={<Home role="store-owner" />}
+              element={<Home role="owner" />}
+            />
+            <AuthRoute
+              requiredRoles={["admin"]}
+              path={ROUTES.USER}
+              element={<User />}
+            />
+            <AuthRoute
+              requiredRoles={["admin"]}
+              path={ROUTES.USER_DETAIL}
+              element={<UserDetail />}
+            />
+            <AuthRoute
+              requiredRoles={["admin"]}
+              path={ROUTES.STORE}
+              element={<Store />}
+            />
+            <AuthRoute
+              requiredRoles={["owner", "admin"]}
+              path={ROUTES.STORE_DETAIL}
+              element={<StoreDetail />}
             />
             <AuthRoute
               requiredRoles={["owner", "admin"]}
