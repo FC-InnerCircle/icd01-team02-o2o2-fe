@@ -1,6 +1,6 @@
 import axiosInstance from 'api/core';
-import { CreateStoreRequest, CreateStoreResponse, GetStoreResponse, StoresParams, GetStoresMenuResponse, GetStoresMenuParams, GetMenuDetailResponse, CreateMenuRequest, CreateMenuResponse, GetOrderResponse, GetOrderDetailResponse, UpdateOrderRequest, GetReviewsResponse, GetReviewsParams } from './types';
-import { CommonResponseReturnType } from '../commonType';
+import { CreateStoreRequest, CreateStoreResponse, GetStoreResponse, StoresParams, GetStoresMenuResponse, GetStoresMenuParams, GetMenuDetailResponse, CreateMenuRequest, CreateMenuResponse, GetOrderResponse, GetOrderDetailResponse, UpdateOrderRequest, GetReviewsResponse, GetReviewsParams } from 'api/modules/stores/types';
+import { CommonResponseReturnType } from 'api/modules/commonType';
 
 const URL_ROOT = 'stores';
 

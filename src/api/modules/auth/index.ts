@@ -1,6 +1,6 @@
 import axiosInstance from 'api/core';
-import { LoginRequest, LoginResponse, RefreshRequest, RefreshResponse } from './types';
-import { CommonResponseReturnType } from '../commonType';
+import { LoginRequest, LoginResponse, RefreshRequest, RefreshResponse } from 'api/modules/auth/types';
+import { CommonResponseReturnType } from 'api/modules/commonType';
 
 const URL_ROOT = 'auth';
 

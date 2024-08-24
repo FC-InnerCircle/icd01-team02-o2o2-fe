@@ -1,6 +1,6 @@
 import axiosInstance from 'api/core';
-import { CreateManagerRequest, CreateManagerResponse, CreateOwnerRequest, CreateOwnerResponse, ProfileResponse, UpdateProfileRequest, UpdateProfileResponse } from './types';
-import { CommonResponseReturnType } from '../commonType';
+import { CreateManagerRequest, CreateManagerResponse, CreateOwnerRequest, CreateOwnerResponse, ProfileResponse, UpdateProfileRequest, UpdateProfileResponse } from 'api/modules/account/types';
+import { CommonResponseReturnType } from 'api/modules/commonType';
 
 const URL_ROOT = "accounts";
 

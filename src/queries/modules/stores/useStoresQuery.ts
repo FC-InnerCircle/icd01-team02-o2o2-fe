@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createStoreFn, createStoresMenuFn, deleteStoreFn, deleteStoresMenuFn, getStoreFn, getStoresMenuFn, getStoresOrderDetailFn, getStoresOrdersFn, getStoresReviewsFn, updateStoresOrderFn } from 'api/modules/stores';
 import { CreateMenuRequest, CreateMenuResponse, CreateStoreRequest, GetReviewsParams, GetStoresMenuParams, StoresParams, UpdateOrderRequest } from 'api/modules/stores/types';
 import queryKeys from 'queries/keys';
-import { getStoresMenuDetailFn } from '../../../api/modules/stores/index';
+import { getStoresMenuDetailFn } from 'api/modules/stores/index';
 
 // 음식점 정보 등록 hooks
 export const useCreateStoresQuery = () => {
