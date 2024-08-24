@@ -30,7 +30,7 @@ axiosInstance.interceptors.request.use(
 
 // 응답 인터셉터
 axiosInstance.interceptors.response.use(
-  (response) => {
+  async (response) => {
     // 응답 데이터
     return response;
   },
