@@ -38,6 +38,9 @@ project-root/
 │ │ └── Home.tsx
 │ ├── queries/ # React Query 관련 hook들
 │ │ └── keys/ # query key
+│ ├── routes/ # route관련 모음
+│ │ └── appRoutes #app의 기본 routes
+│ │ └── WithAuth #사용자 Role에 따른 페이지 접근 관리를 위한 고차원컴포넌트
 │ ├── styles/ # Style들 모음
 │ │ └── global.css/ # 전역 스타일 리셋
 │ ├── App.tsx # 메인 앱 컴포넌트
