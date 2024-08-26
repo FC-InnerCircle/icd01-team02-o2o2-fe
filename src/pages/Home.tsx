@@ -1,5 +1,5 @@
 interface Props {
-  role: "admin" | "store-owner"; // 역할 타입 정의, enum으로 빼고 API에 맞출 예정
+  role: "admin" | "owner"; // 역할 타입 정의, enum으로 빼고 API에 맞출 예정
 }
 
 const AdminHome = () => {
@@ -7,7 +7,7 @@ const AdminHome = () => {
 };
 
 const OwnerHome = () => {
-  return <div>Welcome, Employee! This is your home screen.</div>;
+  return <div>Welcome, Owner! This is your home screen.</div>;
 };
 
 const Home = ({ role }: Props) => {

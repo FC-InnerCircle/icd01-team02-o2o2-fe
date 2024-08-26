@@ -1,17 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ROUTES } from "constants/common";
-
-import Home from "pages/Home";
-import Menu from "pages/Menu";
-import MenuDetail from "pages/MenuDetail";
-import Profile from "pages/Profile";
-import Order from "pages/Order";
-import OrderDetail from "pages/OrderDetail";
-import SignIn from "pages/SignIn";
-import Reviews from "pages/Reviews";
-import Component from "pages/Component";
+import AppRoutes from "routes/AppRoutes";
 
 //아래 Route외 html Layout 컴포넌트로 변경 예정
 function App() {
@@ -50,19 +41,7 @@ function App() {
           </div>
         </header>
         <main>
-          <Routes>
-            <Route path={ROUTES.HOME} element={<Home role="store-owner" />} />
-            <Route path={ROUTES.MENU} element={<Menu />} />
-            <Route path={ROUTES.MENU_DETAIL} element={<MenuDetail />} />
-            <Route path={ROUTES.ORDER} element={<Order />} />
-            <Route path={ROUTES.ORDER_DETAIL} element={<OrderDetail />} />
-            <Route path={ROUTES.REVIEW} element={<Reviews />} />
-            <Route path={ROUTES.PROFILE} element={<Profile />} />
-            <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
-
-            {/* NOTE: Storybook에 emotion 스타일 설정을 하기 전이라 임시로 컴포넌트를 볼 수 있는 페이지를 만듭니다. @Seung-wan */}
-            <Route path="/components" element={<Component />} />
-          </Routes>
+          <AppRoutes />
         </main>
       </div>
     </div>
