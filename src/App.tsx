@@ -11,6 +11,7 @@ import Order from "pages/Order";
 import OrderDetail from "pages/OrderDetail";
 import SignIn from "pages/SignIn";
 import Reviews from "pages/Reviews";
+import Component from "pages/Component";
 
 //아래 Route외 html Layout 컴포넌트로 변경 예정
 function App() {
@@ -58,6 +59,9 @@ function App() {
             <Route path={ROUTES.REVIEW} element={<Reviews />} />
             <Route path={ROUTES.PROFILE} element={<Profile />} />
             <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
+
+            {/* NOTE: Storybook에 emotion 스타일 설정을 하기 전이라 임시로 컴포넌트를 볼 수 있는 페이지를 만듭니다. @Seung-wan */}
+            <Route path="/components" element={<Component />} />
           </Routes>
         </main>
       </div>
