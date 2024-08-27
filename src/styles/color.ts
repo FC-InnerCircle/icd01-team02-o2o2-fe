@@ -12,6 +12,7 @@ const colors = {
   darkBackground: "#2C2E33", // Dark Background
   brightOrange: "#FF6F61", // Bright Orange
   white: "#fff", // White
+  placeholder: "#555", // Placeholder
 };
 
 export default colors;
