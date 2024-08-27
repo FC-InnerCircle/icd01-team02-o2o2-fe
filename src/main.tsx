@@ -16,12 +16,10 @@ import "./styles/global.css";
  * - queries.gcTime: 0: 쿼리 데이터 설정이 변경되면 즉시 GC
  */
 
-
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: 1, // 실패 시 한 번만 재시도
-      staleTime: 0, // Stale time을 0으로 설정하여 항상 새로운 데이터를 요청
       gcTime: 0, //
       refetchOnWindowFocus: false,
     },
@@ -39,7 +37,6 @@ export const queryClient = new QueryClient({
     }
   }),
 });
-
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
