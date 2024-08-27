@@ -1,19 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { authAPI } from 'api/modules/auth';
-import { type LoginRequest, RefreshRequest } from 'api/modules/auth/types';
+
+import { type LoginRequest, LoginResponse, RefreshRequest, RefreshResponse } from 'api/modules/auth/types';
+import { type UseMutationOptions } from '@tanstack/react-query';
+import { type CommonResponseReturnType } from 'api/modules/commonType';
 
 // 로그인 훅
-export const useAuthLogin = () => {
+export const useAuthLogin = (
+  options?: UseMutationOptions<CommonResponseReturnType<LoginResponse>, Error, LoginRequest>
+) => {
   return useMutation({
-    mutationFn: (payload: LoginRequest ) => authAPI.login(payload),
-    onSuccess: () => {
-      // 로그인 성공 메세지 출력
-    },
-    onError: (error) => {
-      // 추후 에러 메세지 출력
-      console.error(error);
-    }
+    mutationFn: (payload: LoginRequest) => authAPI.login(payload),
+    ...options,
   });
 }
 
@@ -21,21 +20,13 @@ export const useAuthLogin = () => {
 export const useAuthLogout = () => {
   return useMutation({
     mutationFn: () => authAPI.logout(),
-    onSuccess: () => {
-      // 로그아웃 성공 메세지 출력
-    },
-    onError: (error) => {
-      console.error(error);
-    }
   });
 }
 
 // 리프레시 훅
-export const useAuthRefresh = () => {
+export const useAuthRefresh = (options?: UseMutationOptions<CommonResponseReturnType<RefreshResponse>, Error, RefreshRequest>) => {
   return useMutation({
     mutationFn: (payload: RefreshRequest) => authAPI.refresh(payload),
-    onError: (error) => {
-      console.error(error);
-    }
+    ...options
   });
 }
