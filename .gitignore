@@ -132,3 +132,5 @@ ehthumbs.db
 # Output of 'npm run build'
 dist/
 build/
+
+*storybook.log

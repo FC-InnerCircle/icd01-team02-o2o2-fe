@@ -3,8 +3,10 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+import App from "App";
+
 import "./styles/global.css";
-import App from "app";
 
 /**
  * QueryClient 생성 및 모듈로 관리
