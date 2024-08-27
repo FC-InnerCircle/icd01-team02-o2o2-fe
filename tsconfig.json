@@ -9,6 +9,7 @@
     "paths": {
       "*": ["*"]
     },
+    "types": ["vitest/globals"], // test Vitest 관련 타입 주입
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
