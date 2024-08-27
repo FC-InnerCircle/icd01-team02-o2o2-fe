@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createStoreFn, createStoresMenuFn, deleteStoreFn, deleteStoresMenuFn, getStoreFn, getStoresMenuFn, getStoresOrderDetailFn, getStoresOrdersFn, getStoresReviewsFn, updateStoresOrderFn } from 'api/modules/stores';
-import { CreateMenuRequest, CreateMenuResponse, CreateStoreRequest, GetReviewsParams, GetStoresMenuParams, StoresParams, UpdateOrderRequest } from 'api/modules/stores/types';
 import queryKeys from 'queries/keys';
-import { getStoresMenuDetailFn } from 'api/modules/stores/index';
+
+import { storeAPI } from 'api/modules/stores/index';
+import { type CreateMenuRequest, CreateMenuResponse, CreateStoreRequest, GetReviewsParams, GetStoresMenuParams, StoresParams, UpdateOrderRequest } from 'api/modules/stores/types';
 
 // 음식점 정보 등록 hooks
 export const useCreateStoresQuery = () => {
   return useMutation({
-    mutationFn: (payload: CreateStoreRequest) => createStoreFn(payload),
+    mutationFn: (payload: CreateStoreRequest) => storeAPI.store.createStore(payload),
     onSuccess: () => {
       // 음식점 정보 등록 성공 메세지 출력
     },
@@ -20,8 +20,8 @@ export const useCreateStoresQuery = () => {
 // 음식점 정보 조회 hooks
 export const useGetStoresQuery = (storeId: number, queryParams?: GetStoresMenuParams) => {
   return useQuery({
-    queryKey: queryKeys.stores.getStores(storeId, queryParams),
-    queryFn: () => getStoreFn(storeId, queryParams),
+    queryKey: queryKeys.stores.store.list(storeId, queryParams),
+    queryFn: () => storeAPI.store.getStore(storeId, queryParams),
     enabled: !!storeId,
   });
 }
@@ -31,12 +31,12 @@ export const useDeleteStoresQuery = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (storeId: number) => deleteStoreFn(storeId),
+    mutationFn: (storeId: number) => storeAPI.store.deleteStore(storeId),
     onSuccess: (_, storeId) => {
       // 음식점 정보 삭제 성공 메세지 출력
 
       // 쿼리 무효화
-      queryClient.invalidateQueries({queryKey: queryKeys.stores.getStores(storeId)});
+      queryClient.invalidateQueries({queryKey: queryKeys.stores.store.list(storeId)});
     },
     onError: (error) => {
       console.error(error);
@@ -47,8 +47,8 @@ export const useDeleteStoresQuery = () => {
 // 메뉴 정보 조회 hooks
 export const useGetStoresMenuQuery = (storeId: number, queryParams?: StoresParams) => {
   return useQuery({
-    queryKey: queryKeys.stores.getStoreMenus(storeId, queryParams),
-    queryFn: () => getStoresMenuFn(storeId, queryParams),
+    queryKey: queryKeys.stores.menus.list(storeId, queryParams),
+    queryFn: () => storeAPI.menu.getStoresMenu(storeId, queryParams),
     enabled: !!storeId,
   });
 }
@@ -56,8 +56,8 @@ export const useGetStoresMenuQuery = (storeId: number, queryParams?: StoresParam
 // 메뉴 정보 상세 조회 hooks
 export const useGetStoresMenuDetailQuery = (storeId: number, menuId: number) => {
   return useQuery({
-    queryKey: queryKeys.stores.getMenusDetail(storeId, menuId),
-    queryFn: () => getStoresMenuDetailFn(storeId, menuId),
+    queryKey: queryKeys.stores.menus.detail(storeId, menuId),
+    queryFn: () => storeAPI.menu.getStoresMenuDetail(storeId, menuId),
     enabled: !!storeId,
   });
 }
@@ -67,11 +67,11 @@ export const useCreateStoresMenuQuery = () => {
   const queryClient = useQueryClient();
 
   return useMutation<CreateMenuResponse, Error, { storeId: number; payload: CreateMenuRequest }>({
-    mutationFn: ({ storeId, payload }) => createStoresMenuFn(storeId, payload),
+    mutationFn: ({ storeId, payload }) => storeAPI.menu.createStoresMenu(storeId, payload),
 
     // 성공 시 실행할 작업
     onSuccess: (_, { storeId }) => {
-      queryClient.invalidateQueries({queryKey: queryKeys.stores.getStoreMenus(storeId)});
+      queryClient.invalidateQueries({queryKey: queryKeys.stores.menus.list(storeId)});
     },
 
     // 에러 처리
@@ -86,11 +86,11 @@ export const useDeleteStoresMenuQuery = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ storeId, menuId }: { storeId: number; menuId: number }) => deleteStoresMenuFn(storeId, menuId),
+    mutationFn: ({ storeId, menuId }: { storeId: number; menuId: number }) => storeAPI.menu.deleteStoresMenu(storeId, menuId),
 
     // 성공 시 실행할 작업
-    onSuccess: (_, { storeId }) => {
-      queryClient.invalidateQueries({queryKey: queryKeys.stores.getStoreMenus(storeId)});
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.stores.menus.all, exact: false });
     },
 
     // 에러 처리
@@ -103,8 +103,8 @@ export const useDeleteStoresMenuQuery = () => {
 // 주문 정보 조회 hooks
 export const useGetStoresOrders = (storeId: number) => {
   return useQuery({
-    queryKey: queryKeys.stores.getStoresOrders(storeId),
-    queryFn: () => getStoresOrdersFn(storeId),
+    queryKey: queryKeys.stores.orders.list(storeId),
+    queryFn: () => storeAPI.order.getStoresOrders(storeId),
     enabled: !!storeId,
   });
 };
@@ -112,8 +112,8 @@ export const useGetStoresOrders = (storeId: number) => {
 // 주문 정보 상세 조회 hooks
 export const useGetStoresOrderDetail = (storeId: number, orderId: number) => {
   return useQuery({
-    queryKey: queryKeys.stores.getStoresDetailOrders(storeId, orderId),
-    queryFn: () => getStoresOrderDetailFn(storeId, orderId),
+    queryKey: queryKeys.stores.orders.detail(storeId, orderId),
+    queryFn: () => storeAPI.order.getStoresOrderDetail(storeId, orderId),
     enabled: !!storeId,
   });
 };
@@ -123,11 +123,11 @@ export const useUpdateStoresOrder = () => {
   const queryClient = useQueryClient();
 
   return useMutation<unknown, Error, { storeId: number; orderId: number, payload: UpdateOrderRequest }>({
-    mutationFn: ({ storeId, orderId, payload }) => updateStoresOrderFn(storeId, orderId, payload),
+    mutationFn: ({ storeId, orderId, payload }) => storeAPI.order.updateStoresOrder(storeId, orderId, payload),
 
     // 성공 시 실행할 작업
     onSuccess: (_, { storeId }) => {
-      queryClient.invalidateQueries({queryKey: queryKeys.stores.getStoresOrders(storeId)});
+      queryClient.invalidateQueries({queryKey: queryKeys.stores.orders.list(storeId)});
     },
 
     // 에러 처리
@@ -140,8 +140,8 @@ export const useUpdateStoresOrder = () => {
 // 리뷰 정보 조회 hooks
 export const useGetStoresReview = (storeId: number, queryParams: GetReviewsParams) => {
   return useQuery({
-    queryKey: queryKeys.stores.getStoreReviews(storeId, queryParams),
-    queryFn: () => getStoresReviewsFn(storeId, queryParams),
+    queryKey: queryKeys.stores.reviews.list(storeId, queryParams),
+    queryFn: () => storeAPI.review.getStoresReviews(storeId, queryParams),
     enabled: !!storeId,
   });
 }
@@ -151,11 +151,11 @@ export const useDeleteStoresReview = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ storeId, reviewId }: { storeId: number; reviewId: number }) => deleteStoresMenuFn(storeId, reviewId),
+    mutationFn: ({ storeId, reviewId }: { storeId: number; reviewId: number }) => storeAPI.review.deleteStoresReview(storeId, reviewId),
 
     // 성공 시 실행할 작업
-    onSuccess: (_, { storeId }) => {
-      queryClient.invalidateQueries({queryKey: queryKeys.stores.getStoreReviews(storeId)});
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: queryKeys.stores.reviews.all});
     },
 
     // 에러 처리

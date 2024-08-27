@@ -1,11 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import { loginFn, logoutFn, refreshFn } from 'api/modules/auth';
-import { LoginRequest, RefreshRequest } from 'api/modules/auth/types';
+
+import { authAPI } from 'api/modules/auth';
+import { type LoginRequest, RefreshRequest } from 'api/modules/auth/types';
 
 // 로그인 훅
 export const useAuthLogin = () => {
   return useMutation({
-    mutationFn: (payload: LoginRequest ) => loginFn(payload),
+    mutationFn: (payload: LoginRequest ) => authAPI.login(payload),
     onSuccess: () => {
       // 로그인 성공 메세지 출력
     },
@@ -19,7 +20,7 @@ export const useAuthLogin = () => {
 // 로그아웃 훅
 export const useAuthLogout = () => {
   return useMutation({
-    mutationFn: () => logoutFn(),
+    mutationFn: () => authAPI.logout(),
     onSuccess: () => {
       // 로그아웃 성공 메세지 출력
     },
@@ -32,7 +33,7 @@ export const useAuthLogout = () => {
 // 리프레시 훅
 export const useAuthRefresh = () => {
   return useMutation({
-    mutationFn: (payload: RefreshRequest) => refreshFn(payload),
+    mutationFn: (payload: RefreshRequest) => authAPI.refresh(payload),
     onError: (error) => {
       console.error(error);
     }
