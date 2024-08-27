@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
 
-  function (error) {
+  async (error) => {
     console.error(error); //  디버깅
     return Promise.reject(new Error(error));
   }
@@ -30,11 +30,11 @@ axiosInstance.interceptors.request.use(
 
 // 응답 인터셉터
 axiosInstance.interceptors.response.use(
-  function (response) {
+  async (response) => {
     // 응답 데이터
     return response;
   },
-  async function (error) {
+  async (error) => {
     // 응답 에러
     console.error(error); // 디버깅
 
