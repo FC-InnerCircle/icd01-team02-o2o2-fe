@@ -98,3 +98,10 @@ td {
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
+
+input {
+  border: none;
+  outline: none;
+  /* FIXME: 스타일이 올바르게 보이기 위해서 임시로 해당 스타일을 적용합니다. @Seung-wan */
+  border-radius: 12px;
+}
