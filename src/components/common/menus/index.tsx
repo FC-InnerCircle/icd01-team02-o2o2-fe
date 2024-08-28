@@ -81,7 +81,9 @@ const _menu = [
     align-items: center;
     gap: 15px;
     position: relative;
-
+    transition:
+      background-color 0.3s,
+      color 0.3s;
     :hover {
       text-decoration: none;
     }
@@ -97,6 +99,7 @@ const _bar = css`
   background-color: ${colors.primary};
   position: absolute;
   left: 0px;
+  transition: opacity 0.3s;
 `;
 
 const _iconWrap = css`
