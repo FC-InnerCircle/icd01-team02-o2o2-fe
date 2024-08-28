@@ -75,7 +75,7 @@ const _header = css`
 `;
 
 const _searchContainer = css`
-  background-color: #fdfdfd;
+  background-color: ${colors.lightWhite};
   height: 56px;
   width: 567px;
   border-radius: 8px;
@@ -91,14 +91,14 @@ const _searchContainer = css`
 `;
 
 const _userContainer = css`
-  background-color: #2f4cdd;
+  background-color: ${colors.primary};
   border-radius: 8px;
   height: 56px;
   position: relative;
   padding: 0 60px 0 20px;
   display: flex;
   align-items: center;
-  color: #fff;
+  color: ${colors.white};
 `;
 
 const _profileImageBackground = css`
@@ -109,7 +109,7 @@ const _profileImageBackground = css`
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: ${colors.white};
 `;
 
 const _profileImage = css`

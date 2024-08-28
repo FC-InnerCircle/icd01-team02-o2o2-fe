@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import Icons from "components/icons";
 import { ROUTES } from "constants/common";
 import { Link, useLocation } from "react-router-dom";
+import colors from "styles/color";
 import fonts from "styles/font";
 
 const MENUS = {
@@ -47,8 +48,8 @@ const Menus = () => {
               css={_menu}
               to={obj.link}
               style={{
-                color: isSelected ? "#2f4cdd" : "#969BA0",
-                backgroundColor: isSelected ? "#fafbff" : "#fff",
+                color: isSelected ? colors.primary : colors.gray,
+                backgroundColor: isSelected ? colors.icy : colors.white,
                 fontWeight: isSelected ? "600" : "500",
               }}
             >
@@ -93,7 +94,7 @@ const _bar = css`
   height: 100%;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  background-color: #2f4cdd;
+  background-color: ${colors.primary};
   position: absolute;
   left: 0px;
 `;
