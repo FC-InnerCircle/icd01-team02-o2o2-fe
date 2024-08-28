@@ -4,6 +4,7 @@ import Icons from "components/icons";
 import { HTMLAttributes, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import colors from "styles/color";
+import Menus from "components/common/menus";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -13,26 +14,13 @@ const Layout = ({ children }: Props) => {
   return (
     <div css={_container}>
       <aside css={_sideMenu}>
-        <h1>
+        <h1 css={_logoContainer}>
           <Link to="/" aria-label="Home">
-            LOGO 자리
+            LOGO
           </Link>
         </h1>
-        <nav aria-label="Sidebar navigation">
-          <ul>
-            {/*   <li>
-              <Link to={ROUTES.HOME}>Dashboard</Link>
-            </li>
-            <li>
-              <Link to={ROUTES.ORDER}>Order</Link>
-            </li>
-            <li>
-              <Link to={ROUTES.MENU}>Menu</Link>
-            </li>
-            <li>
-              <Link to={ROUTES.REVIEW}>Review</Link>
-            </li> */}
-          </ul>
+        <nav aria-label="Sidebar navigation" css={_menuContainer}>
+          <Menus />
         </nav>
       </aside>
       <div css={_wrapper}>
@@ -133,4 +121,15 @@ const _profileImage = css`
   height: 56px;
   border-radius: 50%;
   background-color: #c1c1c1;
+`;
+const _logoContainer = css`
+  height: 120px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const _menuContainer = css`
+  width: 100%;
 `;
