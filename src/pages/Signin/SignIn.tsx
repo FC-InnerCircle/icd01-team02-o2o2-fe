@@ -2,8 +2,10 @@
 import { css } from "@emotion/react";
 import colors from 'styles/color';
 
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { type SubmitHandler } from 'react-hook-form';
 
 import * as z from "zod";
 import { loginSchema } from 'schema';
