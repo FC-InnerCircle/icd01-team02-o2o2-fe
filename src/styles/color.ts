@@ -11,9 +11,10 @@ const colors = {
   warning: "#FF9F43", // Warning
   darkBackground: "#2C2E33", // Dark Background
   brightOrange: "#FF6F61", // Bright Orange
+  white: "#fff", // White
   mildWhite: "#f9f9f9",
-  white: "#fff",
   lightGray: "#ebebeb",
+  placeholder: "#555", // Placeholder
 };
 
 export default colors;

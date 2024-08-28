@@ -14,6 +14,7 @@ import StoreDetail from "pages/StoreDetail";
 import User from "pages/User";
 import UserDetail from "pages/UserDetail";
 import withAuth from "routes/WithAuth";
+import Component from "pages/Component";
 
 // 보호된 컴포넌트 생성
 const ProtectedHome = withAuth(Home, { requiredRoles: ["owner", "admin"] });
@@ -57,6 +58,9 @@ const AppRoutes = () => {
       <Route path={ROUTES.REVIEW} element={<ProtectedReviews />} />
       <Route path={ROUTES.PROFILE} element={<ProtectedProfile />} />
       <Route path={ROUTES.SIGN_IN} element={<ProtectedSignIn />} />
+
+      {/* NOTE: Storybook에 emotion 스타일이 적용되도록 아직 세팅을 못해서 임시로 컴포넌트를 확인할 수 있는 페이지를 만듭니다. @Seung-wan */}
+      <Route path="/components" element={<Component />} />
     </Routes>
   );
 };
