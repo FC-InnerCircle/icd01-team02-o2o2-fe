@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import Icons from "components/icons";
 import { ROUTES } from "constants/common";
 import { Link, useLocation } from "react-router-dom";
+import fonts from "styles/font";
 
 const MENUS = {
   dashboard: {
@@ -32,10 +33,14 @@ const MENUS = {
 
 const Menus = () => {
   const location = useLocation();
+
   return (
     <ul style={{ width: "100%" }}>
       {Object.entries(MENUS).map(([key, obj]) => {
-        const isSelected = location.pathname.match(obj.link);
+        const isSelected =
+          key === "dashboard"
+            ? location.pathname === "/"
+            : location.pathname.match(obj.link);
         return (
           <li css={_menuContainer} key={`menu_${key}`}>
             <Link
@@ -44,10 +49,11 @@ const Menus = () => {
               style={{
                 color: isSelected ? "#2f4cdd" : "#969BA0",
                 backgroundColor: isSelected ? "#fafbff" : "#fff",
+                fontWeight: isSelected ? "600" : "500",
               }}
             >
               <span css={_bar} style={{ opacity: isSelected ? 1 : 0 }} />
-              <span style={{ width: 24, height: 24 }}>{obj.icon}</span>
+              <span css={_iconWrap}>{obj.icon}</span>
               <p>{obj.title}</p>
             </Link>
           </li>
@@ -64,20 +70,23 @@ const _menuContainer = css`
   height: 67px;
 `;
 
-const _menu = css`
-  min-width: 220px;
-  width: 100%;
-  height: 100%;
-  padding-left: 50px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  position: relative;
+const _menu = [
+  css`
+    min-width: 220px;
+    width: 100%;
+    height: 100%;
+    padding-left: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
 
-  :hover {
-    text-decoration: none;
-  }
-`;
+    :hover {
+      text-decoration: none;
+    }
+  `,
+  fonts["18_500"],
+];
 
 const _bar = css`
   width: 8px;
@@ -87,4 +96,9 @@ const _bar = css`
   background-color: #2f4cdd;
   position: absolute;
   left: 0px;
+`;
+
+const _iconWrap = css`
+  width: 24px;
+  height: 24px;
 `;
