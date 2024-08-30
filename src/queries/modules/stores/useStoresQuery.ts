@@ -1,11 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { QueryKey, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import queryKeys from 'queries/keys';
 
 import { storeAPI } from 'api/modules/stores/index';
 
 import { type UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
-import { type CreateMenuRequest, CreateMenuResponse, CreateStoreRequest, CreateStoreResponse, GetReviewsParams, GetStoresMenuParams, StoresParams, UpdateOrderRequest } from 'api/modules/stores/types';
+import { type CreateMenuRequest, CreateMenuResponse, CreateStoreRequest, CreateStoreResponse, GetMenuDetailResponse, GetOrderDetailResponse, GetOrderResponse, GetReviewsParams, GetReviewsResponse, GetStoreResponse, GetStoresMenuParams, GetStoresMenuResponse, StoresParams, UpdateOrderRequest } from 'api/modules/stores/types';
 import { type CommonResponseReturnType } from 'api/modules/commonType';
 
 // 음식점 정보 등록 hooks
@@ -19,7 +19,15 @@ export const useCreateStoresQuery = (
 }
 
 // 음식점 정보 조회 hooks
-export const useGetStoresQuery = (storeId: number, queryParams?: GetStoresMenuParams, options?: UseQueryOptions) => {
+export const useGetStoresQuery = (storeId: number, queryParams?: GetStoresMenuParams, options?:
+  Omit<UseQueryOptions<
+    GetStoreResponse, // queryFn이 반환하는 데이터 타입
+    Error,                                    // 에러 타입
+    unknown,                                  // 데이터 타입
+    QueryKey                                  // queryKey 타입
+  >,
+  'queryKey' | 'queryFn' // 제거할 프로퍼티
+  >) => {
   return useQuery({
     queryKey: queryKeys.stores.store.list(storeId, queryParams),
     queryFn: () => storeAPI.store.getStore(storeId, queryParams),
@@ -51,7 +59,15 @@ export const useDeleteStoresQuery = (
 }
 
 // 메뉴 정보 조회 hooks
-export const useGetStoresMenuQuery = (storeId: number, queryParams?: StoresParams, options?: UseQueryOptions) => {
+export const useGetStoresMenuQuery = (storeId: number, queryParams?: StoresParams, options?: Omit<UseQueryOptions<
+    GetStoresMenuResponse, // queryFn이 반환하는 데이터 타입
+    Error,                                    // 에러 타입
+    unknown,                                  // 데이터 타입
+    QueryKey                                  // queryKey 타입
+  >,
+  'queryKey' | 'queryFn' // 제거할 프로퍼티
+  >
+) => {
   return useQuery({
     queryKey: queryKeys.stores.menus.list(storeId, queryParams),
     queryFn: () => storeAPI.menu.getStoresMenu(storeId, queryParams),
@@ -61,7 +77,15 @@ export const useGetStoresMenuQuery = (storeId: number, queryParams?: StoresParam
 }
 
 // 메뉴 정보 상세 조회 hooks
-export const useGetStoresMenuDetailQuery = (storeId: number, menuId: number, options?: UseQueryOptions) => {
+export const useGetStoresMenuDetailQuery = (storeId: number, menuId: number, options?: Omit<UseQueryOptions<
+    GetMenuDetailResponse, // queryFn이 반환하는 데이터 타입
+    Error,                                    // 에러 타입
+    unknown,                                  // 데이터 타입
+    QueryKey                                  // queryKey 타입
+  >,
+  'queryKey' | 'queryFn' // 제거할 프로퍼티
+  >
+) => {
   return useQuery({
     queryKey: queryKeys.stores.menus.detail(storeId, menuId),
     queryFn: () => storeAPI.menu.getStoresMenuDetail(storeId, menuId),
@@ -125,7 +149,15 @@ export const useDeleteStoresMenuQuery = (
 // 주문 정보 조회 hooks
 export const useGetStoresOrders = (
   storeId: number,
-  options?: UseQueryOptions
+  options?:
+  Omit<UseQueryOptions<
+    GetOrderResponse,
+    Error,
+    unknown,
+    QueryKey
+  >,
+  'queryKey' | 'queryFn'
+  >
 ) => {
   return useQuery({
     queryKey: queryKeys.stores.orders.list(storeId),
@@ -139,7 +171,15 @@ export const useGetStoresOrders = (
 export const useGetStoresOrderDetail = (
   storeId: number,
   orderId: number,
-  options?: UseQueryOptions
+  options?:
+    Omit<UseQueryOptions<
+      GetOrderDetailResponse,
+      Error,
+      unknown,
+      QueryKey
+    >,
+      'queryKey' | 'queryFn'
+    >
 ) => {
   return useQuery({
     queryKey: queryKeys.stores.orders.detail(storeId, orderId),
@@ -178,7 +218,19 @@ export const useUpdateStoresOrder = (
 };
 
 // 리뷰 정보 조회 hooks
-export const useGetStoresReview = (storeId: number, queryParams: GetReviewsParams, options? : UseQueryOptions) => {
+export const useGetStoresReview = (
+  storeId: number,
+  queryParams: GetReviewsParams,
+  options?:
+    Omit<UseQueryOptions<
+      GetReviewsResponse,
+      Error,
+      unknown,
+      QueryKey
+    >,
+      'queryKey' | 'queryFn'
+    >
+) => {
   return useQuery({
     queryKey: queryKeys.stores.reviews.list(storeId, queryParams),
     queryFn: () => storeAPI.review.getStoresReviews(storeId, queryParams),
