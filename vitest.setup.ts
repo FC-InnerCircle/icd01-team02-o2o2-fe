@@ -1,6 +1,6 @@
 // vitest.setup.ts 추가
 import { beforeAll, afterEach, afterAll } from 'vitest'
-import { server } from './src/mocks/server';
+import { server } from './src/mocks/core/server';
 
 import '@testing-library/jest-dom';
 
