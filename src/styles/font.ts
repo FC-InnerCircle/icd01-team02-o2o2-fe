@@ -23,6 +23,10 @@ const fonts = {
     fontSize: "18px",
     fontWeight: 600,
   },
+  "18_500": {
+    fontSize: "18px",
+    fontWeight: 500,
+  },
   "18_400": {
     fontSize: "18px",
     fontWeight: 400,
