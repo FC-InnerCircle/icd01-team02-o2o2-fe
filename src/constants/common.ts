@@ -7,6 +7,7 @@ export const ROUTES = {
   ORDER: "/:storeId/order",
   ORDER_DETAIL: "/:storeId/order/:orderId",
   MENU: "/:storeId/menu",
+  MENU_REGISTRATION: "/:storeId/menu/registration",
   MENU_DETAIL: "/:storeId/menu/:menuId",
   REVIEW: "/:storeId/review",
   PROFILE: "/profile",

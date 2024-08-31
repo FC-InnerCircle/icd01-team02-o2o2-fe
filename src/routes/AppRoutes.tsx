@@ -15,6 +15,7 @@ import User from "pages/User";
 import UserDetail from "pages/UserDetail";
 import withAuth from "routes/WithAuth";
 import Component from "pages/Component";
+import MenuRegistration from "pages/MenuRegistration";
 
 // 보호된 컴포넌트 생성
 const ProtectedHome = withAuth(Home, { requiredRoles: ["owner", "admin"] });
@@ -25,6 +26,9 @@ const ProtectedStoreDetail = withAuth(StoreDetail, {
   requiredRoles: ["owner", "admin"],
 });
 const ProtectedMenu = withAuth(Menu, { requiredRoles: ["owner", "admin"] });
+const ProtectedMenuRegistration = withAuth(MenuRegistration, {
+  requiredRoles: ["owner", "admin"],
+});
 const ProtectedMenuDetail = withAuth(MenuDetail, {
   requiredRoles: ["owner", "admin"],
 });
@@ -52,6 +56,10 @@ const AppRoutes = () => {
       <Route path={ROUTES.STORE} element={<ProtectedStore />} />
       <Route path={ROUTES.STORE_DETAIL} element={<ProtectedStoreDetail />} />
       <Route path={ROUTES.MENU} element={<ProtectedMenu />} />
+      <Route
+        path={ROUTES.MENU_REGISTRATION}
+        element={<ProtectedMenuRegistration />}
+      />
       <Route path={ROUTES.MENU_DETAIL} element={<ProtectedMenuDetail />} />
       <Route path={ROUTES.ORDER} element={<ProtectedOrder />} />
       <Route path={ROUTES.ORDER_DETAIL} element={<ProtectedOrderDetail />} />
