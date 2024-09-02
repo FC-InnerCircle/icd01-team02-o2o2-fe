@@ -1,23 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Input } from "../Input";
-import type { LabelInputProps } from "./LabelInput.types";
+import type { LabelTextareaProps } from "./LabelTextarea.types";
 import { forwardRef } from "react";
 import fonts from "styles/font";
+import { Textarea } from "components/common/Textarea";
 import colors from "styles/color";
 
-const LabelInput = forwardRef<HTMLInputElement, LabelInputProps>(
+const LabelTextarea = forwardRef<HTMLTextAreaElement, LabelTextareaProps>(
   ({ title, ...restProps }, ref) => {
     return (
       <div css={_container}>
         <label css={_label}>{title}</label>
-        <Input {...restProps} ref={ref} css={_input} />
+        <Textarea {...restProps} ref={ref} css={_input} />
       </div>
     );
   }
 );
 
-export default LabelInput;
+export default LabelTextarea;
 
 const _container = css`
   display: flex;
