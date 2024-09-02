@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { type UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
+import { type UseMutationOptions, UseQueryOptions, QueryKey } from '@tanstack/react-query';
 
-import { type CreateOwnerRequest, CreateOwnerResponse, UpdateProfileRequest, UpdateProfileResponse } from 'api/modules/account/types';
+import { type CreateOwnerRequest, CreateOwnerResponse, ProfileResponse, UpdateProfileRequest, UpdateProfileResponse } from 'api/modules/account/types';
 
 import { accountApi } from 'api/modules/account/index';
 
@@ -9,7 +9,16 @@ import queryKeys from 'queries/keys';
 import { CommonResponseReturnType } from 'api/modules/commonType';
 
 // 프로필 조회 쿼리 훅
-export const useProfileQuery = (id: number, queryParams?: Record<string, string>, options?: UseQueryOptions) => {
+export const useProfileQuery = (id: number, queryParams?: Record<string, string>, options?:
+  Omit<UseQueryOptions<
+    CommonResponseReturnType<ProfileResponse>, // queryFn이 반환하는 데이터 타입
+    Error,                                    // 에러 타입
+    unknown,                                  // 데이터 타입
+    QueryKey                                  // queryKey 타입
+  >,
+  'queryKey' | 'queryFn' // 제거할 프로퍼티
+  >
+) => {
   return useQuery({
     queryKey: queryKeys.account.profile(id, queryParams),
     queryFn: () => accountApi.getProfile(id, queryParams),
@@ -19,12 +28,7 @@ export const useProfileQuery = (id: number, queryParams?: Record<string, string>
 };
 
 // 프로필 수정 쿼리 훅
-/**
- * @TODO
- * Error: 추후에 커스텀
- */
-
-export const useUpdateProfile = (
+export const useUpdateProfileQuery = (
   id: number,
   options?: UseMutationOptions<CommonResponseReturnType<UpdateProfileResponse>, Error, UpdateProfileRequest>
 ) => {
@@ -46,7 +50,7 @@ export const useUpdateProfile = (
 }
 
 // 점주 생성 hooks
-export const useCreateOwner = (
+export const useCreateOwnerQuery = (
   options?: UseMutationOptions<CommonResponseReturnType<CreateOwnerResponse>, Error, CreateOwnerRequest>
 ) => {
   return useMutation({

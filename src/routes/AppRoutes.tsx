@@ -7,7 +7,7 @@ import MenuDetail from "pages/MenuDetail";
 import Profile from "pages/Profile";
 import Order from "pages/Order";
 import OrderDetail from "pages/OrderDetail";
-import SignIn from "pages/SignIn";
+import SignIn from "pages/Signin";
 import Reviews from "pages/Reviews";
 import Store from "pages/Store";
 import StoreDetail from "pages/StoreDetail";
