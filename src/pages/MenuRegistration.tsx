@@ -22,12 +22,12 @@ const MenuRegistration = ({ ...rest }) => {
 
   return (
     <div css={[_container]} {...rest}>
-      <h2>Menu</h2>
+      <div css={_titleWrap}>
+        <h2>Menu</h2>
+        <button css={_preview}>Preview</button>
+      </div>
       <section css={_menuContainer}>
-        <div css={_titleWrap}>
-          <h3 css={_subtitle}>Main info</h3>
-          <button css={_preview}>Preview</button>
-        </div>
+        <h3 css={_subtitle}>Main info</h3>
         <div css={_wrapper}>
           <div css={_imageWrapper}>
             {originalMetadata && metadata ? (
@@ -66,7 +66,6 @@ const _menuContainer = css`
 
 const _titleWrap = css`
   display: flex;
-  align-items: center;
   width: 100%;
   justify-content: space-between;
 `;
@@ -75,7 +74,6 @@ const _wrapper = css`
   width: 100%;
   display: flex;
   gap: 50px;
-  margin-top: 18px;
 `;
 
 const _imageWrapper = css`
@@ -114,9 +112,13 @@ const _textarea = css`
   height: 100px;
 `;
 
-const _subtitle = css`
-  color: #2f4cdd;
-`;
+const _subtitle = [
+  css`
+    color: #2f4cdd;
+    margin-bottom: 8px;
+  `,
+  fonts["24_600"],
+];
 
 const _preview = [
   css`
