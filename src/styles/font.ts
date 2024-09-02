@@ -31,6 +31,10 @@ const fonts = {
     fontSize: "18px",
     fontWeight: 400,
   },
+  "16_800": {
+    fontSize: "16px",
+    fontWeight: 800,
+  },
   "16_600": {
     fontSize: "16px",
     fontWeight: 600,
