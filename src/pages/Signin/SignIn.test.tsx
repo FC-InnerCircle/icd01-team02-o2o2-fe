@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import SignIn from './SignIn';
+import SignIn from '.';
 describe('SignIn Page', () => {
   it('should render the form fields and submit button', () => {
     render(<SignIn />);
