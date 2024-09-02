@@ -9,6 +9,7 @@ import { type SubmitHandler } from 'react-hook-form';
 
 import * as z from "zod";
 import { loginSchema } from 'schema';
+import { Input } from 'components';
 
 type SignInFormType = z.infer<typeof loginSchema>;
 
@@ -31,7 +32,7 @@ const SignIn = () => {
     <form css={[_container]} onSubmit={handleSubmit(onSubmit)}>
       <div css={_formContainer}>
         <h2 css={_title}>Sign In</h2>
-        <input
+        <Input
           css={_input}
           type="text"
           placeholder="Email"
@@ -39,7 +40,7 @@ const SignIn = () => {
         />
         {errors.accountId && <p css={_errorText}>{errors.accountId.message}</p>}
 
-        <input
+        <Input
           css={_input}
           type="password"
           placeholder="Password"
