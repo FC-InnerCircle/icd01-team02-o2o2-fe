@@ -24,7 +24,7 @@ const MenuRegistration = ({ ...rest }) => {
     <div css={[_container]} {...rest}>
       <div css={_titleWrap}>
         <h2>Menu</h2>
-        <button css={_preview}>Preview</button>
+        <button css={_subButton}>Preview</button>
       </div>
       <section css={_menuContainer}>
         <h3 css={_subtitle}>Main info</h3>
@@ -49,6 +49,59 @@ const MenuRegistration = ({ ...rest }) => {
           </form>
         </div>
       </section>
+      <section
+        css={css`
+          width: 350px;
+          margin-top: 50px;
+        `}
+      >
+        <div css={_titleWrap}>
+          <h3 css={_subtitle}>Options</h3>
+          <button css={_addButton}>Add</button>
+        </div>
+        <div>
+          <div css={_option}>
+            <p css={_label}>Pasta (Required - Single)</p>
+            <ul css={_optionItemWrap}>
+              <li css={_optionItem}>
+                <p>Spaghetti</p>
+                <p>+ ₩0</p>
+              </li>
+              <li css={_optionItem}>
+                <p>Linguine</p>
+                <p>+ ₩0</p>
+              </li>
+            </ul>
+          </div>
+          <div css={_option}>
+            <p css={_label}>Noodle doneness (Required - Single)</p>
+            <ul css={_optionItemWrap}>
+              <li css={_optionItem}>
+                <p>Well-cooked</p>
+                <p>+ ₩0</p>
+              </li>
+              <li css={_optionItem}>
+                <p>Al dente (Firm)</p>
+                <p>+ ₩0</p>
+              </li>
+            </ul>
+          </div>
+          <div css={_option}>
+            <p css={_label}>Extras (Optional - Multiple)</p>
+            <ul css={_optionItemWrap}>
+              <li css={_optionItem}>
+                <p>Olives</p>
+                <p>+ ₩1000</p>
+              </li>
+              <li css={_optionItem}>
+                <p>Extra noodle</p>
+                <p>+ ₩1000</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <button css={_submit}>SAVE</button>
     </div>
   );
 };
@@ -58,6 +111,9 @@ export default MenuRegistration;
 const _container = css`
   padding: 44px;
   width: 880px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const _menuContainer = css`
@@ -114,21 +170,74 @@ const _textarea = css`
 
 const _subtitle = [
   css`
-    color: #2f4cdd;
+    color: ${colors.primary};
     margin-bottom: 8px;
   `,
   fonts["24_600"],
 ];
 
-const _preview = [
+const _subButton = [
   css`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 28px;
-    border-radius: 36px;
-    background-color: #b519ec;
+    padding: 0px 24px;
+    border-radius: 24px;
+    background-color: ${colors.accent};
     color: ${colors.white};
+    min-width: 112px;
   `,
   fonts["16_800"],
+];
+
+const _optionItem = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  padding: 0px 24px;
+  border-bottom: 1px solid ${colors.lightGray};
+`;
+
+const _option = css`
+  margin-top: 16px;
+  margin-bottom: 32px;
+`;
+const _optionItemWrap = css`
+  margin-top: 8px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: ${colors.white};
+  height: fit-content;
+  overflow: hidden;
+  li:last-child {
+    border-bottom: none;
+  }
+`;
+
+const _label = [
+  css`
+    color: ${colors.textThird};
+  `,
+  fonts["16_600"],
+];
+
+const _addButton = [
+  _subButton,
+  css`
+    background-color: ${colors.primary};
+  `,
+];
+
+const _submit = [
+  css`
+    background-color: ${colors.primary};
+    color: ${colors.white};
+    padding: 12px 36px;
+    border-radius: 36px;
+    margin: 24px auto;
+    width: 300px;
+  `,
+  fonts["28_600"],
 ];
