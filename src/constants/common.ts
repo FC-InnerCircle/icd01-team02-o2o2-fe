@@ -13,3 +13,5 @@ export const ROUTES = {
   PROFILE: "/profile",
   SIGN_IN: "/sign-in",
 } as const;
+
+export const BASE_URL = "/api/v1/";

@@ -16,7 +16,7 @@ export const accountApi = {
 
   // 프로필 수정 API
   updateProfile: async (id: number, payload: UpdateProfileRequest ): Promise<CommonResponseReturnType<UpdateProfileResponse>> => {
-    const res = await axiosInstance.post(`${URL_ROOT}/${id}/profile`, payload);
+    const res = await axiosInstance.patch(`${URL_ROOT}/${id}/profile`, payload);
     return res.data;
   },
 
