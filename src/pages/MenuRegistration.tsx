@@ -7,7 +7,31 @@ import { type ImageMetadata } from "@pic-pik/core";
 import LabelInput from "components/common/LabelInput";
 import LabelTextarea from "components/common/LabelTextarea";
 import fonts from "styles/font";
+import { MenuOption } from "components/menu";
 
+const dummyOption = [
+  {
+    title: "Pasta (Required - Single)",
+    options: [
+      { name: "Spaghetti", price: 0 },
+      { name: "Linguine", price: 0 },
+    ],
+  },
+  {
+    title: "Noodle doneness (Required - Single)",
+    options: [
+      { name: "Well-cooked", price: 0 },
+      { name: "Al dente (Firm)", price: 0 },
+    ],
+  },
+  {
+    title: "Extras (Optional - Multiple)",
+    options: [
+      { name: "Olives", price: 1000 },
+      { name: "Extra noodle", price: 1000 },
+    ],
+  },
+];
 const MenuRegistration = ({ ...rest }) => {
   const [originalMetadata, setMetadata] = useState<ImageMetadata>();
   const { metadata } = useResizeImage({
@@ -60,45 +84,13 @@ const MenuRegistration = ({ ...rest }) => {
           <button css={_addButton}>Add</button>
         </div>
         <div>
-          <div css={_option}>
-            <p css={_label}>Pasta (Required - Single)</p>
-            <ul css={_optionItemWrap}>
-              <li css={_optionItem}>
-                <p>Spaghetti</p>
-                <p>+ ₩0</p>
-              </li>
-              <li css={_optionItem}>
-                <p>Linguine</p>
-                <p>+ ₩0</p>
-              </li>
-            </ul>
-          </div>
-          <div css={_option}>
-            <p css={_label}>Noodle doneness (Required - Single)</p>
-            <ul css={_optionItemWrap}>
-              <li css={_optionItem}>
-                <p>Well-cooked</p>
-                <p>+ ₩0</p>
-              </li>
-              <li css={_optionItem}>
-                <p>Al dente (Firm)</p>
-                <p>+ ₩0</p>
-              </li>
-            </ul>
-          </div>
-          <div css={_option}>
-            <p css={_label}>Extras (Optional - Multiple)</p>
-            <ul css={_optionItemWrap}>
-              <li css={_optionItem}>
-                <p>Olives</p>
-                <p>+ ₩1000</p>
-              </li>
-              <li css={_optionItem}>
-                <p>Extra noodle</p>
-                <p>+ ₩1000</p>
-              </li>
-            </ul>
-          </div>
+          {dummyOption.map((option, idx) => (
+            <MenuOption
+              key={`menu_option_${option.title}_${idx}`}
+              title={option.title}
+              options={option.options}
+            />
+          ))}
         </div>
       </section>
       <button css={_submit}>SAVE</button>
@@ -188,39 +180,6 @@ const _subButton = [
     min-width: 112px;
   `,
   fonts["16_800"],
-];
-
-const _optionItem = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 70px;
-  padding: 0px 24px;
-  border-bottom: 1px solid ${colors.lightGray};
-`;
-
-const _option = css`
-  margin-top: 16px;
-  margin-bottom: 32px;
-`;
-const _optionItemWrap = css`
-  margin-top: 8px;
-  width: 100%;
-  border-radius: 10px;
-  background-color: ${colors.white};
-  height: fit-content;
-  overflow: hidden;
-  li:last-child {
-    border-bottom: none;
-  }
-`;
-
-const _label = [
-  css`
-    color: ${colors.textThird};
-  `,
-  fonts["16_600"],
 ];
 
 const _addButton = [
