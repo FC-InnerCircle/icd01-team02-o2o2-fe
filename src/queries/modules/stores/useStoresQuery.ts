@@ -220,7 +220,7 @@ export const useUpdateStoresOrder = (
 // 리뷰 정보 조회 hooks
 export const useGetStoresReview = (
   storeId: number,
-  queryParams: GetReviewsParams,
+  queryParams?: GetReviewsParams,
   options?:
     Omit<UseQueryOptions<
       GetReviewsResponse,
