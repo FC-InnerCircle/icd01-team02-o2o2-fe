@@ -73,12 +73,7 @@ const MenuRegistration = ({ ...rest }) => {
           </form>
         </div>
       </section>
-      <section
-        css={css`
-          width: 350px;
-          margin-top: 50px;
-        `}
-      >
+      <section css={_optionContainer}>
         <div css={_titleWrap}>
           <h3 css={_subtitle}>Options</h3>
           <button css={_addButton}>Add</button>
@@ -178,6 +173,10 @@ const _subButton = [
     background-color: ${colors.accent};
     color: ${colors.white};
     min-width: 112px;
+    transition: opacity 0.3s;
+    :hover {
+      opacity: 0.7;
+    }
   `,
   fonts["16_800"],
 ];
@@ -197,6 +196,15 @@ const _submit = [
     border-radius: 36px;
     margin: 24px auto;
     width: 300px;
+    transition: opacity 0.3s;
+    :hover {
+      opacity: 0.7;
+    }
   `,
   fonts["28_600"],
 ];
+
+const _optionContainer = css`
+  width: 350px;
+  margin-top: 50px;
+`;
