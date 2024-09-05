@@ -5,7 +5,7 @@ import { ReviewImage } from 'api/modules/stores/types';
 import { P1, P2, P3, P4 } from 'components/icons';
 import colors from 'styles/color';
 import { hexToRgba } from 'utils';
-import StarRating from 'pages/Reviews/StarRating';
+import StarRating from 'pages/Reviews/components/StarRating';
 
 type CardProps = {
   content: string;

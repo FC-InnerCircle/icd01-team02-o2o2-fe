@@ -4,7 +4,7 @@ import { useGetStoresReview } from 'queries/modules/stores/useStoresQuery';
 import Card from './Card';
 
 import { get, isUndefined } from 'lodash';
-import StarRating from 'pages/Reviews/StarRating';
+import StarRating from 'pages/Reviews/components/StarRating';
 
 const CardList = () => {
   const { data } = useGetStoresReview(1);
