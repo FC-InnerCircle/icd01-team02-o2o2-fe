@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { DeleteIcon, EditIcon } from "components/icons";
+import { Delete, Edit } from "components/icons";
 import useClickOutside from "hooks/useClickOutside";
 import { HTMLAttributes, useState } from "react";
 import colors from "styles/color";
@@ -44,10 +44,10 @@ const MenuOption = ({ title, options, ...rest }: Props) => {
         style={{ display: isSelected ? "flex" : "none" }}
       >
         <button css={_edit}>
-          <EditIcon width={24} height={24} fill="currentColor" />
+          <Edit width={24} height={24} fill="currentColor" />
         </button>
         <button css={_delete}>
-          <DeleteIcon width={22} height={22} stroke="currentColor" />
+          <Delete width={22} height={22} stroke="currentColor" />
         </button>
       </div>
     </div>

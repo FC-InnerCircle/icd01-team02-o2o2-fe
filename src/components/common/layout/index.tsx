@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import Icons from "components/icons";
 import { HTMLAttributes, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import colors from "styles/color";
 import Menus from "components/common/menus";
+import { Search } from "components/icons";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -28,7 +28,7 @@ const Layout = ({ children }: Props) => {
           <form css={_searchContainer}>
             <input id="search" type="search" placeholder="Search here" />
             <button>
-              <Icons.Search width={24} />
+              <Search width={24} />
             </button>
           </form>
           <div css={_userContainer}>
