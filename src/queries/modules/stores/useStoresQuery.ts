@@ -23,7 +23,7 @@ export const useGetStoresQuery = (storeId: number, queryParams?: GetStoresMenuPa
   Omit<UseQueryOptions<
     GetStoreResponse, // queryFn이 반환하는 데이터 타입
     Error,                                    // 에러 타입
-    unknown,                                  // 데이터 타입
+    GetStoresMenuResponse,                                  // 데이터 타입
     QueryKey                                  // queryKey 타입
   >,
   'queryKey' | 'queryFn' // 제거할 프로퍼티
@@ -62,7 +62,7 @@ export const useDeleteStoresQuery = (
 export const useGetStoresMenuQuery = (storeId: number, queryParams?: StoresParams, options?: Omit<UseQueryOptions<
     GetStoresMenuResponse, // queryFn이 반환하는 데이터 타입
     Error,                                    // 에러 타입
-    unknown,                                  // 데이터 타입
+    GetStoresMenuResponse,                                  // 데이터 타입
     QueryKey                                  // queryKey 타입
   >,
   'queryKey' | 'queryFn' // 제거할 프로퍼티
@@ -80,7 +80,7 @@ export const useGetStoresMenuQuery = (storeId: number, queryParams?: StoresParam
 export const useGetStoresMenuDetailQuery = (storeId: number, menuId: number, options?: Omit<UseQueryOptions<
     GetMenuDetailResponse, // queryFn이 반환하는 데이터 타입
     Error,                                    // 에러 타입
-    unknown,                                  // 데이터 타입
+    GetMenuDetailResponse,                                  // 데이터 타입
     QueryKey                                  // queryKey 타입
   >,
   'queryKey' | 'queryFn' // 제거할 프로퍼티
@@ -153,7 +153,7 @@ export const useGetStoresOrders = (
   Omit<UseQueryOptions<
     GetOrderResponse,
     Error,
-    unknown,
+    GetOrderResponse,
     QueryKey
   >,
   'queryKey' | 'queryFn'
@@ -175,7 +175,7 @@ export const useGetStoresOrderDetail = (
     Omit<UseQueryOptions<
       GetOrderDetailResponse,
       Error,
-      unknown,
+      GetOrderDetailResponse,
       QueryKey
     >,
       'queryKey' | 'queryFn'
@@ -225,7 +225,7 @@ export const useGetStoresReview = (
     Omit<UseQueryOptions<
       GetReviewsResponse,
       Error,
-      unknown,
+      GetReviewsResponse,
       QueryKey
     >,
       'queryKey' | 'queryFn'
