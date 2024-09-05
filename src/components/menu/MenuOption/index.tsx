@@ -11,7 +11,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   options: { name: string; price: number }[];
 }
 
-const Option = ({ title, options, ...rest }: Props) => {
+const MenuOption = ({ title, options, ...rest }: Props) => {
   const [isSelected, setSelected] = useState<boolean>(false);
   const { ref } = useClickOutside<HTMLDivElement>(() => setSelected(false));
   return (
@@ -54,7 +54,7 @@ const Option = ({ title, options, ...rest }: Props) => {
   );
 };
 
-export default Option;
+export default MenuOption;
 
 const _optionItem = css`
   display: flex;
