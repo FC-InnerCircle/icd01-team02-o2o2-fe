@@ -42,7 +42,7 @@ project-root/
 │ │ │ ├── hooks/ # 페이지 전용 훅
 │ │ │ ├── models/ # 페이지 전용 모델
 │ │ │ ├── constants/ # 페이지 전용 상수
-│ │ │ └── Index.tsx # 홈 페이지 컴포넌트
+│ │ │ └── index.tsx # 홈 페이지 컴포넌트
 │ │ └── menu/ # 다른 페이지 예시 (menu 페이지)
 │ │ ├── components/
 │ │ ├── hooks/
@@ -74,7 +74,7 @@ import { counterAtom } from "atoms/sample";
 ## Rules
 
 - 컴포넌트 폴더 명은 camelCase로 작성해주세요
-- 컴포넌트의 내부 `type`은 파일을 분리해주세요(Ex, `type.d.ts`)
+- 컴포넌트의 내부 `type`은 파일을 분리해주세요(Ex, `~.types.ts`)
 - utils의 파일명은 해당 유틸의 함수이름으로 만들어주세요
 - 공통으로 사용하는 `components`, `hooks`, `constants`, `models`의 경우 `src/common`에 그외에는 각 페이지에 만들어주세요(위 구조 참조)
 - `useState` 사용의 경우 `[상태, set+상태] = useState()` 형식으로 작성해주세요\
