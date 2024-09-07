@@ -1,9 +1,8 @@
-import Search from "./assets/search.svg";
-import Dashboard from "./assets/dashboard.svg";
-import Order from "./assets/order.svg";
-import Menu from "./assets/menus.svg";
-import Review from "./assets/review.svg";
+export { default as Search } from "./assets/search.svg";
+export { default as Dashboard } from "./assets/dashboard.svg";
+export { default as Order } from "./assets/order.svg";
+export { default as Menu } from "./assets/menus.svg";
+export { default as Review } from "./assets/review.svg";
 
-const Icons = { Search, Dashboard, Order, Menu, Review };
-
-export { Icons as default };
+export { default as Edit } from "./assets/edit.svg";
+export { default as Delete } from "./assets/trash.svg";

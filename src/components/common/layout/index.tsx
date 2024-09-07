@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import Icons from "components/icons";
 import { HTMLAttributes, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import colors from "styles/color";
 import Menus from "components/common/menus";
+import { Search } from "components/icons";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -28,7 +28,7 @@ const Layout = ({ children }: Props) => {
           <form css={_searchContainer}>
             <input id="search" type="search" placeholder="Search here" />
             <button>
-              <Icons.Search width={24} />
+              <Search width={24} />
             </button>
           </form>
           <div css={_userContainer}>
@@ -40,7 +40,7 @@ const Layout = ({ children }: Props) => {
             </div>
           </div>
         </header>
-        <main>{children}</main>
+        <main css={_main}>{children}</main>
       </div>
     </div>
   );
@@ -62,7 +62,10 @@ const _sideMenu = css`
 
 const _wrapper = css`
   flex: 1;
+  height: 100%;
   background-color: ${colors.mildWhite};
+  display: flex;
+  flex-direction: column;
 `;
 
 const _header = css`
@@ -132,4 +135,11 @@ const _logoContainer = css`
 
 const _menuContainer = css`
   width: 100%;
+`;
+
+const _main = css`
+  width: 100%;
+  flex: 1;
+  background-color: #f9f9f9;
+  overflow-y: scroll;
 `;
