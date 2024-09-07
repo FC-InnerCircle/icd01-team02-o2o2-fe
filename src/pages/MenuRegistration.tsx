@@ -33,12 +33,14 @@ const dummyOption = [
   },
 ];
 const MenuRegistration = ({ ...rest }) => {
-  const [originalMetadata, setMetadata] = useState<ImageMetadata>();
+  const [originalImageMetadata, setOriginalImageMetadata] =
+    useState<ImageMetadata | null>(null);
   const { metadata } = useResizeImage({
-    metadata: originalMetadata,
+    metadata: originalImageMetadata,
     option: {
       mode: "aspectRatio",
-      ...(originalMetadata && originalMetadata.width > originalMetadata.height
+      ...(originalImageMetadata &&
+      originalImageMetadata.width > originalImageMetadata.height
         ? { height: 350 }
         : { width: 350 }),
     },
@@ -54,17 +56,17 @@ const MenuRegistration = ({ ...rest }) => {
         <h3 css={_subtitle}>Main info</h3>
         <div css={_wrapper}>
           <div css={_imageWrapper}>
-            {originalMetadata && metadata ? (
-              <ImageLoader onMetadataLoaded={setMetadata}>
-                <div css={_imageLoader}>
-                  <img src={metadata.src} width={"100%"} />
-                </div>
+            {
+              <ImageLoader onMetadataLoaded={setOriginalImageMetadata}>
+                {originalImageMetadata && metadata ? (
+                  <div css={_imageLoader}>
+                    <img src={metadata.src} width={"100%"} />
+                  </div>
+                ) : (
+                  <div css={_imageLoader}>Please upload a picture</div>
+                )}
               </ImageLoader>
-            ) : (
-              <ImageLoader onMetadataLoaded={setMetadata}>
-                <div css={_imageLoader}>Please upload a picture</div>
-              </ImageLoader>
-            )}
+            }
           </div>
           <form css={_form}>
             <LabelInput title="Name" css={_input} />
