@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Dashboard, Menu, Order, Review } from "common/components/icons";
-import { ROUTES } from "constants/common";
+import { ROUTES } from "common/constants/routes";
 import { Link, useLocation } from "react-router-dom";
 import colors from "styles/color";
 import fonts from "styles/font";

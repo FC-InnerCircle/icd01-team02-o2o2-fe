@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { ROUTES } from "constants/common";
 
 //pages들
 import Home from "pages/dashboard";
@@ -18,6 +17,7 @@ import Component from "pages/Component";
 import MenuRegistration from "pages/menuRegistration";
 
 import withAuth from "routes/WithAuth";
+import { ROUTES } from "common/constants/routes";
 
 // 보호된 컴포넌트 생성
 const ProtectedHome = withAuth(Home, { requiredRoles: ["owner", "admin"] });
