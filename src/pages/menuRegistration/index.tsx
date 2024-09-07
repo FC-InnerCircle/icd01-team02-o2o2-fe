@@ -4,10 +4,13 @@ import { ImageLoader, useResizeImage } from "@pic-pik/react";
 import { useState } from "react";
 import colors from "styles/color";
 import { type ImageMetadata } from "@pic-pik/core";
-import LabelInput from "common/components/labelInput";
-import LabelTextarea from "common/components/labelTextarea";
+
 import fonts from "styles/font";
-import { MenuOption } from "pages/menuDetail/components";
+import {
+  LabelInput,
+  LabelTextarea,
+  MenuOption,
+} from "pages/menuDetail/components";
 
 const dummyOption = [
   {

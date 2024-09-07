@@ -2,14 +2,10 @@
 import { css } from "@emotion/react";
 import { Delete, Edit } from "common/components/icons";
 import useClickOutside from "common/hooks/useClickOutside";
-import { HTMLAttributes, useState } from "react";
+import { useState } from "react";
 import colors from "styles/color";
 import fonts from "styles/font";
-
-interface MenuProps extends HTMLAttributes<HTMLDivElement> {
-  title: string;
-  options: { name: string; price: number }[];
-}
+import type { MenuProps } from "./index.types";
 
 const MenuOption = ({ title, options, ...rest }: MenuProps) => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
