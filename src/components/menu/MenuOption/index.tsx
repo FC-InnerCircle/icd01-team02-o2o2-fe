@@ -6,16 +6,16 @@ import { HTMLAttributes, useState } from "react";
 import colors from "styles/color";
 import fonts from "styles/font";
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
+interface MenuProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   options: { name: string; price: number }[];
 }
 
-const MenuOption = ({ title, options, ...rest }: Props) => {
-  const [isSelected, setSelected] = useState<boolean>(false);
-  const { ref } = useClickOutside<HTMLDivElement>(() => setSelected(false));
+const MenuOption = ({ title, options, ...rest }: MenuProps) => {
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const { ref } = useClickOutside<HTMLDivElement>(() => setIsSelected(false));
   return (
-    <div css={_option} ref={ref} {...rest} onClick={() => setSelected(true)}>
+    <div css={_option} ref={ref} {...rest} onClick={() => setIsSelected(true)}>
       <p css={_label}>{title}</p>
       <ul
         css={_optionItemWrap}
