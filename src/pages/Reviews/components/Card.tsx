@@ -1,49 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import { ReviewImage } from 'api/modules/stores/types';
-import { P1, P2, P3, P4 } from 'components/icons';
 import colors from 'styles/color';
-import { hexToRgba } from 'utils';
 import StarRating from 'pages/Reviews/components/StarRating';
 
-type CardProps = {
-  content: string;
-  images: ReviewImage[];
-  reviewDate: string;
-  member: {
-    profileImage: string;
-    nickname: string;
-    id: string;
-  }
-  menus: {
-    name: string;
-  }
-  grade: number;
-}
+import { hexToRgba } from 'utils/hexToRgba';
+import { CardProps } from './types';
+import { getProfileImg } from 'utils/getProfileImg';
+
 
 const Card = ({ content, member, menus, reviewDate, grade }: CardProps) => {
   const { profileImage, nickname } = member;
   const { name } = menus;
 
-  const profileImageSrc = (profileSrc: string) => {
-    switch (profileSrc) {
-      case 'p1':
-        return <P1 width={54} height={54} />
-      case 'p2':
-        return <P2 width={54} height={54} />
-      case 'p3':
-        return <P3 width={54} height={54} />
-      case 'p4':
-        return <P4 width={54} height={54} />
-    }
-  }
-
   return (
     <div css={_cardContainer}>
       <div css={_reviewContainer}>
         <div css={_profileContainer}>
-          <div>{profileImageSrc(profileImage)}</div>
+          <div>{getProfileImg(profileImage)}</div>
           <div css={_contentsContainer}>
             <div css={_menuContainer}>
               <div css={_nickname}>{nickname}</div>
@@ -66,6 +40,7 @@ const Card = ({ content, member, menus, reviewDate, grade }: CardProps) => {
 }
 
 export default Card;
+
 
 const _cardContainer = css`
   border: 1px solid ${colors.icy};
@@ -199,3 +174,5 @@ const _grade = css`
     font-size: 1.2rem;
   }
 `;
+
+

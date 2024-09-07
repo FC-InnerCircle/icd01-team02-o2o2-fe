@@ -28,6 +28,8 @@ const SignIn = () => {
     reset();
   }
 
+  console.log('testtest')
+
   return (
     <form css={[_container]} onSubmit={handleSubmit(onSubmit)}>
       <div css={_formContainer}>

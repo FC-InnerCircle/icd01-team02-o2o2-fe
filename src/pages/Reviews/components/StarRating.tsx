@@ -2,10 +2,7 @@
 import { css } from "@emotion/react";
 import { Star, StarEmpty } from 'components/icons';
 
-type StarRatingProps = {
-  rating: number;
-  size?: number;
-};
+import { StarRatingProps } from './types';
 
 const StarRating = ({ rating, size = 12 }: StarRatingProps) => {
   const filledStars = Math.floor(rating); // 꽉 찬 별의 개수

@@ -3,14 +3,15 @@ import { css } from "@emotion/react";
 import { useGetStoresReview } from 'queries/modules/stores/useStoresQuery';
 import Card from './Card';
 
-import { get, isUndefined } from 'lodash';
+import get from 'lodash/get';
+import isUndefined from 'lodash/isUndefined';
 import StarRating from 'pages/Reviews/components/StarRating';
 
 const CardList = () => {
-  const { data } = useGetStoresReview(1);
+  const { data: storeReviewData } = useGetStoresReview(1);
 
-  const reviews = get(data, ['response', 'reviews']) ;
-  const grade = get(data, ['response', 'grade']);
+  const reviews = get(storeReviewData, ['response', 'reviews']) ;
+  const grade = get(storeReviewData, ['response', 'grade']);
 
   return (
     <div css={_container}>
