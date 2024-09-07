@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Delete, Edit } from "components/icons";
-import useClickOutside from "hooks/useClickOutside";
+import { Delete, Edit } from "common/components/icons";
+import useClickOutside from "common/hooks/useClickOutside";
 import { HTMLAttributes, useState } from "react";
 import colors from "styles/color";
 import fonts from "styles/font";

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
-import { Button, Input, Textarea } from "components";
+import { Button, Input, Textarea } from "common/components";
 
 export default function Component() {
   return (

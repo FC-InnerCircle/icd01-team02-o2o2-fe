@@ -1,4 +1,4 @@
-import { InputProps } from "components/common/Input/Input.types";
+import { InputProps } from "common/components/input/Input.types";
 
 export type LabelInputProps = InputProps & {
   title: string;

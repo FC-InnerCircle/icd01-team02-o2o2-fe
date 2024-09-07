@@ -1,21 +1,23 @@
 import { Routes, Route } from "react-router-dom";
-import { ROUTES } from "constants/common";
 
-import Home from "pages/Home";
-import Menu from "pages/Menu";
-import MenuDetail from "pages/MenuDetail";
-import Profile from "pages/Profile";
-import Order from "pages/Order";
-import OrderDetail from "pages/OrderDetail";
-import SignIn from "pages/Signin";
-import Reviews from "pages/Reviews";
-import Store from "pages/Store";
-import StoreDetail from "pages/StoreDetail";
-import User from "pages/User";
-import UserDetail from "pages/UserDetail";
-import withAuth from "routes/WithAuth";
+//pages들
+import Home from "pages/dashboard";
+import Menu from "pages/menu";
+import MenuDetail from "pages/menuDetail";
+import Profile from "pages/profile";
+import Order from "pages/order";
+import OrderDetail from "pages/orderDetail";
+import SignIn from "pages/signIn";
+import Reviews from "pages/reviews";
+import Store from "pages/store";
+import StoreDetail from "pages/storeDetail";
+import User from "pages/user";
+import UserDetail from "pages/userDetail";
 import Component from "pages/Component";
-import MenuRegistration from "pages/MenuRegistration";
+import MenuRegistration from "pages/menuRegistration";
+
+import withAuth from "routes/WithAuth";
+import { ROUTES } from "common/constants/routes";
 
 // 보호된 컴포넌트 생성
 const ProtectedHome = withAuth(Home, { requiredRoles: ["owner", "admin"] });
