@@ -28,17 +28,7 @@ const MenuOption = ({ title, options, ...rest }: MenuProps) => {
           </li>
         ))}
       </ul>
-      <div
-        css={css`
-          position: absolute;
-          left: calc(100% + 24px);
-          top: 50%;
-          transform: translateY(-50%);
-          display: flex;
-          gap: 12px;
-        `}
-        style={{ display: isSelected ? "flex" : "none" }}
-      >
+      <div css={_buttonWrap} style={{ display: isSelected ? "flex" : "none" }}>
         <button css={_edit}>
           <Edit width={24} height={24} fill="currentColor" />
         </button>
@@ -87,6 +77,14 @@ const _label = [
   `,
   fonts["16_600"],
 ];
+const _buttonWrap = css`
+  position: absolute;
+  left: calc(100% + 24px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 12px;
+`;
 
 const _button = css`
   width: 50px;
