@@ -4,7 +4,8 @@ const colors = {
   accent: "#B519EC", // Accent
   textPrimary: "#000000", // Text Primary
   textSecondary: "#0F0F0F", // Text Secondary
-  textMuted: "#3E4954", // Text Muted
+  textMuted: "#3E4954", // Text Muted,
+  textThird: "#767373",
   backgroundLight: "#F5F6FA", // Background Light
   success: "#28C76F", // Success
   danger: "#EA5455", // Danger

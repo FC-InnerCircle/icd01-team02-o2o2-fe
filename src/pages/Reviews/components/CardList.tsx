@@ -5,7 +5,7 @@ import Card from './Card';
 
 import get from 'lodash/get';
 import isUndefined from 'lodash/isUndefined';
-import StarRating from 'pages/Reviews/components/StarRating';
+import StarRating from 'pages/reviews/components/StarRating';
 
 const CardList = () => {
   const { data: storeReviewData } = useGetStoresReview(1);

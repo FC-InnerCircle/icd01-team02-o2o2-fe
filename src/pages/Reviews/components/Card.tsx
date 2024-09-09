@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 
 import colors from 'styles/color';
-import StarRating from 'pages/Reviews/components/StarRating';
+import StarRating from 'pages/reviews/components/StarRating';
 
 import { hexToRgba } from 'utils/hexToRgba';
 import { CardProps } from './types';

@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import colors from 'styles/color';
+import colors from "styles/color";
 
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { type SubmitHandler } from 'react-hook-form';
+import { type SubmitHandler } from "react-hook-form";
 
 import * as z from "zod";
-import { loginSchema } from 'schema';
-import { Input } from 'components';
+import { loginSchema } from "schema";
+import { Input } from "common/components";
 
 type SignInFormType = z.infer<typeof loginSchema>;
 
@@ -26,7 +26,7 @@ const SignIn = () => {
   const onSubmit: SubmitHandler<SignInFormType> = (data) => {
     console.log(data);
     reset();
-  }
+  };
 
   return (
     <form css={[_container]} onSubmit={handleSubmit(onSubmit)}>
@@ -48,10 +48,8 @@ const SignIn = () => {
         />
         {errors.password && <p css={_errorText}>{errors.password.message}</p>}
 
-        <button
-          css={_button}
-          type='submit'
-        >Login
+        <button css={_button} type="submit">
+          Login
         </button>
       </div>
     </form>
@@ -65,7 +63,7 @@ const _container = css`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('/src/assets/login.jpg') no-repeat center center;
+  background: url("/src/assets/login.jpg") no-repeat center center;
   background-size: cover;
 
   @media (max-width: 768px) {
@@ -121,7 +119,9 @@ const _button = css`
   border: none;
   font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
 
   &:hover {
     background-color: #5a78d1;

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import Icons from "components/icons";
-import { ROUTES } from "constants/common";
+import { Dashboard, Menu, Order, Review } from "common/components/icons";
+import { ROUTES } from "common/constants/routes";
 import { Link, useLocation } from "react-router-dom";
 import colors from "styles/color";
 import fonts from "styles/font";
@@ -10,26 +10,24 @@ const MENUS = {
   dashboard: {
     title: "Dashboard",
     link: ROUTES.HOME,
-    icon: (
-      <Icons.Dashboard width={"100%"} height={"100%"} fill="currentColor" />
-    ),
+    icon: <Dashboard width={"100%"} height={"100%"} fill="currentColor" />,
   },
   order: {
     title: "Order",
     link: ROUTES.ORDER,
-    icon: <Icons.Order width={"100%"} height={"100%"} fill="currentColor" />,
+    icon: <Order width={"100%"} height={"100%"} fill="currentColor" />,
   },
   menu: {
     title: "Menu",
     link: ROUTES.MENU,
-    icon: <Icons.Menu width={"100%"} height={"100%"} fill="currentColor" />,
+    icon: <Menu width={"100%"} height={"100%"} fill="currentColor" />,
   },
   review: {
     title: "Reviews",
     link: ROUTES.REVIEW,
-    icon: <Icons.Review width={"100%"} height={"100%"} fill="currentColor" />,
+    icon: <Review width={"100%"} height={"100%"} fill="currentColor" />,
   },
-  // analytics: { title: "Analytics", link: "/", icon: <Icons.Dashboard /> },
+  // analytics: { title: "Analytics", link: "/", icon: <Dashboard /> },
 } as const;
 
 const Menus = () => {

@@ -1,5 +1,5 @@
 import { render, renderHook, screen, waitFor } from '@testing-library/react';
-import CardList from 'pages/Reviews/components/CardList';
+import CardList from 'pages/reviews/components/CardList';
 import { createWrapper } from 'tests/test-utils';
 
 import { useGetStoresReview } from 'queries/modules/stores/useStoresQuery';
