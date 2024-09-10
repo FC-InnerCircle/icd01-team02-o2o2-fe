@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { authAPI } from 'api/modules/auth';
 
-import { type LoginRequest, LoginResponse, RefreshRequest, RefreshResponse } from 'api/modules/auth/types';
+import { type LoginRequest, LoginResponse, LogoutRequest, RefreshRequest, RefreshResponse } from 'api/modules/auth/types';
 import { type UseMutationOptions } from '@tanstack/react-query';
 import { type CommonResponseReturnType } from 'api/modules/commonType';
 
@@ -17,9 +17,12 @@ export const useAuthLogin = (
 }
 
 // 로그아웃 훅
-export const useAuthLogout = () => {
+export const useAuthLogout = (
+  options?: UseMutationOptions<void, Error, LogoutRequest>
+) => {
   return useMutation({
-    mutationFn: () => authAPI.logout(),
+    mutationFn: (payload: LogoutRequest) => authAPI.logout(payload),
+    ...options,
   });
 }
 

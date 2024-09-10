@@ -4,8 +4,8 @@ export type LoginRequest = {
 }
 
 export type LoginResponse = {
-  accessToken: string;
-  refreshToken: string;
+  accessToken: string | null;
+  refreshToken: string | null;
 }
 
 export type RefreshRequest = {
@@ -17,6 +17,6 @@ export type RefreshResponse = {
   refreshToken: string;
 }
 
-export type LogoutResponse = {
+export type LogoutRequest = {
   refreshToken: string;
 }

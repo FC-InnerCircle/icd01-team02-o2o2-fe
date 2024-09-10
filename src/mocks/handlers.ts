@@ -42,7 +42,7 @@ export const accountsHandlers = [
 
 // 메뉴 관련 API 요청 핸들러 정의
 const menuHandlers = [
-  http.get(`${BASE_URL}stores/:storeId/menus`, async () => {
+  http.get(`${BASE_URL}/stores/:storeId/menus`, async () => {
     return HttpResponse.json(menuMockData.list);
   }),
 ];
@@ -91,4 +91,5 @@ export const handlers = [
   ...storeHandlers,
   ...reviewHandlers,
   ...accountsHandlers,
+  ...authHandlers,
 ]

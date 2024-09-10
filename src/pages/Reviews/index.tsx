@@ -1,25 +1,30 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Button } from 'common/components';
+import useAuth from 'common/hooks/useAuth';
 
 import CardList from 'pages/reviews/components/CardList';
 
 import colors from 'styles/color';
 
 const Reviews = () => {
-  return (
-    <div css={[_container]}>
-      <div>
-        <div css={ _header}>
-          <h2>
-            Reviews
-          </h2>
-          <Button>Latest</Button>
-          </div>
-      </div>
+  const { AuthGuard } = useAuth(["owner", "admin"]);
 
-      <CardList />
-    </div>
+  return (
+    <AuthGuard>
+      <div css={[_container]}>
+        <div>
+          <div css={ _header}>
+            <h2>
+              Reviews
+            </h2>
+            <Button>Latest</Button>
+            </div>
+        </div>
+
+        <CardList />
+      </div>
+    </AuthGuard>
   )
 }
 

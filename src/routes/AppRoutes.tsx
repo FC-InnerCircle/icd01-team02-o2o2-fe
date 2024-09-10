@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 
 //pages들
 import Home from "pages/dashboard";
@@ -16,61 +16,44 @@ import UserDetail from "pages/userDetail";
 import Component from "pages/Component";
 import MenuRegistration from "pages/menuRegistration";
 
-import withAuth from "routes/WithAuth";
 import { ROUTES } from "common/constants/routes";
+import Layout from 'common/components/layout';
 
-// 보호된 컴포넌트 생성
-const ProtectedHome = withAuth(Home, { requiredRoles: ["owner", "admin"] });
-const ProtectedUser = withAuth(User, { requiredRoles: ["admin"] });
-const ProtectedUserDetail = withAuth(UserDetail, { requiredRoles: ["admin"] });
-const ProtectedStore = withAuth(Store, { requiredRoles: ["admin"] });
-const ProtectedStoreDetail = withAuth(StoreDetail, {
-  requiredRoles: ["owner", "admin"],
-});
-const ProtectedMenu = withAuth(Menu, { requiredRoles: ["owner", "admin"] });
-const ProtectedMenuRegistration = withAuth(MenuRegistration, {
-  requiredRoles: ["owner", "admin"],
-});
-const ProtectedMenuDetail = withAuth(MenuDetail, {
-  requiredRoles: ["owner", "admin"],
-});
-const ProtectedOrder = withAuth(Order, { requiredRoles: ["owner", "admin"] });
-const ProtectedOrderDetail = withAuth(OrderDetail, {
-  requiredRoles: ["owner", "admin"],
-});
-const ProtectedReviews = withAuth(Reviews, {
-  requiredRoles: ["owner", "admin"],
-});
-const ProtectedProfile = withAuth(Profile, {
-  requiredRoles: ["owner", "admin"],
-});
-const ProtectedSignIn = withAuth(SignIn, {
-  requiredRoles: ["guest"],
-  redirectPath: "/",
-});
+// Layout을 사용하는 라우트 그룹
+const LayoutRoutes = () => {
+  return (
+    <Layout>
+      <Outlet /> {/* 자식 라우트를 표시하기 위한 Outlet */}
+    </Layout>
+  );
+};
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path={ROUTES.HOME} element={<ProtectedHome role="owner" />} />
-      <Route path={ROUTES.USER} element={<ProtectedUser />} />
-      <Route path={ROUTES.USER_DETAIL} element={<ProtectedUserDetail />} />
-      <Route path={ROUTES.STORE} element={<ProtectedStore />} />
-      <Route path={ROUTES.STORE_DETAIL} element={<ProtectedStoreDetail />} />
-      <Route path={ROUTES.MENU} element={<ProtectedMenu />} />
-      <Route
-        path={ROUTES.MENU_REGISTRATION}
-        element={<ProtectedMenuRegistration />}
-      />
-      <Route path={ROUTES.MENU_DETAIL} element={<ProtectedMenuDetail />} />
-      <Route path={ROUTES.ORDER} element={<ProtectedOrder />} />
-      <Route path={ROUTES.ORDER_DETAIL} element={<ProtectedOrderDetail />} />
-      <Route path={ROUTES.REVIEW} element={<ProtectedReviews />} />
-      <Route path={ROUTES.PROFILE} element={<ProtectedProfile />} />
-      <Route path={ROUTES.SIGN_IN} element={<ProtectedSignIn />} />
+      {/* Layout이 없는 SignIn 페이지 */}
+      <Route path={ROUTES.SIGN_IN} element={<SignIn />} />
 
-      {/* NOTE: Storybook에 emotion 스타일이 적용되도록 아직 세팅을 못해서 임시로 컴포넌트를 확인할 수 있는 페이지를 만듭니다. @Seung-wan */}
-      <Route path="/components" element={<Component />} />
+      {/* Layout이 있는 페이지 - useAuth hooks으로 내부에 접근권한제어 적용  */}
+      <Route element={<LayoutRoutes />}>
+        <Route path={ROUTES.HOME} element={<Home />} />
+        <Route path={ROUTES.USER} element={<User />} />
+        <Route path={ROUTES.USER_DETAIL} element={<UserDetail />} />
+        <Route path={ROUTES.STORE} element={<Store />} />
+        <Route path={ROUTES.STORE_DETAIL} element={<StoreDetail />} />
+        <Route path={ROUTES.MENU} element={<Menu />} />
+        <Route
+          path={ROUTES.MENU_REGISTRATION}
+          element={<MenuRegistration />}
+        />
+        <Route path={ROUTES.MENU_DETAIL} element={<MenuDetail />} />
+        <Route path={ROUTES.ORDER} element={<Order />} />
+        <Route path={ROUTES.ORDER_DETAIL} element={<OrderDetail />} />
+        <Route path={ROUTES.REVIEW} element={<Reviews />} />
+        <Route path={ROUTES.PROFILE} element={<Profile />} />
+
+        <Route path="/components" element={<Component />} />
+      </Route>
     </Routes>
   );
 };
