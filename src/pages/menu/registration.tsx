@@ -6,11 +6,7 @@ import colors from "styles/color";
 import { type ImageMetadata } from "@pic-pik/core";
 
 import fonts from "styles/font";
-import {
-  LabelInput,
-  LabelTextarea,
-  MenuOption,
-} from "pages/menuDetail/components";
+import { LabelInput, LabelTextarea, MenuOption } from "pages/menu/components";
 
 const dummyOption = [
   {
@@ -50,51 +46,53 @@ const MenuRegistration = ({ ...rest }) => {
   });
 
   return (
-    <div css={[_container]} {...rest}>
-      <div css={_titleWrap}>
-        <h2>Menu</h2>
-        <button css={_subButton}>Preview</button>
-      </div>
-      <section css={_menuContainer}>
-        <h3 css={_subtitle}>Main info</h3>
-        <div css={_wrapper}>
-          <div css={_imageWrapper}>
-            {
-              <ImageLoader onMetadataLoaded={setOriginalImageMetadata}>
-                {originalImageMetadata && metadata ? (
-                  <div css={_imageLoader}>
-                    <img src={metadata.src} width={"100%"} />
-                  </div>
-                ) : (
-                  <div css={_imageLoader}>Please upload a picture</div>
-                )}
-              </ImageLoader>
-            }
-          </div>
-          <form css={_form}>
-            <LabelInput title="Name" css={_input} />
-            <LabelTextarea title="Description" css={_textarea} />
-            <LabelInput title="Price" css={_input} />
-          </form>
-        </div>
-      </section>
-      <section css={_optionContainer}>
+    <>
+      <div css={[_container]} {...rest}>
         <div css={_titleWrap}>
-          <h3 css={_subtitle}>Options</h3>
-          <button css={_addButton}>Add</button>
+          <h2>Menu</h2>
+          <button css={_subButton}>Preview</button>
         </div>
-        <div>
-          {dummyOption.map((option, idx) => (
-            <MenuOption
-              key={`menu_option_${option.title}_${idx}`}
-              title={option.title}
-              options={option.options}
-            />
-          ))}
-        </div>
-      </section>
-      <button css={_submit}>SAVE</button>
-    </div>
+        <section css={_menuContainer}>
+          <h3 css={_subtitle}>Main info</h3>
+          <div css={_wrapper}>
+            <div css={_imageWrapper}>
+              {
+                <ImageLoader onMetadataLoaded={setOriginalImageMetadata}>
+                  {originalImageMetadata && metadata ? (
+                    <div css={_imageLoader}>
+                      <img src={metadata.src} width={"100%"} />
+                    </div>
+                  ) : (
+                    <div css={_imageLoader}>Please upload a picture</div>
+                  )}
+                </ImageLoader>
+              }
+            </div>
+            <form css={_form}>
+              <LabelInput title="Name" css={_input} />
+              <LabelTextarea title="Description" css={_textarea} />
+              <LabelInput title="Price" css={_input} />
+            </form>
+          </div>
+        </section>
+        <section css={_optionContainer}>
+          <div css={_titleWrap}>
+            <h3 css={_subtitle}>Options</h3>
+            <button css={_addButton}>Add</button>
+          </div>
+          <div>
+            {dummyOption.map((option, idx) => (
+              <MenuOption
+                key={`menu_option_${option.title}_${idx}`}
+                title={option.title}
+                options={option.options}
+              />
+            ))}
+          </div>
+        </section>
+        <button css={_submit}>SAVE</button>
+      </div>
+    </>
   );
 };
 
