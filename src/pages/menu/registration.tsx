@@ -3,8 +3,7 @@ import { css } from "@emotion/react";
 import { ImageLoader, useResizeImage } from "@pic-pik/react";
 import { useState } from "react";
 import colors from "styles/color";
-import { type ImageMetadata } from "@pic-pik/core";
-
+import type { ImageMetadata } from "@pic-pik/core";
 import fonts from "styles/font";
 import {
   LabelInput,
@@ -64,17 +63,15 @@ const MenuRegistration = ({ ...rest }) => {
           <h3 css={_subtitle}>Main info</h3>
           <div css={_wrapper}>
             <div css={_imageWrapper}>
-              {
-                <ImageLoader onMetadataLoaded={setOriginalImageMetadata}>
-                  {originalImageMetadata && metadata ? (
-                    <div css={_imageLoader}>
-                      <img src={metadata.src} width={"100%"} />
-                    </div>
-                  ) : (
-                    <div css={_imageLoader}>Please upload a picture</div>
-                  )}
-                </ImageLoader>
-              }
+              <ImageLoader onMetadataLoaded={setOriginalImageMetadata}>
+                {originalImageMetadata && metadata ? (
+                  <div css={_imageLoader}>
+                    <img src={metadata.src} width={"100%"} />
+                  </div>
+                ) : (
+                  <div css={_imageLoader}>Please upload a picture</div>
+                )}
+              </ImageLoader>
             </div>
             <form css={_form}>
               <LabelInput title="Name" css={_input} />
@@ -90,15 +87,13 @@ const MenuRegistration = ({ ...rest }) => {
               Add
             </button>
           </div>
-          <div>
-            {dummyOption.map((option, idx) => (
-              <MenuOption
-                key={`menu_option_${option.title}_${idx}`}
-                title={option.title}
-                options={option.options}
-              />
-            ))}
-          </div>
+          {dummyOption.map((option, idx) => (
+            <MenuOption
+              key={`menu_option_${option.title}_${idx}`}
+              title={option.title}
+              options={option.options}
+            />
+          ))}
         </section>
         <button css={_submit}>SAVE</button>
       </div>
