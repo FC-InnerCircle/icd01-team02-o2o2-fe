@@ -6,7 +6,12 @@ import colors from "styles/color";
 import { type ImageMetadata } from "@pic-pik/core";
 
 import fonts from "styles/font";
-import { LabelInput, LabelTextarea, MenuOption } from "pages/menu/components";
+import {
+  LabelInput,
+  LabelTextarea,
+  MenuOption,
+  OptionModal,
+} from "pages/menu/components";
 
 const dummyOption = [
   {
@@ -32,6 +37,7 @@ const dummyOption = [
   },
 ];
 const MenuRegistration = ({ ...rest }) => {
+  const [isOptionModalOpen, setIsOptionModalOpen] = useState<boolean>(false);
   const [originalImageMetadata, setOriginalImageMetadata] =
     useState<ImageMetadata | null>(null);
   const { metadata } = useResizeImage({
@@ -44,6 +50,8 @@ const MenuRegistration = ({ ...rest }) => {
         : { width: 350 }),
     },
   });
+
+  const handleOptionModalOpen = () => setIsOptionModalOpen((prev) => !prev);
 
   return (
     <>
@@ -78,7 +86,9 @@ const MenuRegistration = ({ ...rest }) => {
         <section css={_optionContainer}>
           <div css={_titleWrap}>
             <h3 css={_subtitle}>Options</h3>
-            <button css={_addButton}>Add</button>
+            <button css={_addButton} onClick={handleOptionModalOpen}>
+              Add
+            </button>
           </div>
           <div>
             {dummyOption.map((option, idx) => (
@@ -92,6 +102,12 @@ const MenuRegistration = ({ ...rest }) => {
         </section>
         <button css={_submit}>SAVE</button>
       </div>
+      {isOptionModalOpen && (
+        <OptionModal
+          isOpen={isOptionModalOpen}
+          onClose={handleOptionModalOpen}
+        />
+      )}
     </>
   );
 };
