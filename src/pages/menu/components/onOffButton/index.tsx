@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import colors from "styles/color";
-import { OnOffButtonProps } from "./types";
+import type { OnOffButtonProps } from "./types";
 
 const OnOffButton = ({ isOn, onToggle, ...rest }: OnOffButtonProps) => {
   return (
     <button
-      css={[_container]}
+      css={_container}
       style={{
         backgroundColor: isOn ? colors.primary : colors.lightGray,
       }}
@@ -28,6 +28,7 @@ const _container = css`
   height: 24px;
   border-radius: 18px;
   position: relative;
+  transition: background-color 0.3s;
 `;
 
 const _round = css`
@@ -37,4 +38,5 @@ const _round = css`
   height: 20px;
   border-radius: 50%;
   background-color: ${colors.white};
+  transition: left 0.3s;
 `;
