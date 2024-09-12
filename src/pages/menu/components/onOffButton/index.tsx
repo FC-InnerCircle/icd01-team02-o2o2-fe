@@ -15,7 +15,7 @@ const OnOffButton = ({ isOn, onToggle, ...rest }: OnOffButtonProps) => {
     >
       <span
         css={_round}
-        style={{ left: isOn ? " calc(100% - 34px)" : "2px" }}
+        style={{ left: isOn ? " calc(100% - 22px)" : "2px" }}
       />
     </button>
   );
@@ -24,8 +24,8 @@ const OnOffButton = ({ isOn, onToggle, ...rest }: OnOffButtonProps) => {
 export default OnOffButton;
 
 const _container = css`
-  width: 72px;
-  height: 36px;
+  width: 46px;
+  height: 24px;
   border-radius: 18px;
   position: relative;
 `;
@@ -33,8 +33,8 @@ const _container = css`
 const _round = css`
   position: absolute;
   top: 2px;
-  width: 31px;
-  height: 31px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background-color: ${colors.white};
 `;
