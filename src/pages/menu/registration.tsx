@@ -65,10 +65,10 @@ const MenuRegistration = () => {
       <div css={[_container]}>
         <div css={_titleWrap}>
           <h2>Menu</h2>
-          <button css={_subButton}>Preview</button>
+          <button css={_subButton}>미리보기</button>
         </div>
         <section css={_menuContainer}>
-          <h3 css={_subtitle}>Main info</h3>
+          <h3 css={_subtitle}>기본 정보</h3>
           <div css={_wrapper}>
             <div css={_imageWrapper}>
               <ImageLoader onMetadataLoaded={setOriginalImageMetadata}>
@@ -77,26 +77,30 @@ const MenuRegistration = () => {
                     <img src={metadata.src} width={"100%"} />
                   </div>
                 ) : (
-                  <div css={_imageLoader}>Please upload a picture</div>
+                  <div css={_imageLoader}>메뉴의 이미지를 선택해주세요</div>
                 )}
               </ImageLoader>
             </div>
             <form css={_form}>
-              <LabelInput title="Name" css={_input} {...register("name")} />
+              <LabelInput
+                title="메뉴 이름"
+                css={_input}
+                {...register("name")}
+              />
               <LabelTextarea
-                title="Description"
+                title="설명"
                 css={_textarea}
                 {...register("desc")}
               />
-              <LabelInput title="Price" css={_input} {...register("price")} />
+              <LabelInput title="가격" css={_input} {...register("price")} />
             </form>
           </div>
         </section>
         <section css={_optionContainer}>
           <div css={_titleWrap}>
-            <h3 css={_subtitle}>Options</h3>
+            <h3 css={_subtitle}>메뉴 옵션</h3>
             <button css={_addButton} onClick={handleOptionModalOpen}>
-              Add
+              추가
             </button>
           </div>
           {fields.map((field, index) => (
@@ -115,7 +119,7 @@ const MenuRegistration = () => {
             </div>
           )}
         </section>
-        <button css={_submit}>SAVE</button>
+        <button css={_submit}>등록하기</button>
       </div>
       {isOptionModalOpen && (
         <OptionModal
@@ -158,6 +162,10 @@ const _titleWrap = css`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: end;
+  h3 {
+    margin: 0;
+  }
 `;
 
 const _wrapper = css`
@@ -219,7 +227,8 @@ const _subButton = [
     border-radius: 24px;
     background-color: ${colors.accent};
     color: ${colors.white};
-    min-width: 112px;
+    width: 112px;
+    height: 36px;
     transition: opacity 0.3s;
     :hover {
       opacity: 0.7;
@@ -232,6 +241,7 @@ const _addButton = [
   _subButton,
   css`
     background-color: ${colors.primary};
+    width: 86px;
   `,
 ];
 
@@ -242,7 +252,7 @@ const _submit = [
     padding: 12px 36px;
     border-radius: 36px;
     margin: 24px auto;
-    width: 300px;
+    width: 240px;
     transition: opacity 0.3s;
     :hover {
       opacity: 0.7;

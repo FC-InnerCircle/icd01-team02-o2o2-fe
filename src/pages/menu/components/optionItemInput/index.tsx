@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-
 import LabelInput from "pages/menu/components/labelInput";
 import type { OptionItemInputProps } from "./types";
 
@@ -10,9 +9,13 @@ const OptionItemInput = ({
 }: OptionItemInputProps) => {
   return (
     <div css={_container}>
-      <LabelInput title="Name" placeholder="ex) 과테말라" {...nameRegister} />
       <LabelInput
-        title="Price"
+        title="옵션 이름"
+        placeholder="ex) 과테말라"
+        {...nameRegister}
+      />
+      <LabelInput
+        title="옵션 가격"
         placeholder="ex) 1000"
         prefix={"₩"}
         {...priceRegister}

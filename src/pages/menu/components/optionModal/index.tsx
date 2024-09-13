@@ -11,7 +11,11 @@ import {
   NEW_OPTION_ITEM_TEMPLATE,
 } from "pages/menu/constants";
 import { OptionModalProps } from "./types";
-import { OnOffButton, OptionItemInput, LabelInput } from "..";
+import {
+  OnOffButton,
+  OptionItemInput,
+  LabelInput,
+} from "pages/menu/components";
 
 const OptionModal = ({
   initial,
@@ -61,10 +65,10 @@ const OptionModal = ({
   return (
     <div css={[_background]} {...rest} onClick={onClose}>
       <div css={_container} onClick={(e) => e.stopPropagation()}>
-        <h2>Option</h2>
+        <h2>옵션</h2>
         <div css={_wrapper}>
           <LabelInput
-            title="Option title"
+            title="옵션 그룹 제목"
             placeholder="원두 선택"
             {...register("title")}
           />
