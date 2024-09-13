@@ -3,7 +3,10 @@ import { css } from "@emotion/react";
 import { useEffect } from "react";
 import colors from "styles/color";
 import { useFieldArray, useForm } from "react-hook-form";
-import type { OptionGroupReq } from "api/modules/menu/types";
+import type {
+  CreateMenuOptionGroupReq,
+  EditMenuOptionGroupReq,
+} from "api/modules/menu/types";
 import { Button } from "common/components";
 import { Plus } from "common/components/icons";
 import {
@@ -19,10 +22,11 @@ const OptionModal = ({
   onClose,
   ...rest
 }: OptionModalProps) => {
-  const { control, register, getValues, setValue, watch } =
-    useForm<OptionGroupReq>({
-      defaultValues: initial ?? NEW_OPTION_GROUP_TEMPLATE,
-    });
+  const { control, register, getValues, setValue, watch } = useForm<
+    CreateMenuOptionGroupReq | EditMenuOptionGroupReq
+  >({
+    defaultValues: initial ?? NEW_OPTION_GROUP_TEMPLATE,
+  });
   const { fields, append } = useFieldArray({
     control,
     name: "details",
