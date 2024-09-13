@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { ImageLoader, useResizeImage } from "@pic-pik/react";
-import { useEffect, useState } from "react";
+import { ImageLoader } from "@pic-pik/react";
+import { useState } from "react";
 import colors from "styles/color";
-import type { ImageMetadata } from "@pic-pik/core";
 import fonts from "styles/font";
 import {
   LabelInput,
@@ -11,11 +10,8 @@ import {
   MenuOption,
   OptionModal,
 } from "pages/menu/components";
-import { useFieldArray, useForm } from "react-hook-form";
-import type {
-  CreateMenuOptionGroupReq,
-  CreateMenuRequest,
-} from "api/modules/menu/types";
+import type { CreateMenuOptionGroupReq } from "api/modules/menu/types";
+import useCreateMenu from "./hooks/useCreateMenu";
 
 //TODO status 뭐로 추가하지?
 const MenuRegistration = () => {
@@ -24,41 +20,24 @@ const MenuRegistration = () => {
     data: CreateMenuOptionGroupReq;
     index: number;
   } | null>(null);
-  const [originalImageMetadata, setOriginalImageMetadata] =
-    useState<ImageMetadata | null>(null);
 
-  const { metadata, file } = useResizeImage({
-    metadata: originalImageMetadata,
-    option: {
-      mode: "aspectRatio",
-      ...(originalImageMetadata &&
-      originalImageMetadata.width > originalImageMetadata.height
-        ? { height: 350 }
-        : { width: 350 }),
-    },
-  });
-
-  const { control, register } = useForm<CreateMenuRequest>();
-  const { fields, append, update, remove } = useFieldArray({
-    control,
-    name: "options",
-  });
+  const {
+    register,
+    options,
+    deleteOption,
+    addOption,
+    editOption,
+    imageMetadata,
+    addImageFile,
+  } = useCreateMenu();
 
   const isSelectedOptionModalOpen = !!selectedOptionToEdit;
   const handleEditOption = (
     optionGroup: CreateMenuOptionGroupReq,
     index: number
   ) => setSelectedOptionToEdit({ data: optionGroup, index });
-  const handleDeleteOption = (index: number) => remove(index);
-
   const handleCloseEditModal = () => setSelectedOptionToEdit(null);
-
   const handleOptionModalOpen = () => setIsOptionModalOpen((prev) => !prev);
-
-  useEffect(() => {
-    //TODO image파일  form에 업데이트해주기
-    //  if(file) setValue('images',[file])
-  }, [file]);
 
   return (
     <>
@@ -71,10 +50,10 @@ const MenuRegistration = () => {
           <h3 css={_subtitle}>기본 정보</h3>
           <div css={_wrapper}>
             <div css={_imageWrapper}>
-              <ImageLoader onMetadataLoaded={setOriginalImageMetadata}>
-                {originalImageMetadata && metadata ? (
+              <ImageLoader onMetadataLoaded={addImageFile}>
+                {imageMetadata ? (
                   <div css={_imageLoader}>
-                    <img src={metadata.src} width={"100%"} />
+                    <img src={imageMetadata.src} width={"100%"} />
                   </div>
                 ) : (
                   <div css={_imageLoader}>메뉴의 이미지를 선택해주세요</div>
@@ -92,7 +71,12 @@ const MenuRegistration = () => {
                 css={_textarea}
                 {...register("desc")}
               />
-              <LabelInput title="가격" css={_input} {...register("price")} />
+              <LabelInput
+                title="가격"
+                css={_input}
+                prefix={"₩"}
+                {...register("price")}
+              />
             </form>
           </div>
         </section>
@@ -103,15 +87,15 @@ const MenuRegistration = () => {
               추가
             </button>
           </div>
-          {fields.map((field, index) => (
+          {options.map((field, index) => (
             <MenuOption
               key={`menu_option_${field.title}_${index}`}
               option={field}
               onEdit={() => handleEditOption(field, index)}
-              onDelete={() => handleDeleteOption(index)}
+              onDelete={() => deleteOption(index)}
             />
           ))}
-          {fields.length === 0 && (
+          {options.length === 0 && (
             <div css={_empty}>
               메뉴의 옵션이 필요할 경우,
               <br />
@@ -126,7 +110,7 @@ const MenuRegistration = () => {
           isOpen={isOptionModalOpen}
           onClose={handleOptionModalOpen}
           onSave={(optionGroup) => {
-            append(optionGroup);
+            addOption(optionGroup);
           }}
         />
       )}
@@ -136,7 +120,7 @@ const MenuRegistration = () => {
           onClose={handleCloseEditModal}
           initial={selectedOptionToEdit.data}
           onSave={(optionGroup) => {
-            update(selectedOptionToEdit.index, optionGroup);
+            editOption(selectedOptionToEdit.index, optionGroup);
           }}
         />
       )}
