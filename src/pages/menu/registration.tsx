@@ -107,6 +107,13 @@ const MenuRegistration = () => {
               onDelete={() => handleDeleteOption(index)}
             />
           ))}
+          {fields.length === 0 && (
+            <div css={_empty}>
+              메뉴의 옵션이 필요할 경우,
+              <br />
+              추가 버튼을 눌러 옵션을 등록하세요
+            </div>
+          )}
         </section>
         <button css={_submit}>SAVE</button>
       </div>
@@ -247,4 +254,14 @@ const _submit = [
 const _optionContainer = css`
   width: 350px;
   margin-top: 50px;
+`;
+
+const _empty = css`
+  width: 100%;
+  background-color: ${colors.white};
+  padding: 40px;
+  border-radius: 12px;
+  margin: 24px 0;
+  color: ${colors.textThird};
+  text-align: center;
 `;
