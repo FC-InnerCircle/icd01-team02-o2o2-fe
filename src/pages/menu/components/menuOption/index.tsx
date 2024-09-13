@@ -5,14 +5,14 @@ import useClickOutside from "common/hooks/useClickOutside";
 import { useState } from "react";
 import colors from "styles/color";
 import fonts from "styles/font";
-import type { MenuProps } from "./index.types";
+import type { MenuOptionProps } from "./index.types";
 
-const MenuOption = ({ title, options, ...rest }: MenuProps) => {
+const MenuOption = ({ option, onEdit, onDelete, ...rest }: MenuOptionProps) => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const { ref } = useClickOutside<HTMLDivElement>(() => setIsSelected(false));
   return (
     <div css={_option} ref={ref} {...rest} onClick={() => setIsSelected(true)}>
-      <p css={_label}>{title}</p>
+      <p css={_label}>{option.title}</p>
       <ul
         css={_optionItemWrap}
         style={{
@@ -21,18 +21,18 @@ const MenuOption = ({ title, options, ...rest }: MenuProps) => {
             : "2px solid transparent",
         }}
       >
-        {options.map(({ name, price }, idx) => (
-          <li css={_optionItem} key={`${title}_option_${name}_${idx}`}>
+        {option.details.map(({ name, price }, idx) => (
+          <li css={_optionItem} key={`${option.title}_option_${name}_${idx}`}>
             <p>{name}</p>
             <p>+ ₩{price}</p>
           </li>
         ))}
       </ul>
       <div css={_buttonWrap} style={{ display: isSelected ? "flex" : "none" }}>
-        <button css={_edit}>
+        <button css={_edit} onClick={onEdit}>
           <Edit width={24} height={24} fill="currentColor" />
         </button>
-        <button css={_delete}>
+        <button css={_delete} onClick={onDelete}>
           <Delete width={22} height={22} stroke="currentColor" />
         </button>
       </div>

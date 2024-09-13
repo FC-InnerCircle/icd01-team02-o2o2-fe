@@ -1,6 +1,8 @@
-import { HTMLAttributes } from "react";
+import type { CreateMenuOptionGroupReq } from "api/modules/menu/types";
+import { type HTMLAttributes } from "react";
 
-export interface MenuProps extends HTMLAttributes<HTMLDivElement> {
-  title: string;
-  options: { name: string; price: number }[];
+export interface MenuOptionProps extends HTMLAttributes<HTMLDivElement> {
+  option: CreateMenuOptionGroupReq;
+  onEdit: () => void;
+  onDelete: () => void;
 }

@@ -2,11 +2,8 @@
 import { css } from "@emotion/react";
 import { useEffect } from "react";
 import colors from "styles/color";
-import { useFieldArray, useForm } from "react-hook-form";
-import type {
-  CreateMenuOptionGroupReq,
-  EditMenuOptionGroupReq,
-} from "api/modules/menu/types";
+import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import type { CreateMenuOptionGroupReq } from "api/modules/menu/types";
 import { Button } from "common/components";
 import { Plus } from "common/components/icons";
 import {
@@ -20,13 +17,13 @@ const OptionModal = ({
   initial,
   isOpen,
   onClose,
+  onSave,
   ...rest
 }: OptionModalProps) => {
-  const { control, register, getValues, setValue, watch } = useForm<
-    CreateMenuOptionGroupReq | EditMenuOptionGroupReq
-  >({
-    defaultValues: initial ?? NEW_OPTION_GROUP_TEMPLATE,
-  });
+  const { control, register, getValues, setValue, watch, handleSubmit } =
+    useForm<CreateMenuOptionGroupReq>({
+      defaultValues: initial ?? NEW_OPTION_GROUP_TEMPLATE,
+    });
   const { fields, append } = useFieldArray({
     control,
     name: "details",
@@ -41,9 +38,10 @@ const OptionModal = ({
     setValue("isRequired", !isRequired);
   };
 
-  const handleClickSave = () => {
+  const onSubmit: SubmitHandler<CreateMenuOptionGroupReq> = (data) => {
     //TODO: data 추가 로직
     onClose();
+    onSave(data);
   };
 
   const handleAddNewOptionItem = () => {
@@ -89,7 +87,7 @@ const OptionModal = ({
             <Plus width={12} height={12} fill="currentColor" />
           </button>
         </div>
-        <Button css={_saveButton} onClick={handleClickSave}>
+        <Button css={_saveButton} onClick={handleSubmit(onSubmit)}>
           저장
         </Button>
       </div>
