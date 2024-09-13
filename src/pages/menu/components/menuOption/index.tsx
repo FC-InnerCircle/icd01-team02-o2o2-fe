@@ -10,9 +10,12 @@ import type { MenuOptionProps } from "./index.types";
 const MenuOption = ({ option, onEdit, onDelete, ...rest }: MenuOptionProps) => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const { ref } = useClickOutside<HTMLDivElement>(() => setIsSelected(false));
+  const selectOptionStatus = `${option.isRequired ? "필수" : "선택"} - ${option.isMultiple ? "다중 선택" : "단일 선택"}`;
   return (
     <div css={_option} ref={ref} {...rest} onClick={() => setIsSelected(true)}>
-      <p css={_label}>{option.title}</p>
+      <p css={_label}>
+        {option.title} ( {selectOptionStatus} )
+      </p>
       <ul
         css={_optionItemWrap}
         style={{
