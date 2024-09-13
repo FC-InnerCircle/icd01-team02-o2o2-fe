@@ -1,4 +1,4 @@
-import type { OptionDetail, OptionGroup } from "../stores/types";
+import type { Image, OptionDetail, OptionGroup } from "../stores/types";
 
 export type CreateMenuOptionDetailReq = Pick<
   OptionDetail,
@@ -17,4 +17,25 @@ export type CreateMenuOptionGroupReq = Pick<
 
 export type EditMenuOptionGroupReq = CreateMenuOptionGroupReq & {
   optionGroupId: string;
+};
+
+export type CreateMenuRequest = {
+  status: string;
+  name: string;
+  desc: string;
+  price: number;
+  images: Image[];
+  options: CreateMenuOptionGroupReq[];
+};
+
+export type CreateMenuResponse = {
+  response: {
+    menuId: number;
+    status: string;
+    name: string;
+    desc: string;
+    price: number;
+    images: Image[];
+    options: OptionGroup[];
+  };
 };

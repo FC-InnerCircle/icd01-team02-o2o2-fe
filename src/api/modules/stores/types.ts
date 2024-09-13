@@ -95,27 +95,6 @@ export type GetMenuDetailResponse = {
   };
 };
 
-export type CreateMenuRequest = {
-  status: string;
-  name: string;
-  desc: string;
-  price: number;
-  images: Image[];
-  options: OptionGroup[];
-};
-
-export type CreateMenuResponse = {
-  response: {
-    menuId: number;
-    status: string;
-    name: string;
-    desc: string;
-    price: number;
-    images: Image[];
-    options: OptionGroup[];
-  };
-};
-
 export type GetOrderRequest = {
   startDate: string;
   endDate: string;
