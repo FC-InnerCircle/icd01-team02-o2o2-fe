@@ -1,5 +1,12 @@
 import { http, HttpResponse } from 'msw';
-import { accountsMockData, menuMockData, orderMockData, reviewsMockData, authMockData } from 'mocks/__fixtures__';
+import {
+  accountsMockData,
+  menuMockData,
+  orderMockData,
+  reviewsMockData,
+  authMockData,
+  storeMockData,
+} from 'mocks/__fixtures__';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -37,7 +44,7 @@ export const accountsHandlers = [
     }
 
     return HttpResponse.json(accountsMockData.updateProfile);
-  })
+  }),
 ];
 
 // 메뉴 관련 API 요청 핸들러 정의
@@ -50,16 +57,16 @@ const menuHandlers = [
 // Store 관련 API 요청 핸들러 정의
 export const storeHandlers = [
   http.post(`${BASE_URL}/stores`, async () => {
-    return HttpResponse.json(menuMockData.create);
+    return HttpResponse.json(storeMockData.store.create);
   }),
   http.get(`${BASE_URL}/stores/:storeId`, async () => {
-    return HttpResponse.json(menuMockData.list);
+    return HttpResponse.json(storeMockData.store.list);
   }),
   http.get(`${BASE_URL}/stores/:storeId`, async () => {
-    return HttpResponse.json(menuMockData.detail);
+    return HttpResponse.json(storeMockData.store.detail);
   }),
   http.patch(`${BASE_URL}/stores/:storeId`, async () => {
-    return HttpResponse.json(menuMockData.update);
+    return HttpResponse.json(storeMockData.store.update);
   }),
 ];
 
@@ -91,4 +98,4 @@ export const handlers = [
   ...storeHandlers,
   ...reviewHandlers,
   ...accountsHandlers,
-]
+];
