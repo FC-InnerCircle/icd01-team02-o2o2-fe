@@ -22,6 +22,11 @@ const MENUS = {
     link: ROUTES.MENU,
     icon: <Menu width={"100%"} height={"100%"} fill="currentColor" />,
   },
+  store: {
+    title: "Store",
+    link: ROUTES.STORE,
+    icon: <Review width={"100%"} height={"100%"} fill="currentColor" />,
+  },
   review: {
     title: "Reviews",
     link: ROUTES.REVIEW,

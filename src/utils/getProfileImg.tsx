@@ -1,4 +1,4 @@
-import { P1, P2, P3, P4 } from 'components/icons';
+import { P1, P2, P3, P4 } from 'common/components/icons';
 
 export const getProfileImg = (profileSrc: string): JSX.Element | null => {
   const profileImage: Record<string, JSX.Element> = {

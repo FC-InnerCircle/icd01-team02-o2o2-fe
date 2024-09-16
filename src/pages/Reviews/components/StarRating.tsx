@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Star, StarEmpty } from 'components/icons';
+import { Star, StarEmpty } from 'common/components/icons';
 
 import { StarRatingProps } from './types';
 
