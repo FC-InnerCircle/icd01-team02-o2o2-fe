@@ -14,6 +14,10 @@ export const queryClient = new QueryClient({
       retry: 1, // 실패 시 한 번만 재시도
       gcTime: 0, //
       refetchOnWindowFocus: false,
+      throwOnError: true, // ErrorBoundary 처리를 위해 에러를 throw
+    },
+    mutations: {
+      throwOnError: true, // ErrorBoundary 처리를 위해 에러를 throw
     },
   },
   queryCache: new QueryCache({
@@ -24,8 +28,6 @@ export const queryClient = new QueryClient({
        */
       console.error(error);
     },
-    onSuccess: (data) => {
-      console.log(data);
-    }
+    onSuccess: () => {},
   }),
 });

@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 import { Star, StarEmpty } from 'common/components/icons';
 
 import { StarRatingProps } from './types';
@@ -12,7 +12,11 @@ const StarRating = ({ rating, size = 12 }: StarRatingProps) => {
   return (
     <div css={starRatingStyle}>
       {[...Array(filledStars)].map((_, index) => (
-        <Star key={`filled-${index}`} css={starStyle(size)} aria-label="filled star"/>
+        <Star
+          key={`filled-${index}`}
+          css={starStyle(size)}
+          aria-label="filled star"
+        />
       ))}
       {hasHalfStar && (
         <div css={halfStarWrapper(size)} key="half" aria-label="half star">

@@ -1,36 +1,36 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { Dashboard, Menu, Order, Review } from "common/components/icons";
-import { ROUTES } from "common/constants/routes";
-import { Link, useLocation } from "react-router-dom";
-import colors from "styles/color";
-import fonts from "styles/font";
+import { css } from '@emotion/react';
+import { Dashboard, Menu, Order, Review, Store } from 'common/components/icons';
+import { ROUTES } from 'common/constants/routes';
+import { Link, useLocation } from 'react-router-dom';
+import colors from 'styles/color';
+import fonts from 'styles/font';
 
 const MENUS = {
   dashboard: {
-    title: "Dashboard",
+    title: 'Dashboard',
     link: ROUTES.HOME,
-    icon: <Dashboard width={"100%"} height={"100%"} fill="currentColor" />,
+    icon: <Dashboard width={'100%'} height={'100%'} fill="currentColor" />,
   },
   order: {
-    title: "Order",
+    title: 'Order',
     link: ROUTES.ORDER,
-    icon: <Order width={"100%"} height={"100%"} fill="currentColor" />,
+    icon: <Order width={'100%'} height={'100%'} fill="currentColor" />,
   },
   menu: {
-    title: "Menu",
+    title: 'Menu',
     link: ROUTES.MENU,
-    icon: <Menu width={"100%"} height={"100%"} fill="currentColor" />,
+    icon: <Menu width={'100%'} height={'100%'} fill="currentColor" />,
   },
   store: {
-    title: "Store",
+    title: 'Store',
     link: ROUTES.STORE,
-    icon: <Review width={"100%"} height={"100%"} fill="currentColor" />,
+    icon: <Store width={'100%'} height={'100%'} fill="currentColor" />,
   },
   review: {
-    title: "Reviews",
+    title: 'Reviews',
     link: ROUTES.REVIEW,
-    icon: <Review width={"100%"} height={"100%"} fill="currentColor" />,
+    icon: <Review width={'100%'} height={'100%'} fill="currentColor" />,
   },
   // analytics: { title: "Analytics", link: "/", icon: <Dashboard /> },
 } as const;
@@ -39,11 +39,11 @@ const Menus = () => {
   const location = useLocation();
 
   return (
-    <ul style={{ width: "100%" }}>
+    <ul style={{ width: '100%' }}>
       {Object.entries(MENUS).map(([key, obj]) => {
         const isSelected =
-          key === "dashboard"
-            ? location.pathname === "/"
+          key === 'dashboard'
+            ? location.pathname === '/'
             : location.pathname.match(obj.link);
         return (
           <li css={_menuContainer} key={`menu_${key}`}>
@@ -53,7 +53,7 @@ const Menus = () => {
               style={{
                 color: isSelected ? colors.primary : colors.gray,
                 backgroundColor: isSelected ? colors.icy : colors.white,
-                fontWeight: isSelected ? "600" : "500",
+                fontWeight: isSelected ? '600' : '500',
               }}
             >
               <span css={_bar} style={{ opacity: isSelected ? 1 : 0 }} />
@@ -91,7 +91,7 @@ const _menu = [
       text-decoration: none;
     }
   `,
-  fonts["18_500"],
+  fonts['18_500'],
 ];
 
 const _bar = css`
