@@ -148,6 +148,10 @@ const Order = ({ ...rest }) => {
     );
   };
 
+  const gotoOrderDetail = (id: number) => {
+    navigate(`${storeId}/order/${id}`);
+  };
+
   if (!orders) {
     return null;
   }
@@ -197,7 +201,16 @@ const Order = ({ ...rest }) => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
+              <tr
+                css={css`
+                  cursor: pointer;
+                  &:hover {
+                    background-color: ${colors.secondary};
+                  }
+                `}
+                key={row.id}
+                onClick={() => gotoOrderDetail(row.original.orderId)}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
