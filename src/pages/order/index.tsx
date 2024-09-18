@@ -25,6 +25,7 @@ import {
 } from 'react-router-dom';
 import queryString from 'query-string';
 import { commaize } from 'utils/commaize';
+import colors from 'styles/color';
 
 const STATUS_OPTIONS = [
   {
@@ -176,35 +177,42 @@ const Order = ({ ...rest }) => {
         </div>
       </div>
 
-      <table css={_tableContainer}>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id} colSpan={header.colSpan}>
-                  <div>
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div css={_tableContainer}>
+        <table>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id} colSpan={header.colSpan}>
+                    <div>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td
+                    key={cell.id}
+                    css={css`
+                      padding: 20px;
+                    `}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div css={_paginationContainer}>
         <div
           css={css`
@@ -245,7 +253,9 @@ const _filterWrapper = css`
 
 const _tableContainer = css`
   margin-top: 24px;
-  border-color: white;
+  padding: 16px;
+  background-color: ${colors.white};
+  border-radius: 20px;
 `;
 
 const _paginationContainer = css`
