@@ -187,7 +187,13 @@ const Order = ({ ...rest }) => {
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} colSpan={header.colSpan}>
+                  <th
+                    css={css`
+                      padding: 20px;
+                    `}
+                    key={header.id}
+                    colSpan={header.colSpan}
+                  >
                     <div>
                       {flexRender(
                         header.column.columnDef.header,
