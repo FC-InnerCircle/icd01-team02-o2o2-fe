@@ -5,7 +5,6 @@ import type { GetOrdersParams } from 'api/modules/order/types';
 
 import queryKeys from 'queries/keys';
 
-// 프로필 조회 쿼리 훅
 export const useGetOrdersQuery = (
   storeId: number,
   queryParams?: GetOrdersParams,

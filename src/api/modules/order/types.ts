@@ -13,6 +13,11 @@ export type GetOrdersResponse = {
   totalCount: number;
 };
 
+export type GetOrderParams = {
+  storeId: number;
+  orderId: number;
+};
+
 type Order = {
   orderId: number;
   status: string;
@@ -20,3 +25,41 @@ type Order = {
   ordererName: string;
   menuTotalPrice: number;
 };
+
+export type GetOrderResponse = {
+  orderId: number;
+  status: string;
+  price: number;
+  orderTime: string;
+  store: Store;
+  orderer: Orderer;
+  menus: Menu[];
+};
+
+interface Menu {
+  name: string;
+  price: number;
+  quantity: number;
+  options: Option[];
+}
+
+interface Option {
+  seq: number;
+  name: string;
+  value: string;
+  price: number;
+}
+
+interface Orderer {
+  userId: string;
+  name: string;
+  phone: string;
+  address: string;
+  addressDetail: string;
+  zipCode: string;
+}
+
+interface Store {
+  storeId: number;
+  name: string;
+}

@@ -15,7 +15,7 @@ import { Filter } from 'common/components';
 import { Lightning } from 'common/components/icons';
 import { Pagination } from 'common/components/pagination';
 import { format } from 'date-fns';
-import { useGetOrdersQuery } from 'queries/modules/order/useOrderQuery';
+import { useGetOrdersQuery } from 'queries/modules/order/useGetOrdersQuery';
 import { ChangeEvent, useMemo } from 'react';
 import {
   useLocation,
@@ -149,7 +149,7 @@ const Order = ({ ...rest }) => {
   };
 
   const gotoOrderDetail = (id: number) => {
-    navigate(`${storeId}/order/${id}`);
+    navigate(`/${storeId}/order/${id}`);
   };
 
   if (!orders) {
