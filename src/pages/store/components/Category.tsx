@@ -1,10 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 
-import { Textarea, Input } from 'common/components';
 import type { CategoryProps } from '../types';
 
 import colors from 'styles/color';
+
+import LabelInput from 'common/components/labelInput';
+import LabelTextarea from 'common/components/labelTextarea';
+
+import MultiSelect from './MultipleSelect';
+
+import { CATEGORY_OPTION } from '../constants';
 
 const Category = ({
   contactNumber,
@@ -16,50 +22,33 @@ const Category = ({
   const defaultAddress = `${zipCode} ${address} ${addressDetail}`;
 
   return (
-    <div css={_container}>
-      <div>
-        <span css={_labelText}>카테고리</span>
-        <select></select>
-      </div>
-
-      <div>
-        <span css={_labelText}>연락처</span>
-        <Input defaultValue={contactNumber} />
-      </div>
-
-      <div css={_addressContainer}>
-        <span css={_labelText}>주소</span>
-        <Textarea defaultValue={defaultAddress} />
-      </div>
-    </div>
+    <form css={_form}>
+      <MultiSelect options={CATEGORY_OPTION} />
+      <LabelInput defaultValue={contactNumber} title="연락처" css={_input} />
+      <LabelTextarea
+        defaultValue={defaultAddress}
+        title="주소"
+        css={_textarea}
+      />
+    </form>
   );
 };
 
 export default Category;
 
-/**
- * 주소
- * 우편번호
- * 주소
- * 상세주소
- */
-
-/**
- * 연락처
- * contactNumber
- */
-
-const _container = css`
+const _form = css`
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 `;
 
-const _addressContainer = css`
-  display: flex;
-  flex-direction: column;
+const _input = css`
+  width: 75%;
+  color: ${colors.textThird};
 `;
 
-const _labelText = css`
+const _textarea = css`
+  width: 75%;
   color: ${colors.textThird};
 `;

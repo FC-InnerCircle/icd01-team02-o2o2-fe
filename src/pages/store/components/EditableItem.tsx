@@ -6,6 +6,8 @@ import type { EditableItemProps, OpeningHoursAndFeesProps } from '../types';
 import colors from 'styles/color';
 import fonts from 'styles/font';
 
+import { formatToKoreanCurrency } from 'utils/formatTokoCurrency';
+
 const EditableItem = ({
   label,
   value,
@@ -66,14 +68,16 @@ const OpeningHoursAndFees = ({
         <div>
           <EditableItem
             label="최소 주문 금액"
-            value={minOrder}
-            type="number"
+            value={formatToKoreanCurrency(minOrder)}
+            type="text"
+            width="40%"
             onChange={(value) => setMinOrder(Number(value))}
           />
           <EditableItem
             label="배달료"
             value={deliveryFee}
             type="text"
+            width="40%"
             onChange={(value) => setDeliveryFee(value)}
           />
         </div>
@@ -91,7 +95,7 @@ const _itemContainerStyle = css`
   height: 70px;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
+  padding: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: ${colors.white};
