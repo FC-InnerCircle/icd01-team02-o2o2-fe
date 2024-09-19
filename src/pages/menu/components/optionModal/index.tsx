@@ -24,7 +24,7 @@ const OptionModal = ({
   onSave,
   ...rest
 }: OptionModalProps) => {
-  const { control, register, getValues, setValue, watch, handleSubmit } =
+  const { control, register, setValue, watch, handleSubmit } =
     useForm<CreateMenuOptionGroupReq>({
       defaultValues: initialFormValues ?? NEW_OPTION_GROUP_TEMPLATE,
     });
@@ -33,8 +33,8 @@ const OptionModal = ({
     name: "details",
   });
 
-  const isMultiple = getValues("isMultiple");
-  const isRequired = getValues("isRequired");
+  const isMultiple = watch("isMultiple");
+  const isRequired = watch("isRequired");
   const handleClickIsMultiple = () => {
     setValue("isMultiple", !isMultiple);
   };
@@ -51,10 +51,6 @@ const OptionModal = ({
   const handleAddNewOptionItem = () => {
     append({ ...NEW_OPTION_ITEM_TEMPLATE, ordering: fields.length });
   };
-
-  useEffect(() => {
-    watch(["isMultiple", "isRequired"]);
-  }, [watch]);
 
   useEffect(() => {
     //background scroll 방지하는 코드
