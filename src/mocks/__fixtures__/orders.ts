@@ -489,7 +489,7 @@ export const orderMockData = {
   detail: {
     response: {
       orderId: 1,
-      status: '주문 상태',
+      status: 'CANCEL',
       price: 11000,
       orderTime: '2024-08-20 10:00:00',
       store: {
@@ -497,16 +497,16 @@ export const orderMockData = {
         name: '가게 상호명',
       },
       orderer: {
-        userId: '사용자 id',
-        name: '주문자 이름',
-        phone: '주문자 휴대폰 번호',
-        address: '배달 주소',
-        addressDetail: '상세 주소',
-        zipCode: '355-14',
+        userId: '1',
+        name: '유승완',
+        phone: '01012341234',
+        address: '서울특별시 중랑구 신내역로 1길 85',
+        addressDetail: '101동 1002호',
+        zipCode: '02055',
       },
       menus: [
         {
-          name: '메뉴명',
+          name: '삼성짜장',
           price: 10000,
           quantity: 1,
           options: [

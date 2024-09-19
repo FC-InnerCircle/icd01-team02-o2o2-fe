@@ -54,6 +54,7 @@ const queryKeys = {
       'list',
       params,
     ],
+    detail: ['order', 'detail'],
   },
 };
 

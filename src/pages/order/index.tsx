@@ -15,7 +15,7 @@ import { Filter } from 'common/components';
 import { Lightning } from 'common/components/icons';
 import { Pagination } from 'common/components/pagination';
 import { format } from 'date-fns';
-import { useGetOrdersQuery } from 'queries/modules/order/useOrderQuery';
+import { useGetOrdersQuery } from 'queries/modules/order/useGetOrdersQuery';
 import { ChangeEvent, useMemo } from 'react';
 import {
   useLocation,
@@ -148,6 +148,10 @@ const Order = ({ ...rest }) => {
     );
   };
 
+  const gotoOrderDetail = (id: number) => {
+    navigate(`/${storeId}/order/${id}`);
+  };
+
   if (!orders) {
     return null;
   }
@@ -183,7 +187,13 @@ const Order = ({ ...rest }) => {
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} colSpan={header.colSpan}>
+                  <th
+                    css={css`
+                      padding: 20px;
+                    `}
+                    key={header.id}
+                    colSpan={header.colSpan}
+                  >
                     <div>
                       {flexRender(
                         header.column.columnDef.header,
@@ -197,7 +207,16 @@ const Order = ({ ...rest }) => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id}>
+              <tr
+                css={css`
+                  cursor: pointer;
+                  &:hover {
+                    background-color: ${colors.secondary};
+                  }
+                `}
+                key={row.id}
+                onClick={() => gotoOrderDetail(row.original.orderId)}
+              >
                 {row.getVisibleCells().map((cell) => (
                   <td
                     key={cell.id}
