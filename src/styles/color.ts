@@ -12,6 +12,7 @@ const colors = {
   warning: "#FF9F43", // Warning
   darkBackground: "#2C2E33", // Dark Background
   brightOrange: "#FF6F61", // Bright Orange
+  brightRed: "#FF6D4D",
   white: "#fff", // White
   lightWhite: "#fdfdfd",
   mildWhite: "#f9f9f9",

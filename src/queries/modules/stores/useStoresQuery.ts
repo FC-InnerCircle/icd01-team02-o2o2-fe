@@ -56,7 +56,7 @@ export const useGetStoresQuery = (
     UseQueryOptions<
       GetStoreResponse, // queryFn이 반환하는 데이터 타입
       Error, // 에러 타입
-      unknown, // 데이터 타입
+      GetStoresMenuResponse, // 데이터 타입
       QueryKey // queryKey 타입
     >,
     "queryKey" | "queryFn" // 제거할 프로퍼티
@@ -102,7 +102,7 @@ export const useGetStoresMenuQuery = (
     UseQueryOptions<
       GetStoresMenuResponse, // queryFn이 반환하는 데이터 타입
       Error, // 에러 타입
-      unknown, // 데이터 타입
+      GetStoresMenuResponse, // 데이터 타입
       QueryKey // queryKey 타입
     >,
     "queryKey" | "queryFn" // 제거할 프로퍼티
@@ -124,7 +124,7 @@ export const useGetStoresMenuDetailQuery = (
     UseQueryOptions<
       GetMenuDetailResponse, // queryFn이 반환하는 데이터 타입
       Error, // 에러 타입
-      unknown, // 데이터 타입
+      GetMenuDetailResponse, // 데이터 타입
       QueryKey // queryKey 타입
     >,
     "queryKey" | "queryFn" // 제거할 프로퍼티
@@ -213,7 +213,7 @@ export const useDeleteStoresMenuQuery = (
 export const useGetStoresOrders = (
   storeId: number,
   options?: Omit<
-    UseQueryOptions<GetOrderResponse, Error, unknown, QueryKey>,
+    UseQueryOptions<GetOrderResponse, Error, GetOrderResponse, QueryKey>,
     "queryKey" | "queryFn"
   >
 ) => {
@@ -230,7 +230,12 @@ export const useGetStoresOrderDetail = (
   storeId: number,
   orderId: number,
   options?: Omit<
-    UseQueryOptions<GetOrderDetailResponse, Error, unknown, QueryKey>,
+    UseQueryOptions<
+      GetOrderDetailResponse,
+      Error,
+      GetOrderDetailResponse,
+      QueryKey
+    >,
     "queryKey" | "queryFn"
   >
 ) => {
@@ -284,9 +289,9 @@ export const useUpdateStoresOrder = (
 // 리뷰 정보 조회 hooks
 export const useGetStoresReview = (
   storeId: number,
-  queryParams: GetReviewsParams,
+  queryParams?: GetReviewsParams,
   options?: Omit<
-    UseQueryOptions<GetReviewsResponse, Error, unknown, QueryKey>,
+    UseQueryOptions<GetReviewsResponse, Error, GetReviewsResponse, QueryKey>,
     "queryKey" | "queryFn"
   >
 ) => {

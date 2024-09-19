@@ -173,15 +173,23 @@ export type UpdateOrderRequest = {
 };
 
 export type Review = {
-  reviewId: number;
+  id: number;
   content: string;
   grade: number;
-  images: Image[];
+  images: ReviewImage[];
   reviewDate: string;
+  member: {
+    profileImage: string;
+    nickname: string;
+    id: string;
+  };
+  menus: {
+    name: string;
+  }
 };
 
 export type ReviewImage = {
-  seq: number;
+  ordering: number;
   imageUrl: string;
 };
 
@@ -194,4 +202,8 @@ export type GetReviewsResponse = {
     grade: number; // 평균 평점
     reviews: Review[];
   };
+  code: string;
+  message: string;
+  page: number;
+  size: number;
 };
