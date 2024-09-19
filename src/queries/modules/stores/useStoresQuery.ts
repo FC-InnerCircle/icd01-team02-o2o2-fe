@@ -214,14 +214,18 @@ export const useDeleteStoresMenuQuery = (
 export const useGetStoresOrders = (
   storeId: number,
   options?: Omit<
-    UseQueryOptions<GetOrderResponse, Error, GetOrderResponse, QueryKey>,
+    UseQueryOptions<
+      GetOrderResponse,
+      Error,
+      CommonResponseReturnType<GetOrderResponse>,
+      QueryKey
+    >,
     'queryKey' | 'queryFn'
   >,
 ) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: queryKeys.stores.orders.list(storeId),
     queryFn: () => storeAPI.order.getStoresOrders(storeId),
-    enabled: !!storeId,
     ...options,
   });
 };
