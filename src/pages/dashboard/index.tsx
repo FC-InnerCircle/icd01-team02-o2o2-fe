@@ -20,7 +20,6 @@ export default Home;
 const _container = css`
   display: flex;
   flex-direction: column;
-  padding: 32px;
   gap: 16px;
 `;
 

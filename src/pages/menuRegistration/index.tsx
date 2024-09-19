@@ -1,34 +1,34 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { ImageLoader, useResizeImage } from "@pic-pik/react";
-import { useState } from "react";
-import colors from "styles/color";
-import { type ImageMetadata } from "@pic-pik/core";
-import LabelInput from "common/components/labelInput";
-import LabelTextarea from "common/components/labelTextarea";
-import fonts from "styles/font";
-import { MenuOption } from "pages/menuDetail/components";
+import { css } from '@emotion/react';
+import { ImageLoader, useResizeImage } from '@pic-pik/react';
+import { useState } from 'react';
+import colors from 'styles/color';
+import { type ImageMetadata } from '@pic-pik/core';
+import LabelInput from 'common/components/labelInput';
+import LabelTextarea from 'common/components/labelTextarea';
+import fonts from 'styles/font';
+import { MenuOption } from 'pages/menuDetail/components';
 
 const dummyOption = [
   {
-    title: "Pasta (Required - Single)",
+    title: 'Pasta (Required - Single)',
     options: [
-      { name: "Spaghetti", price: 0 },
-      { name: "Linguine", price: 0 },
+      { name: 'Spaghetti', price: 0 },
+      { name: 'Linguine', price: 0 },
     ],
   },
   {
-    title: "Noodle doneness (Required - Single)",
+    title: 'Noodle doneness (Required - Single)',
     options: [
-      { name: "Well-cooked", price: 0 },
-      { name: "Al dente (Firm)", price: 0 },
+      { name: 'Well-cooked', price: 0 },
+      { name: 'Al dente (Firm)', price: 0 },
     ],
   },
   {
-    title: "Extras (Optional - Multiple)",
+    title: 'Extras (Optional - Multiple)',
     options: [
-      { name: "Olives", price: 1000 },
-      { name: "Extra noodle", price: 1000 },
+      { name: 'Olives', price: 1000 },
+      { name: 'Extra noodle', price: 1000 },
     ],
   },
 ];
@@ -38,7 +38,7 @@ const MenuRegistration = ({ ...rest }) => {
   const { metadata } = useResizeImage({
     metadata: originalImageMetadata,
     option: {
-      mode: "aspectRatio",
+      mode: 'aspectRatio',
       ...(originalImageMetadata &&
       originalImageMetadata.width > originalImageMetadata.height
         ? { height: 350 }
@@ -60,7 +60,7 @@ const MenuRegistration = ({ ...rest }) => {
               <ImageLoader onMetadataLoaded={setOriginalImageMetadata}>
                 {originalImageMetadata && metadata ? (
                   <div css={_imageLoader}>
-                    <img src={metadata.src} width={"100%"} />
+                    <img src={metadata.src} width={'100%'} />
                   </div>
                 ) : (
                   <div css={_imageLoader}>Please upload a picture</div>
@@ -162,7 +162,7 @@ const _subtitle = [
     color: ${colors.primary};
     margin-bottom: 8px;
   `,
-  fonts["24_600"],
+  fonts['24_600'],
 ];
 
 const _subButton = [
@@ -180,7 +180,7 @@ const _subButton = [
       opacity: 0.7;
     }
   `,
-  fonts["16_800"],
+  fonts['16_800'],
 ];
 
 const _addButton = [
@@ -203,7 +203,7 @@ const _submit = [
       opacity: 0.7;
     }
   `,
-  fonts["28_600"],
+  fonts['28_600'],
 ];
 
 const _optionContainer = css`
