@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, useRef } from 'react';
+import { useState } from 'react';
 import { css } from '@emotion/react';
 
 import fonts from 'styles/font';
@@ -8,12 +8,16 @@ import colors from 'styles/color';
 import { TAG_COLORS } from '../constants';
 
 import type { MultiSelectProps } from '../types';
+import useClickOutside from 'common/hooks/useClickOutside';
 
 const MultiSelect = ({ options }: MultiSelectProps) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]); // 선택된 옵션 상태
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // 선택된 카테고리 (단일 선택)
   const [isOpen, setIsOpen] = useState(false); // 드롭다운 열림 상태
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const { ref: dropdownRef } = useClickOutside<HTMLDivElement>(() =>
+    setIsOpen(false),
+  );
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
@@ -50,29 +54,13 @@ const MultiSelect = ({ options }: MultiSelectProps) => {
     );
   };
 
-  // 외부 클릭 감지하여 드롭다운 닫기
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
   const handleRemoveAll = () => {
     setSelectedCategory(null);
     setSelectedOptions([]);
   };
 
   return (
-    <div css={_selectBoxContainer}>
+    <div css={_selectBoxContainer} ref={dropdownRef}>
       <label css={_label}>음식점 카테고리</label>
       <div css={_selectBox} onClick={toggleDropdown}>
         {selectedOptions.length > 0 ? (
@@ -91,7 +79,7 @@ const MultiSelect = ({ options }: MultiSelectProps) => {
         )}
       </div>
       {isOpen && (
-        <div css={_dropdownMenu} ref={dropdownRef}>
+        <div css={_dropdownMenu}>
           {Object.entries(options).map(([category, items]) => (
             <div key={category}>
               <label css={_categoryStyle}>
