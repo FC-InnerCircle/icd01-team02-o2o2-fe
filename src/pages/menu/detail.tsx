@@ -82,28 +82,34 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
           </div>
           <button css={_submit}>저장</button>
         </section>
-        <section css={_optionContainer}>
-          <div css={_titleWrap}>
-            <h3 css={_subtitle}>메뉴 옵션</h3>
-            <button css={_addButton} onClick={handleOptionModalOpen}>
-              추가
-            </button>
-          </div>
-          {options.map((field, index) => (
-            <MenuOption
-              key={`menu_option_${field.title}_${index}`}
-              option={field}
-              onEdit={() => handleEditOption(field, index)}
-              onDelete={() => deleteOption(field.optionGroupId)}
-            />
-          ))}
-          {options.length === 0 && (
-            <div css={_empty}>
-              메뉴의 옵션이 필요할 경우,
-              <br />
-              추가 버튼을 눌러 옵션을 등록하세요
+        <section>
+          <p css={_optionNotice}>
+            Notice : Option의 추가, 수정, 삭제시 Menu의 다른 정보와 별개로 바로
+            반영됩니다
+          </p>
+          <div css={_optionContainer}>
+            <div css={_titleWrap}>
+              <h3 css={_subtitle}>메뉴 옵션</h3>
+              <button css={_addButton} onClick={handleOptionModalOpen}>
+                추가
+              </button>
             </div>
-          )}
+            {options.map((field, index) => (
+              <MenuOption
+                key={`menu_option_${field.title}_${index}`}
+                option={field}
+                onEdit={() => handleEditOption(field, index)}
+                onDelete={() => deleteOption(field.optionGroupId)}
+              />
+            ))}
+            {options.length === 0 && (
+              <div css={_empty}>
+                메뉴의 옵션이 필요할 경우,
+                <br />
+                추가 버튼을 눌러 옵션을 등록하세요
+              </div>
+            )}
+          </div>
         </section>
       </div>
       {isOptionModalOpen && (
@@ -293,7 +299,7 @@ const _submit = [
 
 const _optionContainer = css`
   width: 350px;
-  margin-top: 50px;
+  margin-top: 24px;
 `;
 
 const _empty = css`
@@ -304,4 +310,12 @@ const _empty = css`
   margin: 24px 0;
   color: ${colors.textThird};
   text-align: center;
+`;
+
+const _optionNotice = css`
+  width: 100%;
+  background-color: ${colors.white};
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: ${colors.primary};
 `;
