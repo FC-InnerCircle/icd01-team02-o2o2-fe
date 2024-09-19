@@ -83,16 +83,18 @@ export type OptionDetail = {
   price: number;
 };
 
+export type MenuDetailInfo = {
+  menuId: number;
+  status: string;
+  name: string;
+  desc: string;
+  price: number;
+  images: Image[];
+  options: OptionGroup[];
+};
+
 export type GetMenuDetailResponse = {
-  response: {
-    menuId: number;
-    status: string;
-    name: string;
-    desc: string;
-    price: number;
-    images: Image[];
-    options: OptionGroup[];
-  };
+  response: MenuDetailInfo;
 };
 
 export type GetOrderRequest = {
