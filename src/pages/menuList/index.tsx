@@ -10,10 +10,12 @@ const MenuList = ({ data }: MenuListProps) => {
   const { storeId } = useParams<{ storeId: string }>();
   const navigate = useNavigate();
 
-  const { menus } = data;
+  const { menus, page, totalLength, size } = data;
   const handleClickAddMenu = () => {
     navigate(`/${storeId}/menu/registration`);
   };
+  const wholePage = Math.ceil(totalLength / size);
+  const hasNextPage = wholePage > page;
   return (
     <div css={[_container]}>
       <div css={_titleWrap}>
@@ -30,6 +32,7 @@ const MenuList = ({ data }: MenuListProps) => {
         {menus.map((menu, idx) => (
           <MenuCard menu={menu} key={`menu_card_${idx}_${menu.name}`} />
         ))}
+        {hasNextPage ? <button css={_viewMoreButton}>View more</button> : <></>}
       </section>
     </div>
   );
@@ -130,7 +133,7 @@ const MenuListWrapper = () => {
       ],
       totalLength: 11,
       page: 1,
-      size: 8,
+      size: 11,
     },
     statusCode: 200,
     msg: "",
@@ -144,6 +147,7 @@ const _container = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 
 const _titleWrap = css`
@@ -162,4 +166,15 @@ const _menuList = css`
   gap: 40px;
   flex-wrap: wrap;
   margin-top: 24px;
+  position: relative;
+  padding-bottom: 100px;
+`;
+
+const _viewMoreButton = css`
+  margin-top: 24px;
+  padding: 24px;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
 `;
