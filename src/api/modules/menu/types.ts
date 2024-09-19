@@ -1,4 +1,5 @@
-import type { Image, OptionDetail, OptionGroup } from "../stores/types";
+import { CommonResponseReturnType } from "../commonType";
+import type { Image, Menu, OptionDetail, OptionGroup } from "../stores/types";
 
 export type CreateMenuOptionDetailReq = Pick<
   OptionDetail,
@@ -28,14 +29,4 @@ export type CreateMenuRequest = {
   options: CreateMenuOptionGroupReq[];
 };
 
-export type CreateMenuResponse = {
-  response: {
-    menuId: number;
-    status: string;
-    name: string;
-    desc: string;
-    price: number;
-    images: Image[];
-    options: OptionGroup[];
-  };
-};
+export type CreateMenuResponse = CommonResponseReturnType<Menu>;
