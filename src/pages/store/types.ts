@@ -21,3 +21,7 @@ export type EditableItemProps = {
   type: 'text' | 'number' | 'time';
   onChange: (value: string) => void;
 };
+
+export type MultiSelectProps = {
+  options: { [key: string]: string[] }; // 카테고리별 옵션
+};

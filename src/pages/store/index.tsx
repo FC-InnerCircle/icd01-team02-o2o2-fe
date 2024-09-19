@@ -34,7 +34,7 @@ const Store = ({ ...rest }) => {
       <h3>{name}</h3>
 
       <div css={_contentsContainer}>
-        <div>
+        <section>
           <span css={[_titleText]}>기본 정보</span>
           <div css={_bcontainer}>
             <ImageUpload />
@@ -46,9 +46,9 @@ const Store = ({ ...rest }) => {
               categories={categories}
             />
           </div>
-        </div>
+        </section>
 
-        <div>
+        <section>
           <span css={[_titleText]}>영업 및 금액 정보</span>
           <OpeningHoursAndFees
             open={openTime}
@@ -56,7 +56,7 @@ const Store = ({ ...rest }) => {
             minCost={minimumOrderAmount}
             delivery={'배달료 백엔드 데이터 존재하지 않음'}
           />
-        </div>
+        </section>
       </div>
 
       <div css={_btnStyleContainer}>
@@ -71,7 +71,6 @@ export default Store;
 const _container = css`
   display: flex;
   flex-direction: column;
-  margin: 20px;
 `;
 
 const _titleText = [
