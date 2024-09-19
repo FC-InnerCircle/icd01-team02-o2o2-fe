@@ -142,4 +142,6 @@ const _main = css`
   flex: 1;
   background-color: #f9f9f9;
   overflow-y: scroll;
+
+  padding: 32px; // 메인 컴포넌트 기본 패딩
 `;
