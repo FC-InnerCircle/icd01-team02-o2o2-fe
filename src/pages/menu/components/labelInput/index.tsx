@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { Input } from "../input";
+
 import type { LabelInputProps } from "./LabelInput.types";
 import { forwardRef } from "react";
 import fonts from "styles/font";
 import colors from "styles/color";
+import { Input } from "common/components";
 
 const LabelInput = forwardRef<HTMLInputElement, LabelInputProps>(
   ({ title, ...restProps }, ref) => {
