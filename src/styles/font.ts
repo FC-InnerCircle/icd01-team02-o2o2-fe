@@ -55,7 +55,15 @@ const fonts = {
     fontSize: '16px',
     fontWeight: 400,
   },
+  '16_300': {
+    fontSize: '16px',
+    fontWeight: 300,
+  },
   '14_500': {
+    fontSize: '14px',
+    fontWeight: 500,
+  },
+  '14_600': {
     fontSize: '14px',
     fontWeight: 500,
   },
