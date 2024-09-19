@@ -5,5 +5,5 @@ export interface OptionModalProps extends HTMLAttributes<HTMLDivElement> {
   isOpen: boolean;
   onClose: () => void;
   onSave: (optionGroup: CreateMenuOptionGroupReq) => void;
-  initial?: CreateMenuOptionGroupReq;
+  initialFormValues?: CreateMenuOptionGroupReq;
 }

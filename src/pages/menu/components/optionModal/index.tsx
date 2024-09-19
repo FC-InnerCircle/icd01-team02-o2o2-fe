@@ -18,7 +18,7 @@ import {
 } from "pages/menu/components";
 
 const OptionModal = ({
-  initial,
+  initialFormValues,
   isOpen,
   onClose,
   onSave,
@@ -26,7 +26,7 @@ const OptionModal = ({
 }: OptionModalProps) => {
   const { control, register, getValues, setValue, watch, handleSubmit } =
     useForm<CreateMenuOptionGroupReq>({
-      defaultValues: initial ?? NEW_OPTION_GROUP_TEMPLATE,
+      defaultValues: initialFormValues ?? NEW_OPTION_GROUP_TEMPLATE,
     });
   const { fields, append } = useFieldArray({
     control,

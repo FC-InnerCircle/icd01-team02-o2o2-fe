@@ -118,7 +118,7 @@ const MenuRegistration = () => {
         <OptionModal
           isOpen={isSelectedOptionModalOpen}
           onClose={handleCloseEditModal}
-          initial={selectedOptionToEdit.data}
+          initialFormValues={selectedOptionToEdit.data}
           onSave={(optionGroup) => {
             editOption(selectedOptionToEdit.index, optionGroup);
           }}
