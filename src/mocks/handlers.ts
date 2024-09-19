@@ -98,4 +98,5 @@ export const handlers = [
   ...storeHandlers,
   ...reviewHandlers,
   ...accountsHandlers,
+  ...orderHandlers,
 ];
