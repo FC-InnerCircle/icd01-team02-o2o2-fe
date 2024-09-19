@@ -4,7 +4,7 @@ import { HTMLAttributes, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import colors from 'styles/color';
 import Menus from 'common/components/menus';
-import { Search } from 'common/components/icons';
+import { Logo, Search } from 'common/components/icons';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -16,7 +16,7 @@ const Layout = ({ children }: Props) => {
       <aside css={_sideMenu}>
         <h1 css={_logoContainer}>
           <Link to="/" aria-label="Home">
-            LOGO
+            <Logo />
           </Link>
         </h1>
         <nav aria-label="Sidebar navigation" css={_menuContainer}>
