@@ -33,6 +33,8 @@ export type GetStoreResponse = CreateStoreResponse & {
   updatedAt: string;
 };
 
+export type UpdateStorePayload = GetStoreResponse;
+
 export type StoresParams = {
   page?: number;
   size?: number;
@@ -53,7 +55,7 @@ export type Image = {
 };
 
 export type GetStoresMenuParams = StoresParams & {
-  status?: "SOLDOUT" | "DISABLED" | "ENABLED";
+  status?: 'SOLDOUT' | 'DISABLED' | 'ENABLED';
 };
 
 export type GetStoresMenuResponse = {
@@ -100,7 +102,7 @@ export type GetMenuDetailResponse = {
 export type GetOrderRequest = {
   startDate: string;
   endDate: string;
-  status: "ORDER" | "CANCEL";
+  status: 'ORDER' | 'CANCEL';
   page: number;
   size: number;
 };
@@ -124,17 +126,15 @@ export type OrderMenu = {
 };
 
 export type Order = {
+  orderId: number;
   status: string;
-  store: Store;
-  orderer: Orderer;
-  menu: OrderMenu;
+  storeName: string;
+  ordererName: string;
+  menutotalPrice: number;
 };
 
 export type GetOrderResponse = {
-  response: {
-    status: string;
-    orders: Order[];
-  };
+  orders: Order[];
 };
 
 export type GetOrderDetailResponse = {
@@ -187,7 +187,7 @@ export type Review = {
   };
   menus: {
     name: string;
-  }
+  };
 };
 
 export type ReviewImage = {
@@ -196,7 +196,7 @@ export type ReviewImage = {
 };
 
 export type GetReviewsParams = StoresParams & {
-  sort?: "GRADE" | "ID";
+  sort?: 'GRADE' | 'ID';
 };
 
 export type GetReviewsResponse = {

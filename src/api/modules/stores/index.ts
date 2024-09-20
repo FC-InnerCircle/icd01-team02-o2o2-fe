@@ -1,4 +1,4 @@
-import axiosInstance from "api/core";
+import axiosInstance from 'api/core';
 
 import type {
   CreateStoreRequest,
@@ -7,23 +7,24 @@ import type {
   StoresParams,
   GetStoresMenuResponse,
   GetStoresMenuParams,
-  GetMenuDetailResponse,
   GetOrderResponse,
   GetOrderDetailResponse,
   UpdateOrderRequest,
   GetReviewsResponse,
   GetReviewsParams,
-} from "api/modules/stores/types";
-import type { CommonResponseReturnType } from "api/modules/commonType";
-import type { CreateMenuRequest, CreateMenuResponse } from "../menu/types";
+  UpdateStorePayload,
+  GetMenuDetailResponse,
+} from 'api/modules/stores/types';
+import type { CommonResponseReturnType } from 'api/modules/commonType';
+import type { CreateMenuRequest, CreateMenuResponse } from '../menu/types';
 
-const URL_ROOT = "stores";
+const URL_ROOT = 'stores';
 
 export const storeAPI = {
   store: {
     // 음식점 정보 등록 API
     createStore: async (
-      payload: CreateStoreRequest
+      payload: CreateStoreRequest,
     ): Promise<CommonResponseReturnType<CreateStoreResponse>> => {
       const res = await axiosInstance.post(`${URL_ROOT}`, payload);
       return res.data;
@@ -32,7 +33,7 @@ export const storeAPI = {
     // 음식점 정보 조회 API
     getStore: async (
       storeId: number,
-      queryParams?: GetStoresMenuParams
+      queryParams?: GetStoresMenuParams,
     ): Promise<GetStoreResponse> => {
       const res = await axiosInstance.get(`${URL_ROOT}/${storeId}`, {
         params: queryParams,
@@ -45,13 +46,22 @@ export const storeAPI = {
       const res = await axiosInstance.delete(`${URL_ROOT}/${storeId}`);
       return res.data;
     },
+
+    // 음식점 정보 수정
+    updateStore: async (
+      storeId: number,
+      payload: UpdateStorePayload,
+    ): Promise<CommonResponseReturnType<GetStoreResponse>> => {
+      const res = await axiosInstance.patch(`${URL_ROOT}/${storeId}`, payload);
+      return res.data;
+    },
   },
 
   menu: {
     // 메뉴 정보 조회 API
     getStoresMenu: async (
       storeId: number,
-      queryParams?: StoresParams
+      queryParams?: StoresParams,
     ): Promise<GetStoresMenuResponse> => {
       const res = await axiosInstance.get(`${URL_ROOT}/${storeId}/menus`, {
         params: queryParams,
@@ -62,10 +72,10 @@ export const storeAPI = {
     // 메뉴 정보 상세 조회 API
     getStoresMenuDetail: async (
       storeId: number,
-      menuId: number
+      menuId: number,
     ): Promise<GetMenuDetailResponse> => {
       const res = await axiosInstance.get(
-        `${URL_ROOT}/${storeId}/menus/${menuId}`
+        `${URL_ROOT}/${storeId}/menus/${menuId}`,
       );
       return res.data;
     },
@@ -73,11 +83,11 @@ export const storeAPI = {
     // 메뉴 정보 추가
     createStoresMenu: async (
       storeId: number,
-      payload: CreateMenuRequest
+      payload: CreateMenuRequest,
     ): Promise<CreateMenuResponse> => {
       const res = await axiosInstance.post(
         `${URL_ROOT}/${storeId}/menus`,
-        payload
+        payload,
       );
       return res.data;
     },
@@ -85,10 +95,10 @@ export const storeAPI = {
     // 메뉴 정보 삭제
     deleteStoresMenu: async (
       storeId: number,
-      menuId: number
+      menuId: number,
     ): Promise<void> => {
       const res = await axiosInstance.delete(
-        `${URL_ROOT}/${storeId}/menus/${menuId}`
+        `${URL_ROOT}/${storeId}/menus/${menuId}`,
       );
       return res.data;
     },
@@ -104,10 +114,10 @@ export const storeAPI = {
     // 주문 정보 상세 조회
     getStoresOrderDetail: async (
       storeId: number,
-      orderId: number
+      orderId: number,
     ): Promise<GetOrderDetailResponse> => {
       const res = await axiosInstance.get(
-        `${URL_ROOT}/${storeId}/orders/${orderId}`
+        `${URL_ROOT}/${storeId}/orders/${orderId}`,
       );
       return res.data;
     },
@@ -116,11 +126,11 @@ export const storeAPI = {
     updateStoresOrder: async (
       storeId: number,
       orderId: number,
-      payload: UpdateOrderRequest
+      payload: UpdateOrderRequest,
     ): Promise<void> => {
       const res = await axiosInstance.patch(
         `${URL_ROOT}/${storeId}/orders/${orderId}`,
-        payload
+        payload,
       );
       return res.data;
     },
@@ -130,7 +140,7 @@ export const storeAPI = {
     // 리뷰 정보 조회
     getStoresReviews: async (
       storeId: number,
-      queryParams?: GetReviewsParams
+      queryParams?: GetReviewsParams,
     ): Promise<GetReviewsResponse> => {
       const res = await axiosInstance.get(`${URL_ROOT}/${storeId}/reviews`, {
         params: queryParams,
@@ -141,7 +151,7 @@ export const storeAPI = {
     // 리뷰 정보 삭제 - 관리자만 가능
     deleteStoresReview: async (
       storeId: number,
-      reviewId: number
+      reviewId: number,
     ): Promise<void> => {
       await axiosInstance.delete(`${URL_ROOT}/${storeId}/reviews/${reviewId}`);
     },

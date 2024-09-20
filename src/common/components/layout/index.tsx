@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { HTMLAttributes, ReactNode } from "react";
-import { Link } from "react-router-dom";
-import colors from "styles/color";
-import Menus from "common/components/layout/menus";
-import { Search } from "common/components/icons";
+import { css } from '@emotion/react';
+import { HTMLAttributes, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import colors from 'styles/color';
+import Menus from 'common/components/layout/menus';
+import { Search, Logo } from 'common/components/icons';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
@@ -16,7 +16,7 @@ const Layout = ({ children }: Props) => {
       <aside css={_sideMenu}>
         <h1 css={_logoContainer}>
           <Link to="/" aria-label="Home">
-            LOGO
+            <Logo />
           </Link>
         </h1>
         <nav aria-label="Sidebar navigation" css={_menuContainer}>
@@ -142,4 +142,6 @@ const _main = css`
   flex: 1;
   background-color: #f9f9f9;
   overflow-y: scroll;
+
+  padding: 32px; // 메인 컴포넌트 기본 패딩
 `;

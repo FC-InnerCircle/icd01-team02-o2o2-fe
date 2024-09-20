@@ -3,17 +3,18 @@ import {
   useMutation,
   useQuery,
   useQueryClient,
-} from "@tanstack/react-query";
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 
-import queryKeys from "queries/keys";
+import queryKeys from 'queries/keys';
 
-import { storeAPI } from "api/modules/stores/index";
+import { storeAPI } from 'api/modules/stores/index';
 
-import type {
-  UseMutationOptions,
+import {
+  type UseMutationOptions,
   UseQueryOptions,
-} from "@tanstack/react-query";
-import type {
+} from '@tanstack/react-query';
+import {
   CreateStoreRequest,
   CreateStoreResponse,
   GetMenuDetailResponse,
@@ -26,12 +27,13 @@ import type {
   GetStoresMenuResponse,
   StoresParams,
   UpdateOrderRequest,
-} from "api/modules/stores/types";
-import type { CommonResponseReturnType } from "api/modules/commonType";
+  UpdateStorePayload,
+} from 'api/modules/stores/types';
+import type { CommonResponseReturnType } from 'api/modules/commonType';
 import type {
   CreateMenuRequest,
   CreateMenuResponse,
-} from "api/modules/menu/types";
+} from 'api/modules/menu/types';
 
 // 음식점 정보 등록 hooks
 export const useCreateStoresQuery = (
@@ -39,11 +41,64 @@ export const useCreateStoresQuery = (
     CommonResponseReturnType<CreateStoreResponse>,
     Error,
     CreateStoreRequest
-  >
+  >,
 ) => {
   return useMutation({
     mutationFn: (payload: CreateStoreRequest) =>
       storeAPI.store.createStore(payload),
+    ...options,
+  });
+};
+
+// 음식점 정보 조회 hooks
+export const useGetStoresQueryTest = (
+  storeId: number,
+  queryParams?: StoresParams,
+  options?: Omit<
+    UseQueryOptions<
+      GetStoreResponse, // queryFn이 반환하는 데이터 타입
+      Error, // 에러 타입
+      CommonResponseReturnType<GetStoreResponse>, // 데이터 타입
+      QueryKey // queryKey 타입
+    >,
+    'queryKey' | 'queryFn' // 제거할 프로퍼티
+  >,
+) => {
+  return useSuspenseQuery({
+    queryKey: queryKeys.stores.store.list(storeId, queryParams),
+    queryFn: () => storeAPI.store.getStore(storeId, queryParams),
+    ...options,
+  });
+};
+
+// 음식점 정보 수정
+export const useUpdateStoresQuery = (
+  options?: UseMutationOptions<
+    CommonResponseReturnType<GetStoreResponse>,
+    Error,
+    { storeId: number; payload: UpdateStorePayload }
+  >,
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ storeId, payload }) =>
+      storeAPI.store.updateStore(storeId, payload),
+
+    onSuccess: (_, variables, context) => {
+      if (options?.onSuccess) {
+        options.onSuccess(_, variables, context);
+      }
+
+      console.log('testetes');
+      // 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.stores.store.list(variables.storeId),
+      });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
     ...options,
   });
 };
@@ -59,8 +114,8 @@ export const useGetStoresQuery = (
       GetStoresMenuResponse, // 데이터 타입
       QueryKey // queryKey 타입
     >,
-    "queryKey" | "queryFn" // 제거할 프로퍼티
-  >
+    'queryKey' | 'queryFn' // 제거할 프로퍼티
+  >,
 ) => {
   return useQuery({
     queryKey: queryKeys.stores.store.list(storeId, queryParams),
@@ -72,7 +127,7 @@ export const useGetStoresQuery = (
 
 // 음식점 정보 삭제
 export const useDeleteStoresQuery = (
-  options?: UseMutationOptions<void, Error, number>
+  options?: UseMutationOptions<void, Error, number>,
 ) => {
   const queryClient = useQueryClient();
 
@@ -105,8 +160,8 @@ export const useGetStoresMenuQuery = (
       GetStoresMenuResponse, // 데이터 타입
       QueryKey // queryKey 타입
     >,
-    "queryKey" | "queryFn" // 제거할 프로퍼티
-  >
+    'queryKey' | 'queryFn' // 제거할 프로퍼티
+  >,
 ) => {
   return useQuery({
     queryKey: queryKeys.stores.menus.list(storeId, queryParams),
@@ -127,8 +182,8 @@ export const useGetStoresMenuDetailQuery = (
       GetMenuDetailResponse, // 데이터 타입
       QueryKey // queryKey 타입
     >,
-    "queryKey" | "queryFn" // 제거할 프로퍼티
-  >
+    'queryKey' | 'queryFn' // 제거할 프로퍼티
+  >,
 ) => {
   return useQuery({
     queryKey: queryKeys.stores.menus.detail(storeId, menuId),
@@ -144,7 +199,7 @@ export const useCreateStoresMenuQuery = (
     CreateMenuResponse,
     Error,
     { storeId: number; payload: CreateMenuRequest }
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
 
@@ -162,7 +217,7 @@ export const useCreateStoresMenuQuery = (
         options.onSuccess(
           data,
           { storeId: storeId, payload: payload },
-          context
+          context,
         );
       }
       queryClient.invalidateQueries({
@@ -172,14 +227,18 @@ export const useCreateStoresMenuQuery = (
 
     // 에러 처리
     onError: (error) => {
-      console.error("메뉴 생성 중 오류 발생:", error);
+      console.error('메뉴 생성 중 오류 발생:', error);
     },
   });
 };
 
 // 메뉴 정보 삭제 hooks
 export const useDeleteStoresMenuQuery = (
-  options?: UseMutationOptions<void, Error, { storeId: number; menuId: number }>
+  options?: UseMutationOptions<
+    void,
+    Error,
+    { storeId: number; menuId: number }
+  >,
 ) => {
   const queryClient = useQueryClient();
 
@@ -203,7 +262,7 @@ export const useDeleteStoresMenuQuery = (
       if (options?.onError) {
         options.onError(error, variables, context);
       }
-      console.error("메뉴 삭제 중 오류 발생:", error);
+      console.error('메뉴 삭제 중 오류 발생:', error);
     },
     ...options,
   });
@@ -214,10 +273,10 @@ export const useGetStoresOrders = (
   storeId: number,
   options?: Omit<
     UseQueryOptions<GetOrderResponse, Error, GetOrderResponse, QueryKey>,
-    "queryKey" | "queryFn"
-  >
+    'queryKey' | 'queryFn'
+  >,
 ) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: queryKeys.stores.orders.list(storeId),
     queryFn: () => storeAPI.order.getStoresOrders(storeId),
     enabled: !!storeId,
@@ -236,8 +295,8 @@ export const useGetStoresOrderDetail = (
       GetOrderDetailResponse,
       QueryKey
     >,
-    "queryKey" | "queryFn"
-  >
+    'queryKey' | 'queryFn'
+  >,
 ) => {
   return useQuery({
     queryKey: queryKeys.stores.orders.detail(storeId, orderId),
@@ -253,7 +312,7 @@ export const useUpdateStoresOrder = (
     void,
     Error,
     { storeId: number; orderId: number; payload: UpdateOrderRequest }
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
 
@@ -281,7 +340,7 @@ export const useUpdateStoresOrder = (
         options.onError(error, variables, context);
       }
 
-      console.error("주문 수정 중 오류 발생:", error);
+      console.error('주문 수정 중 오류 발생:', error);
     },
   });
 };
@@ -292,8 +351,8 @@ export const useGetStoresReview = (
   queryParams?: GetReviewsParams,
   options?: Omit<
     UseQueryOptions<GetReviewsResponse, Error, GetReviewsResponse, QueryKey>,
-    "queryKey" | "queryFn"
-  >
+    'queryKey' | 'queryFn'
+  >,
 ) => {
   return useQuery({
     queryKey: queryKeys.stores.reviews.list(storeId, queryParams),
@@ -309,7 +368,7 @@ export const useDeleteStoresReview = (
     void,
     Error,
     { storeId: number; reviewId: number }
-  >
+  >,
 ) => {
   const queryClient = useQueryClient();
 

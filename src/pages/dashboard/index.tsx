@@ -1,18 +1,26 @@
-interface Props {
-  role: "admin" | "owner"; // 역할 타입 정의, enum으로 빼고 API에 맞출 예정
-}
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 
-const AdminHome = () => {
-  return <div>Welcome, Admin! This is your dashboard.</div>;
-};
+import OwnerHome from './OwnerHome';
+import AdminHome from './AdminHome';
+import { DashboardProps } from './types';
+import fonts from 'styles/font';
 
-const OwnerHome = () => {
-  return <div>Welcome, Owner! This is your home screen.</div>;
-};
-
-const Home = ({ role }: Props) => {
-  if (role === "admin") return <AdminHome />;
-  else return <OwnerHome />;
+const Home = ({ role }: DashboardProps) => {
+  return (
+    <div css={_container}>
+      <div css={_mainTxt}>Dashboard</div>
+      <div>{role === 'admin' ? <AdminHome /> : <OwnerHome />}</div>
+    </div>
+  );
 };
 
 export default Home;
+
+const _container = css`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const _mainTxt = [css``, fonts['24_800']];

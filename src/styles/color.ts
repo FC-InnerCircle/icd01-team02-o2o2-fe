@@ -20,6 +20,10 @@ const colors = {
   gray: '#969BA0',
   placeholder: '#555', // Placeholder,
   icy: '#fafbff',
+  brightGreen: '#E9FFEF',
+  green: '#2BC155',
+  lightYellow: '#fff1b8',
+  yellow: '#FFD700',
   lightBlue: '#F4F5F9',
 };
 

@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { Delete, Edit } from "common/components/icons";
-import useClickOutside from "common/hooks/useClickOutside";
-import { useState } from "react";
-import colors from "styles/color";
-import fonts from "styles/font";
-import type { MenuOptionProps } from "./index.types";
+import { css } from '@emotion/react';
+import { Delete, Edit } from 'common/components/icons';
+import useClickOutside from 'common/hooks/useClickOutside';
+import { useState } from 'react';
+import colors from 'styles/color';
+import fonts from 'styles/font';
+import type { MenuOptionProps } from './index.types';
 
 const MenuOption = ({ option, onEdit, onDelete, ...rest }: MenuOptionProps) => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const { ref } = useClickOutside<HTMLDivElement>(() => setIsSelected(false));
-  const selectOptionStatusText = `${option.isRequired ? "필수" : "선택"} - ${option.isMultiple ? "다중 선택" : "단일 선택"}`;
+  const selectOptionStatusText = `${option.isRequired ? '필수' : '선택'} - ${option.isMultiple ? '다중 선택' : '단일 선택'}`;
   return (
     <div css={_option} ref={ref} {...rest} onClick={() => setIsSelected(true)}>
       <p css={_label}>
@@ -21,7 +21,7 @@ const MenuOption = ({ option, onEdit, onDelete, ...rest }: MenuOptionProps) => {
         style={{
           border: isSelected
             ? `2px solid ${colors.primary}`
-            : "2px solid transparent",
+            : '2px solid transparent',
         }}
       >
         {option.details.map(({ name, price }, idx) => (
@@ -31,7 +31,7 @@ const MenuOption = ({ option, onEdit, onDelete, ...rest }: MenuOptionProps) => {
           </li>
         ))}
       </ul>
-      <div css={_buttonWrap} style={{ display: isSelected ? "flex" : "none" }}>
+      <div css={_buttonWrap} style={{ display: isSelected ? 'flex' : 'none' }}>
         <button css={_edit} onClick={onEdit}>
           <Edit width={24} height={24} fill="currentColor" />
         </button>
@@ -78,7 +78,7 @@ const _label = [
   css`
     color: ${colors.textThird};
   `,
-  fonts["16_600"],
+  fonts['16_600'],
 ];
 const _buttonWrap = css`
   position: absolute;
