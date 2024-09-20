@@ -2,8 +2,8 @@ import { Routes, Route } from "react-router-dom";
 
 //pages들
 import Home from "pages/dashboard";
-import Menu from "pages/menu";
-import MenuDetail from "pages/menuDetail";
+import MenuList from "pages/menuList";
+import MenuDetail from "pages/menu/detail";
 import Profile from "pages/profile";
 import Order from "pages/order";
 import OrderDetail from "pages/orderDetail";
@@ -14,7 +14,7 @@ import StoreDetail from "pages/storeDetail";
 import User from "pages/user";
 import UserDetail from "pages/userDetail";
 import Component from "pages/Component";
-import MenuRegistration from "pages/menuRegistration";
+import MenuRegistration from "pages/menu/registration";
 
 import withAuth from "routes/WithAuth";
 import { ROUTES } from "common/constants/routes";
@@ -27,7 +27,7 @@ const ProtectedStore = withAuth(Store, { requiredRoles: ["admin"] });
 const ProtectedStoreDetail = withAuth(StoreDetail, {
   requiredRoles: ["owner", "admin"],
 });
-const ProtectedMenu = withAuth(Menu, { requiredRoles: ["owner", "admin"] });
+const ProtectedMenu = withAuth(MenuList, { requiredRoles: ["owner", "admin"] });
 const ProtectedMenuRegistration = withAuth(MenuRegistration, {
   requiredRoles: ["owner", "admin"],
 });

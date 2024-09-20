@@ -3,13 +3,12 @@ import { css } from '@emotion/react';
 
 import colors from 'styles/color';
 
-import LabelInput from 'common/components/labelInput';
-
 import MultiSelect from './MultipleSelect';
 
 import { CATEGORY_OPTION } from '../constants';
 import KakaoMap from './KakaoMap';
 import { useFormContext } from 'react-hook-form';
+import { LabelInput } from 'pages/menu/components';
 
 const Category = ({
   address,

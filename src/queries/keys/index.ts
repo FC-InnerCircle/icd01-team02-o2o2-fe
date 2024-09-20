@@ -3,7 +3,10 @@
  * 쿼리가 많아질 시 폴더 별로 관리
  */
 
-import { type StoresParams } from 'api/modules/stores/types';
+import {
+  type GetStoresMenuParams,
+  StoresParams,
+} from 'api/modules/stores/types';
 
 const queryKeys = {
   account: {
@@ -17,7 +20,7 @@ const queryKeys = {
     all: ['@/stores'],
     store: {
       all: ['@/stores/store'],
-      list: (storeId: number, queryParams?: StoresParams) => [
+      list: (storeId: number, queryParams?: GetStoresMenuParams) => [
         { key: '@/stores/store/list', storeId, queryParams },
       ],
     },
@@ -43,6 +46,15 @@ const queryKeys = {
         { key: '@/stores/reviews/list', storeId, queryParams },
       ],
     },
+  },
+  order: {
+    all: 'order',
+    lists: (params?: Record<string, string | number>) => [
+      'order',
+      'list',
+      params,
+    ],
+    detail: ['order', 'detail'],
   },
 };
 

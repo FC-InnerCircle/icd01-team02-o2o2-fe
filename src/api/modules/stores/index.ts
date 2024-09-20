@@ -1,23 +1,22 @@
 import axiosInstance from 'api/core';
 
-import {
-  type CreateStoreRequest,
+import type {
+  CreateStoreRequest,
   CreateStoreResponse,
   GetStoreResponse,
   StoresParams,
   GetStoresMenuResponse,
   GetStoresMenuParams,
-  GetMenuDetailResponse,
-  CreateMenuRequest,
-  CreateMenuResponse,
   GetOrderResponse,
   GetOrderDetailResponse,
   UpdateOrderRequest,
   GetReviewsResponse,
   GetReviewsParams,
   UpdateStorePayload,
+  GetMenuDetailResponse,
 } from 'api/modules/stores/types';
-import { type CommonResponseReturnType } from 'api/modules/commonType';
+import type { CommonResponseReturnType } from 'api/modules/commonType';
+import type { CreateMenuRequest, CreateMenuResponse } from '../menu/types';
 
 const URL_ROOT = 'stores';
 

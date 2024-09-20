@@ -71,33 +71,22 @@ export type GetStoresMenuResponse = {
 
 export type OptionGroup = {
   optionGroupId: number;
-  seq: number;
+  ordering: number;
   isRequired: boolean;
+  isMultiple: boolean;
   title: string;
   details: OptionDetail[];
 };
 
 export type OptionDetail = {
   optionId: number;
-  seq: number;
+  ordering: number;
   name: string;
   price: number;
-  desc: string;
 };
 
-export type GetMenuDetailResponse = {
-  response: {
-    menuId: number;
-    status: string;
-    name: string;
-    desc: string;
-    price: number;
-    images: Image[];
-    options: OptionGroup[];
-  };
-};
-
-export type CreateMenuRequest = {
+export type MenuDetailInfo = {
+  menuId: number;
   status: string;
   name: string;
   desc: string;
@@ -106,16 +95,8 @@ export type CreateMenuRequest = {
   options: OptionGroup[];
 };
 
-export type CreateMenuResponse = {
-  response: {
-    menuId: number;
-    status: string;
-    name: string;
-    desc: string;
-    price: number;
-    images: Image[];
-    options: OptionGroup[];
-  };
+export type GetMenuDetailResponse = {
+  response: MenuDetailInfo;
 };
 
 export type GetOrderRequest = {

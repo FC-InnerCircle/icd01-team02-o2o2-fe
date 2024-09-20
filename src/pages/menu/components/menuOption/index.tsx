@@ -2,21 +2,20 @@
 import { css } from '@emotion/react';
 import { Delete, Edit } from 'common/components/icons';
 import useClickOutside from 'common/hooks/useClickOutside';
-import { HTMLAttributes, useState } from 'react';
+import { useState } from 'react';
 import colors from 'styles/color';
 import fonts from 'styles/font';
+import type { MenuOptionProps } from './index.types';
 
-interface MenuProps extends HTMLAttributes<HTMLDivElement> {
-  title: string;
-  options: { name: string; price: number }[];
-}
-
-const MenuOption = ({ title, options, ...rest }: MenuProps) => {
+const MenuOption = ({ option, onEdit, onDelete, ...rest }: MenuOptionProps) => {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const { ref } = useClickOutside<HTMLDivElement>(() => setIsSelected(false));
+  const selectOptionStatusText = `${option.isRequired ? '필수' : '선택'} - ${option.isMultiple ? '다중 선택' : '단일 선택'}`;
   return (
     <div css={_option} ref={ref} {...rest} onClick={() => setIsSelected(true)}>
-      <p css={_label}>{title}</p>
+      <p css={_label}>
+        {option.title} ( {selectOptionStatusText} )
+      </p>
       <ul
         css={_optionItemWrap}
         style={{
@@ -25,28 +24,18 @@ const MenuOption = ({ title, options, ...rest }: MenuProps) => {
             : '2px solid transparent',
         }}
       >
-        {options.map(({ name, price }, idx) => (
-          <li css={_optionItem} key={`${title}_option_${name}_${idx}`}>
+        {option.details.map(({ name, price }, idx) => (
+          <li css={_optionItem} key={`${option.title}_option_${name}_${idx}`}>
             <p>{name}</p>
             <p>+ ₩{price}</p>
           </li>
         ))}
       </ul>
-      <div
-        css={css`
-          position: absolute;
-          left: calc(100% + 24px);
-          top: 50%;
-          transform: translateY(-50%);
-          display: flex;
-          gap: 12px;
-        `}
-        style={{ display: isSelected ? 'flex' : 'none' }}
-      >
-        <button css={_edit}>
+      <div css={_buttonWrap} style={{ display: isSelected ? 'flex' : 'none' }}>
+        <button css={_edit} onClick={onEdit}>
           <Edit width={24} height={24} fill="currentColor" />
         </button>
-        <button css={_delete}>
+        <button css={_delete} onClick={onDelete}>
           <Delete width={22} height={22} stroke="currentColor" />
         </button>
       </div>
@@ -91,6 +80,14 @@ const _label = [
   `,
   fonts['16_600'],
 ];
+const _buttonWrap = css`
+  position: absolute;
+  left: calc(100% + 24px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 12px;
+`;
 
 const _button = css`
   width: 50px;

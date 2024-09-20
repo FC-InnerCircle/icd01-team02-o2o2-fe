@@ -3,14 +3,14 @@ import { css } from '@emotion/react';
 
 import CardList from './components/CardList';
 import StoreInfo from './components/StoreInfo';
-import { useGetStoresQuery } from 'queries/modules/stores/useStoresQuery';
+import { useGetStoresQueryTest } from 'queries/modules/stores/useStoresQuery';
 import { CARD_LIST_ARR } from './constants';
 import OrderTable from './components/OrderTable';
 
 const OwnerHome = () => {
   const {
     data: { response },
-  } = useGetStoresQuery(1);
+  } = useGetStoresQueryTest(1);
 
   const storeData = response;
 

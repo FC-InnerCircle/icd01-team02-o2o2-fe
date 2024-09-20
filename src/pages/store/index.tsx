@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { Button } from 'common/components';
 
 import {
-  useGetStoresQuery,
+  useGetStoresQueryTest,
   useUpdateStoresQuery,
 } from 'queries/modules/stores/useStoresQuery';
 import get from 'lodash/get';
@@ -23,7 +23,7 @@ import { useEffect } from 'react';
 import type { UpdateStorePayload } from 'api/modules/stores/types';
 
 const Store = ({ ...rest }) => {
-  const { data } = useGetStoresQuery(1);
+  const { data } = useGetStoresQueryTest(1);
   const { mutate: updateStoreQuery } = useUpdateStoresQuery();
 
   const storeData = get(data, 'response');

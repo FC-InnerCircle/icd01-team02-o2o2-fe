@@ -15,8 +15,6 @@ import {
   UseQueryOptions,
 } from '@tanstack/react-query';
 import {
-  type CreateMenuRequest,
-  CreateMenuResponse,
   CreateStoreRequest,
   CreateStoreResponse,
   GetMenuDetailResponse,
@@ -25,12 +23,17 @@ import {
   GetReviewsParams,
   GetReviewsResponse,
   GetStoreResponse,
+  GetStoresMenuParams,
   GetStoresMenuResponse,
   StoresParams,
   UpdateOrderRequest,
   UpdateStorePayload,
 } from 'api/modules/stores/types';
-import { type CommonResponseReturnType } from 'api/modules/commonType';
+import type { CommonResponseReturnType } from 'api/modules/commonType';
+import type {
+  CreateMenuRequest,
+  CreateMenuResponse,
+} from 'api/modules/menu/types';
 
 // 음식점 정보 등록 hooks
 export const useCreateStoresQuery = (
@@ -48,7 +51,7 @@ export const useCreateStoresQuery = (
 };
 
 // 음식점 정보 조회 hooks
-export const useGetStoresQuery = (
+export const useGetStoresQueryTest = (
   storeId: number,
   queryParams?: StoresParams,
   options?: Omit<
@@ -96,6 +99,28 @@ export const useUpdateStoresQuery = (
     onError: (error) => {
       console.error(error);
     },
+    ...options,
+  });
+};
+
+// 음식점 정보 조회 hooks
+export const useGetStoresQuery = (
+  storeId: number,
+  queryParams?: GetStoresMenuParams,
+  options?: Omit<
+    UseQueryOptions<
+      GetStoreResponse, // queryFn이 반환하는 데이터 타입
+      Error, // 에러 타입
+      GetStoresMenuResponse, // 데이터 타입
+      QueryKey // queryKey 타입
+    >,
+    'queryKey' | 'queryFn' // 제거할 프로퍼티
+  >,
+) => {
+  return useQuery({
+    queryKey: queryKeys.stores.store.list(storeId, queryParams),
+    queryFn: () => storeAPI.store.getStore(storeId, queryParams),
+    enabled: !!storeId,
     ...options,
   });
 };
@@ -247,18 +272,14 @@ export const useDeleteStoresMenuQuery = (
 export const useGetStoresOrders = (
   storeId: number,
   options?: Omit<
-    UseQueryOptions<
-      GetOrderResponse,
-      Error,
-      CommonResponseReturnType<GetOrderResponse>,
-      QueryKey
-    >,
+    UseQueryOptions<GetOrderResponse, Error, GetOrderResponse, QueryKey>,
     'queryKey' | 'queryFn'
   >,
 ) => {
   return useSuspenseQuery({
     queryKey: queryKeys.stores.orders.list(storeId),
     queryFn: () => storeAPI.order.getStoresOrders(storeId),
+    enabled: !!storeId,
     ...options,
   });
 };

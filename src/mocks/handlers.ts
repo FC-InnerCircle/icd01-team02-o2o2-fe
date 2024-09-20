@@ -72,8 +72,32 @@ export const storeHandlers = [
 
 // Order 관련 API 요청 핸들러 정의
 export const orderHandlers = [
-  http.get(`${BASE_URL}/stores/:storeId/orders`, async () => {
-    return HttpResponse.json(orderMockData.list);
+  http.get(`${BASE_URL}/stores/:storeId/orders`, async (req) => {
+    const { request } = req;
+    const url = new URL(request.url);
+
+    const page = url.searchParams.get('page') ?? 1;
+    const status = url.searchParams.get('status') ?? 'all';
+
+    const filteredOrders = orderMockData.list.response.orders
+      .filter((order) => {
+        if (status === 'all') {
+          return true;
+        }
+
+        return order.status === status;
+      })
+      .slice(10 * (Number(page) - 1), Number(page) * 10);
+
+    const data = {
+      response: {
+        status,
+        orders: filteredOrders,
+        totalCount: orderMockData.list.response.orders.length,
+      },
+    };
+
+    return HttpResponse.json(data);
   }),
   http.get(`${BASE_URL}/stores/:storeId/orders/:orderId`, async () => {
     return HttpResponse.json(orderMockData.detail);
@@ -97,6 +121,7 @@ export const handlers = [
   ...menuHandlers,
   ...storeHandlers,
   ...reviewHandlers,
+  ...orderHandlers,
   ...accountsHandlers,
   ...orderHandlers,
 ];

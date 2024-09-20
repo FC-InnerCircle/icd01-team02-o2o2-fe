@@ -3,8 +3,8 @@ import { css } from '@emotion/react';
 import { HTMLAttributes, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import colors from 'styles/color';
-import Menus from 'common/components/menus';
-import { Logo, Search } from 'common/components/icons';
+import Menus from 'common/components/layout/menus';
+import { Search, Logo } from 'common/components/icons';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
