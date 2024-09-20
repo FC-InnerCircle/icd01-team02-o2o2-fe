@@ -28,6 +28,7 @@ import {
   GetStoresMenuResponse,
   StoresParams,
   UpdateOrderRequest,
+  UpdateStorePayload,
 } from 'api/modules/stores/types';
 import { type CommonResponseReturnType } from 'api/modules/commonType';
 
@@ -63,6 +64,38 @@ export const useGetStoresQuery = (
   return useSuspenseQuery({
     queryKey: queryKeys.stores.store.list(storeId, queryParams),
     queryFn: () => storeAPI.store.getStore(storeId, queryParams),
+    ...options,
+  });
+};
+
+// 음식점 정보 수정
+export const useUpdateStoresQuery = (
+  options?: UseMutationOptions<
+    CommonResponseReturnType<GetStoreResponse>,
+    Error,
+    { storeId: number; payload: UpdateStorePayload }
+  >,
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ storeId, payload }) =>
+      storeAPI.store.updateStore(storeId, payload),
+
+    onSuccess: (_, variables, context) => {
+      if (options?.onSuccess) {
+        options.onSuccess(_, variables, context);
+      }
+
+      console.log('testetes');
+      // 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.stores.store.list(variables.storeId),
+      });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
     ...options,
   });
 };

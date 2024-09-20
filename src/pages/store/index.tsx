@@ -3,7 +3,10 @@ import { css } from '@emotion/react';
 
 import { Button } from 'common/components';
 
-import { useGetStoresQuery } from 'queries/modules/stores/useStoresQuery';
+import {
+  useGetStoresQuery,
+  useUpdateStoresQuery,
+} from 'queries/modules/stores/useStoresQuery';
 import get from 'lodash/get';
 
 import ImageUpload from './components/ImageUpload';
@@ -12,57 +15,71 @@ import OpeningHoursAndFees from './components/EditableItem';
 import fonts from 'styles/font';
 import colors from 'styles/color';
 
+import { useForm, FormProvider } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { storeSchema } from './schema';
+import { useEffect } from 'react';
+
+import type { UpdateStorePayload } from 'api/modules/stores/types';
+
 const Store = ({ ...rest }) => {
   const { data } = useGetStoresQuery(1);
+  const { mutate: updateStoreQuery } = useUpdateStoresQuery();
 
   const storeData = get(data, 'response');
 
-  const {
-    name,
-    contactNumber,
-    zipCode,
-    addressDetail,
-    address,
-    categories,
-    openTime,
-    closeTime,
-    minimumOrderAmount,
-  } = storeData;
+  const methods = useForm({
+    resolver: zodResolver(storeSchema),
+    defaultValues: storeData || {},
+  });
+
+  const { name, address, addressDetail } = storeData;
+
+  const onSubmit = (values: UpdateStorePayload) => {
+    updateStoreQuery(
+      { storeId: 1, payload: values },
+      {
+        onSuccess: () => {
+          alert('성공적으로 수정되었습니다.');
+        },
+      },
+    );
+  };
+
+  useEffect(() => {
+    if (storeData?.address && storeData?.addressDetail) {
+      methods.setValue(
+        'address',
+        `${storeData.address} ${storeData.addressDetail}`,
+      );
+    }
+  }, [methods, storeData]);
 
   return (
-    <div css={[_container]} {...rest}>
-      <h3>{name}</h3>
+    <FormProvider {...methods}>
+      <div css={[_container]} {...rest}>
+        <h3>{name}</h3>
 
-      <div css={_contentsContainer}>
-        <section>
-          <span css={[_titleText]}>기본 정보</span>
-          <div css={_bcontainer}>
-            <ImageUpload />
-            <Category
-              contactNumber={contactNumber}
-              zipCode={zipCode}
-              addressDetail={addressDetail}
-              address={address}
-              categories={categories}
-            />
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <div css={_contentsContainer}>
+            <section css={_wrapperTxt}>
+              <span css={[_titleText]}>기본 정보</span>
+              <ImageUpload />
+              <span css={[_titleText]}>영업 및 금액 정보</span>
+              <OpeningHoursAndFees />
+            </section>
+
+            <section css={_bcontainer}>
+              <Category address={address} addressDetail={addressDetail} />
+            </section>
           </div>
-        </section>
 
-        <section>
-          <span css={[_titleText]}>영업 및 금액 정보</span>
-          <OpeningHoursAndFees
-            open={openTime}
-            close={closeTime}
-            minCost={minimumOrderAmount}
-            delivery={'배달료 백엔드 데이터 존재하지 않음'}
-          />
-        </section>
+          <div css={_btnStyleContainer}>
+            <Button type="submit">저장</Button>
+          </div>
+        </form>
       </div>
-
-      <div css={_btnStyleContainer}>
-        <Button onClick={() => console.log('저장')}>저장</Button>
-      </div>
-    </div>
+    </FormProvider>
   );
 };
 
@@ -82,18 +99,25 @@ const _titleText = [
 
 const _bcontainer = css`
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  gap: 10%;
 `;
 
 const _btnStyleContainer = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 24px;
 `;
 
 const _contentsContainer = css`
   display: flex;
+  gap: 10%;
+`;
+
+const _wrapperTxt = css`
+  display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 `;
