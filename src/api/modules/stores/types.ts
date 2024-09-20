@@ -33,6 +33,8 @@ export type GetStoreResponse = CreateStoreResponse & {
   updatedAt: string;
 };
 
+export type UpdateStorePayload = GetStoreResponse;
+
 export type StoresParams = {
   page?: number;
   size?: number;

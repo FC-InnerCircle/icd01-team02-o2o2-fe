@@ -15,6 +15,7 @@ import {
   UpdateOrderRequest,
   GetReviewsResponse,
   GetReviewsParams,
+  UpdateStorePayload,
 } from 'api/modules/stores/types';
 import { type CommonResponseReturnType } from 'api/modules/commonType';
 
@@ -44,6 +45,15 @@ export const storeAPI = {
     // 음식점 정보 삭제 API
     deleteStore: async (storeId: number): Promise<void> => {
       const res = await axiosInstance.delete(`${URL_ROOT}/${storeId}`);
+      return res.data;
+    },
+
+    // 음식점 정보 수정
+    updateStore: async (
+      storeId: number,
+      payload: UpdateStorePayload,
+    ): Promise<CommonResponseReturnType<GetStoreResponse>> => {
+      const res = await axiosInstance.patch(`${URL_ROOT}/${storeId}`, payload);
       return res.data;
     },
   },
