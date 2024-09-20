@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { Delete, Edit } from "common/components/icons";
-import useClickOutside from "common/hooks/useClickOutside";
-import { HTMLAttributes, useState } from "react";
-import colors from "styles/color";
-import fonts from "styles/font";
+import { css } from '@emotion/react';
+import { Delete, Edit } from 'common/components/icons';
+import useClickOutside from 'common/hooks/useClickOutside';
+import { HTMLAttributes, useState } from 'react';
+import colors from 'styles/color';
+import fonts from 'styles/font';
 
 interface MenuProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -22,7 +22,7 @@ const MenuOption = ({ title, options, ...rest }: MenuProps) => {
         style={{
           border: isSelected
             ? `2px solid ${colors.primary}`
-            : "2px solid transparent",
+            : '2px solid transparent',
         }}
       >
         {options.map(({ name, price }, idx) => (
@@ -41,7 +41,7 @@ const MenuOption = ({ title, options, ...rest }: MenuProps) => {
           display: flex;
           gap: 12px;
         `}
-        style={{ display: isSelected ? "flex" : "none" }}
+        style={{ display: isSelected ? 'flex' : 'none' }}
       >
         <button css={_edit}>
           <Edit width={24} height={24} fill="currentColor" />
@@ -89,7 +89,7 @@ const _label = [
   css`
     color: ${colors.textThird};
   `,
-  fonts["16_600"],
+  fonts['16_600'],
 ];
 
 const _button = css`
