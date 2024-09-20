@@ -17,7 +17,7 @@ export type CreateMenuOptionGroupReq = Pick<
 };
 
 export type EditMenuOptionGroupReq = CreateMenuOptionGroupReq & {
-  optionGroupId: string;
+  optionGroupId: number;
 };
 
 export type CreateMenuRequest = {
