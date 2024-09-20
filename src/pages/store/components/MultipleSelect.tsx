@@ -23,27 +23,34 @@ const MultiSelect = ({ options }: MultiSelectProps) => {
 
   const handleCategoryClick = (category: string) => {
     if (selectedCategory === category) {
-      // 선택된 카테고리를 클릭하면 선택 해제
-      setSelectedCategory(null);
-      setSelectedOptions((prev) =>
-        prev.filter(
-          (option) =>
-            option !== category && !options[category].includes(option),
-        ),
-      );
+      handleCategorySelectClick(category);
     } else {
-      // 다른 카테고리를 선택하면 기존 선택을 교체
-      setSelectedCategory(category);
-      setSelectedOptions((prev) => [
-        category, // 새로 선택된 카테고리를 추가
-        ...prev.filter(
-          (option) =>
-            !options[selectedCategory || '']?.includes(option) &&
-            option !== selectedCategory,
-        ), // 이전 선택 제거
-        ...options[category].filter((option) => prev.includes(option)), // 현재 선택된 옵션 유지
-      ]);
+      handleCategoryDiffClick(category);
     }
+  };
+
+  const handleCategorySelectClick = (category: string) => {
+    // 선택된 카테고리를 클릭하면 선택 해제
+    setSelectedCategory(null);
+    setSelectedOptions((prev) =>
+      prev.filter(
+        (option) => option !== category && !options[category].includes(option),
+      ),
+    );
+  };
+
+  const handleCategoryDiffClick = (category: string) => {
+    // 다른 카테고리를 선택하면 기존 선택을 교체
+    setSelectedCategory(category);
+    setSelectedOptions((prev) => [
+      category, // 새로 선택된 카테고리를 추가
+      ...prev.filter(
+        (option) =>
+          !options[selectedCategory || '']?.includes(option) &&
+          option !== selectedCategory,
+      ), // 이전 선택 제거
+      ...options[category].filter((option) => prev.includes(option)), // 현재 선택된 옵션 유지
+    ]);
   };
 
   const handleOptionClick = (_: string, option: string) => {
@@ -128,7 +135,7 @@ const _selectBox = css`
   padding: 10px;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: ${colors.white};
   &:hover {
     border-color: #1890ff;
   }
@@ -146,7 +153,7 @@ const _dropdownMenu = css`
   left: 0;
   right: 0;
   border: 1px solid #e0e0e0;
-  background-color: #fff;
+  background-color: ${colors.white};
   border-radius: 4px;
   margin-top: 4px;
   max-height: 300px;
@@ -177,9 +184,7 @@ const _optionStyle = css`
   display: flex;
   align-items: center;
   gap: 8px;
-  /* &:hover {
-    background-color: #e6f7ff;
-  } */
+
   input[type='checkbox'] {
     margin-right: 8px;
   }
