@@ -1,65 +1,51 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { useState } from 'react';
-
-import type { EditableItemProps, OpeningHoursAndFeesProps } from '../types';
 import colors from 'styles/color';
 import fonts from 'styles/font';
+import { useFormContext } from 'react-hook-form';
+import { forwardRef } from 'react';
 
-import { formatToKoreanCurrency } from 'utils/formatTokoCurrency';
+import type { EditableItemProps } from '../types';
 
-const EditableItem = ({
-  label,
-  value,
-  type,
-  onChange,
-  width = '84px',
-}: EditableItemProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
+const EditableItem = forwardRef<HTMLInputElement, EditableItemProps>(
+  ({ label, type, width = '84px', ...restProps }, ref) => {
+    return (
+      <div css={_itemContainerStyle}>
+        <label css={[_labelStyle]}>{label}</label>
+        <input type={type} css={_inputStyle(width)} ref={ref} {...restProps} />
+      </div>
+    );
+  },
+);
 
-  return (
-    <div css={_itemContainerStyle}>
-      <label css={[_labelStyle]}>{label}</label>
-      <input
-        type={type}
-        value={value}
-        onChange={handleChange}
-        css={_inputStyle(width)}
-      />
-    </div>
-  );
-};
-
-const OpeningHoursAndFees = ({
-  open,
-  close,
-  minCost,
-  delivery,
-}: OpeningHoursAndFeesProps) => {
-  const [openTime, setOpenTime] = useState<string>(open);
-  const [closeTime, setCloseTime] = useState<string>(close);
-  const [minOrder, setMinOrder] = useState<number>(minCost);
-  const [deliveryFee, setDeliveryFee] = useState<string>(delivery);
+const OpeningHoursAndFees = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <div>
       <div>
         <h3 css={[_sectionTitleStyle]}>영업 시간</h3>
+
         <EditableItem
+          {...register('openTime')}
           label="Open"
-          value={openTime}
           type="time"
           width="140px"
-          onChange={setOpenTime}
         />
+        {errors.zipCode && (
+          <span css={_errorMsg}>
+            {errors.zipCode.message as React.ReactNode}
+          </span>
+        )}
+
         <EditableItem
+          {...register('closeTime')}
           label="Close"
-          value={closeTime}
           width="140px"
           type="time"
-          onChange={setCloseTime}
         />
       </div>
 
@@ -67,19 +53,17 @@ const OpeningHoursAndFees = ({
         <h3 css={_sectionTitleStyle}>최소 주문 금액 및 배달료</h3>
         <div>
           <EditableItem
+            {...register('minimumOrderAmount')}
             label="최소 주문 금액"
-            value={formatToKoreanCurrency(minOrder)}
             type="text"
             width="40%"
-            onChange={(value) => setMinOrder(Number(value))}
           />
-          <EditableItem
+          {/* <EditableItem
+            {...register('deliveryFee')}
             label="배달료"
-            value={deliveryFee}
             type="text"
             width="40%"
-            onChange={(value) => setDeliveryFee(value)}
-          />
+          /> */}
         </div>
       </div>
     </div>
@@ -88,10 +72,9 @@ const OpeningHoursAndFees = ({
 
 export default OpeningHoursAndFees;
 
-// Emotion 스타일 정의
 const _itemContainerStyle = css`
   display: flex;
-  width: 320px;
+  width: 352px;
   height: 70px;
   justify-content: space-between;
   align-items: center;
@@ -129,3 +112,7 @@ const _sectionTitleStyle = [
   `,
   fonts['16_500'],
 ];
+
+const _errorMsg = css`
+  color: ${colors.danger};
+`;
