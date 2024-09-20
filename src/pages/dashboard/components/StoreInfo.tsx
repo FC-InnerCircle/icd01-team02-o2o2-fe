@@ -161,5 +161,5 @@ const _contactNumber = css`
 
 const _buttonContainer = css`
   position: relative; /* 자식 요소가 절대 위치를 기준으로 배치될 수 있도록 함 */
-  display: inline - block; /* 필요한 경우 inline-block으로 조정 */
+  display: inline-block; /* 필요한 경우 inline-block으로 조정 */
 `;
