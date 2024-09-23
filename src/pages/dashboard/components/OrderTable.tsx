@@ -92,7 +92,7 @@ const OrderTable = () => {
   });
 
   return (
-    <>
+    <div>
       <div css={_mainTxt}>New Order</div>
       <table css={_table}>
         <thead>
@@ -157,7 +157,7 @@ const OrderTable = () => {
           다음 페이지
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

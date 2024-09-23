@@ -35,5 +35,5 @@ export default OwnerHome;
 const _ownerContainer = css`
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
 `;
