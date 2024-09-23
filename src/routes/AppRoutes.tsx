@@ -1,52 +1,52 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 
 //pages들
-import Home from "pages/dashboard";
-import MenuList from "pages/menuList";
-import MenuDetail from "pages/menu/detail";
-import Profile from "pages/profile";
-import Order from "pages/order";
-import OrderDetail from "pages/orderDetail";
-import SignIn from "pages/signin";
-import Reviews from "pages/reviews";
-import Store from "pages/store";
-import StoreDetail from "pages/storeDetail";
-import User from "pages/user";
-import UserDetail from "pages/userDetail";
-import Component from "pages/Component";
-import MenuRegistration from "pages/menu/registration";
+import Home from 'pages/dashboard';
+import MenuList from 'pages/menuList';
+import MenuDetail from 'pages/menu/detail';
+import Profile from 'pages/profile';
+import Order from 'pages/order';
+import OrderDetail from 'pages/orderDetail';
+import SignIn from 'pages/signIn';
+import Reviews from 'pages/reviews';
+import Store from 'pages/store';
+import StoreDetail from 'pages/storeDetail';
+import User from 'pages/user';
+import UserDetail from 'pages/userDetail';
+import Component from 'pages/Component';
+import MenuRegistration from 'pages/menu/registration';
 
-import withAuth from "routes/WithAuth";
-import { ROUTES } from "common/constants/routes";
+import withAuth from 'routes/WithAuth';
+import { ROUTES } from 'common/constants/routes';
 
 // 보호된 컴포넌트 생성
-const ProtectedHome = withAuth(Home, { requiredRoles: ["owner", "admin"] });
-const ProtectedUser = withAuth(User, { requiredRoles: ["admin"] });
-const ProtectedUserDetail = withAuth(UserDetail, { requiredRoles: ["admin"] });
-const ProtectedStore = withAuth(Store, { requiredRoles: ["admin"] });
+const ProtectedHome = withAuth(Home, { requiredRoles: ['owner', 'admin'] });
+const ProtectedUser = withAuth(User, { requiredRoles: ['admin'] });
+const ProtectedUserDetail = withAuth(UserDetail, { requiredRoles: ['admin'] });
+const ProtectedStore = withAuth(Store, { requiredRoles: ['admin'] });
 const ProtectedStoreDetail = withAuth(StoreDetail, {
-  requiredRoles: ["owner", "admin"],
+  requiredRoles: ['owner', 'admin'],
 });
-const ProtectedMenu = withAuth(MenuList, { requiredRoles: ["owner", "admin"] });
+const ProtectedMenu = withAuth(MenuList, { requiredRoles: ['owner', 'admin'] });
 const ProtectedMenuRegistration = withAuth(MenuRegistration, {
-  requiredRoles: ["owner", "admin"],
+  requiredRoles: ['owner', 'admin'],
 });
 const ProtectedMenuDetail = withAuth(MenuDetail, {
-  requiredRoles: ["owner", "admin"],
+  requiredRoles: ['owner', 'admin'],
 });
-const ProtectedOrder = withAuth(Order, { requiredRoles: ["owner", "admin"] });
+const ProtectedOrder = withAuth(Order, { requiredRoles: ['owner', 'admin'] });
 const ProtectedOrderDetail = withAuth(OrderDetail, {
-  requiredRoles: ["owner", "admin"],
+  requiredRoles: ['owner', 'admin'],
 });
 const ProtectedReviews = withAuth(Reviews, {
-  requiredRoles: ["owner", "admin"],
+  requiredRoles: ['owner', 'admin'],
 });
 const ProtectedProfile = withAuth(Profile, {
-  requiredRoles: ["owner", "admin"],
+  requiredRoles: ['owner', 'admin'],
 });
 const ProtectedSignIn = withAuth(SignIn, {
-  requiredRoles: ["guest"],
-  redirectPath: "/",
+  requiredRoles: ['guest'],
+  redirectPath: '/',
 });
 
 const AppRoutes = () => {
