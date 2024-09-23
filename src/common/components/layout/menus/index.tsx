@@ -35,6 +35,8 @@ const MENUS = {
   // analytics: { title: "Analytics", link: "/", icon: <Dashboard /> },
 } as const;
 
+//TODO API 연동후 맞는 Store id로 수정할 것
+const STORE_ID = '1';
 const Menus = () => {
   const location = useLocation();
 
@@ -44,12 +46,12 @@ const Menus = () => {
         const isSelected =
           key === 'dashboard'
             ? location.pathname === '/'
-            : location.pathname.match(obj.link);
+            : location.pathname.match(obj.link.replace(':storeId', STORE_ID));
         return (
           <li css={_menuContainer} key={`menu_${key}`}>
             <Link
               css={_menu}
-              to={obj.link}
+              to={obj.link.replace(':storeId', STORE_ID)}
               style={{
                 color: isSelected ? colors.primary : colors.gray,
                 backgroundColor: isSelected ? colors.icy : colors.white,
