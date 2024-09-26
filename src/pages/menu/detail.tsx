@@ -1,22 +1,22 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { ImageLoader } from "@pic-pik/react";
-import { useState } from "react";
-import colors from "styles/color";
-import fonts from "styles/font";
+import { css } from '@emotion/react';
+import { ImageLoader } from '@pic-pik/react';
+import { useState } from 'react';
+import colors from 'styles/color';
+import fonts from 'styles/font';
 import {
   LabelInput,
   LabelTextarea,
   MenuOption,
   OptionModal,
-} from "pages/menu/components";
-import type { CreateMenuOptionGroupReq } from "api/modules/menu/types";
+} from 'pages/menu/components';
+import type { CreateMenuOptionGroupReq } from 'api/modules/menu/types';
 import type {
   GetMenuDetailResponse,
   MenuDetailInfo,
-} from "api/modules/stores/types";
-import useMenuDetail from "./hooks/useMenuDetail";
-import useMenuOption from "./hooks/useMenuOption";
+} from 'api/modules/stores/types';
+import useMenuDetail from './hooks/useMenuDetail';
+import useMenuOption from './hooks/useMenuOption';
 
 //TODO status 뭐로 추가하지?
 const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
@@ -36,7 +36,7 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
   const isSelectedOptionModalOpen = !!selectedOptionToEdit;
   const handleEditOption = (
     optionGroup: CreateMenuOptionGroupReq,
-    index: number
+    index: number,
   ) => setSelectedOptionToEdit({ data: optionGroup, index });
   const handleCloseEditModal = () => setSelectedOptionToEdit(null);
   const handleOptionModalOpen = () => setIsOptionModalOpen((prev) => !prev);
@@ -56,7 +56,7 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
                 <div css={_imageLoader}>
                   <img
                     src={imageMetadata ? imageMetadata.src : originalImage}
-                    width={"100%"}
+                    width={'100%'}
                   />
                 </div>
               </ImageLoader>
@@ -65,18 +65,18 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
               <LabelInput
                 title="메뉴 이름"
                 css={_input}
-                {...register("name")}
+                {...register('name')}
               />
               <LabelTextarea
                 title="설명"
                 css={_textarea}
-                {...register("desc")}
+                {...register('desc')}
               />
               <LabelInput
                 title="가격"
                 css={_input}
-                prefix={"₩"}
-                {...register("price")}
+                prefix={'₩'}
+                {...register('price')}
               />
             </form>
           </div>
@@ -123,7 +123,7 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
         <OptionModal
           isOpen={isSelectedOptionModalOpen}
           onClose={handleCloseEditModal}
-          initial={selectedOptionToEdit.data}
+          initialFormValues={selectedOptionToEdit.data}
           onSave={(optionGroup) => {
             updateOption({
               optionGroupId: selectedOptionToEdit.index,
@@ -140,37 +140,37 @@ const MenuDetailWrapper = () => {
   /* TODO API 연결 */
   const MENU: GetMenuDetailResponse = {
     response: {
-      name: "아메리카노",
-      desc: "베스트셀러! 시그니처 원두를 비롯한 다양한 원두를 즐겨보세요!",
+      name: '아메리카노',
+      desc: '베스트셀러! 시그니처 원두를 비롯한 다양한 원두를 즐겨보세요!',
       menuId: 3,
       price: 5000,
-      status: "publish",
+      status: 'publish',
       options: [
         {
           optionGroupId: 0,
-          title: "원두 선택",
+          title: '원두 선택',
           isMultiple: false,
           isRequired: true,
           ordering: 0,
           details: [
-            { name: "과테말라", optionId: 0, ordering: 0, price: 0 },
-            { name: "코스타리카", optionId: 0, ordering: 0, price: 0 },
-            { name: "브라질", optionId: 0, ordering: 0, price: 0 },
+            { name: '과테말라', optionId: 0, ordering: 0, price: 0 },
+            { name: '코스타리카', optionId: 0, ordering: 0, price: 0 },
+            { name: '브라질', optionId: 0, ordering: 0, price: 0 },
           ],
         },
         {
           optionGroupId: 0,
-          title: "빨대 여부",
+          title: '빨대 여부',
           isMultiple: false,
           isRequired: true,
           ordering: 1,
           details: [
-            { name: "필요함", optionId: 0, ordering: 0, price: 0 },
-            { name: "필요없음", optionId: 0, ordering: 0, price: 0 },
+            { name: '필요함', optionId: 0, ordering: 0, price: 0 },
+            { name: '필요없음', optionId: 0, ordering: 0, price: 0 },
           ],
         },
       ],
-      images: [{ imageUrl: "/src/assets/americano.webp", seq: 0 }],
+      images: [{ imageUrl: '/src/assets/americano.webp', seq: 0 }],
     },
   };
 
@@ -250,7 +250,7 @@ const _subtitle = [
     color: ${colors.primary};
     margin-bottom: 8px;
   `,
-  fonts["24_600"],
+  fonts['24_600'],
 ];
 
 const _subButton = [
@@ -269,7 +269,7 @@ const _subButton = [
       opacity: 0.7;
     }
   `,
-  fonts["16_800"],
+  fonts['16_800'],
 ];
 
 const _addButton = [
@@ -294,7 +294,7 @@ const _submit = [
       opacity: 0.7;
     }
   `,
-  fonts["28_600"],
+  fonts['28_600'],
 ];
 
 const _optionContainer = css`

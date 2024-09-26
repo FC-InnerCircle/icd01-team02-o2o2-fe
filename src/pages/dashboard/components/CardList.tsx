@@ -15,5 +15,6 @@ export default CardList;
 
 const _container = css`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  grid-template-columns: repeat(3, min-content);
 `;
