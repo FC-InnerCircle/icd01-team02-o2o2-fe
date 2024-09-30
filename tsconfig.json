@@ -9,7 +9,7 @@
     "paths": {
       "*": ["*"]
     },
-    "types": ["vitest/globals", "@testing-library/jest-dom"], // test Vitest 관련 타입 주입
+    "types": ["vitest/globals", "@testing-library/jest-dom", "cypress"], // test Vitest 관련 타입 주입
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -24,5 +24,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["cypress/**/*.ts", "src"]
 }

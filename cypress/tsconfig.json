@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "../", // src를 기준으로 하기 위해 프로젝트 루트로 설정
+    "paths": {
+      "src/*": ["src/*"]
+    }
+  },
+  "include": ["../src/**/*", "**/*.ts", "**/*.tsx"]
+}
