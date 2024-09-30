@@ -35,7 +35,7 @@
 //     }
 //   }
 // }
-import '@cypress/code-coverage/support';
+// import '@cypress/code-coverage/support';
 import 'cypress-file-upload';
 import { mount } from 'cypress/react18';
 import './component';
