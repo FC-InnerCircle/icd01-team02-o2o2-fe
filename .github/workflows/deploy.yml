@@ -31,9 +31,9 @@ jobs:
 
       # 5. AWS S3로 파일 업로드
       - name: Deploy to S3
-        uses: jakejarvis/s3-sync-action@v0.5.1
+        uses: awact/s3-action@master
         with:
-          args: --acl public-read --delete
+          args: --acl public-read --follow-symlinks --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
