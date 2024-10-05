@@ -33,7 +33,7 @@ const Layout = ({ children }: Props) => {
           </form>
           <div css={_userContainer}>
             <p>
-              Hello, <b>Samuel!</b>
+              Hello, <b>O2O</b>
             </p>
             <div css={_profileImageBackground}>
               <div css={_profileImage}>{/* profile 사진 자리 */}</div>
