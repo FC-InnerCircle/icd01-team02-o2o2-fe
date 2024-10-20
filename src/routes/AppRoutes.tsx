@@ -1,22 +1,22 @@
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet } from 'react-router-dom';
 
 //pages들
-import Home from "pages/dashboard";
-import Menu from "pages/menu";
-import MenuDetail from "pages/menuDetail";
-import Profile from "pages/profile";
-import Order from "pages/order";
-import OrderDetail from "pages/orderDetail";
-import SignIn from "pages/signIn";
-import Reviews from "pages/reviews";
-import Store from "pages/store";
-import StoreDetail from "pages/storeDetail";
-import User from "pages/user";
-import UserDetail from "pages/userDetail";
-import Component from "pages/Component";
-import MenuRegistration from "pages/menuRegistration";
+import Home from 'pages/dashboard';
+import MenuList from 'pages/menuList';
+import MenuDetail from 'pages/menu/detail';
+import Profile from 'pages/profile';
+import Order from 'pages/order';
+import OrderDetail from 'pages/orderDetail';
+import SignIn from 'pages/signIn';
+import Reviews from 'pages/reviews';
+import Store from 'pages/store';
+import StoreDetail from 'pages/storeDetail';
+import User from 'pages/user';
+import UserDetail from 'pages/userDetail';
+import Component from 'pages/Component';
+import MenuRegistration from 'pages/menu/registration';
 
-import { ROUTES } from "common/constants/routes";
+import { ROUTES } from 'common/constants/routes';
 import Layout from 'common/components/layout';
 
 // Layout을 사용하는 라우트 그룹
@@ -41,11 +41,8 @@ const AppRoutes = () => {
         <Route path={ROUTES.USER_DETAIL} element={<UserDetail />} />
         <Route path={ROUTES.STORE} element={<Store />} />
         <Route path={ROUTES.STORE_DETAIL} element={<StoreDetail />} />
-        <Route path={ROUTES.MENU} element={<Menu />} />
-        <Route
-          path={ROUTES.MENU_REGISTRATION}
-          element={<MenuRegistration />}
-        />
+        <Route path={ROUTES.MENU} element={<MenuList />} />
+        <Route path={ROUTES.MENU_REGISTRATION} element={<MenuRegistration />} />
         <Route path={ROUTES.MENU_DETAIL} element={<MenuDetail />} />
         <Route path={ROUTES.ORDER} element={<Order />} />
         <Route path={ROUTES.ORDER_DETAIL} element={<OrderDetail />} />

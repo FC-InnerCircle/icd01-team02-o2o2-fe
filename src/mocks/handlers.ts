@@ -1,5 +1,12 @@
 import { http, HttpResponse } from 'msw';
-import { accountsMockData, menuMockData, orderMockData, reviewsMockData, authMockData } from 'mocks/__fixtures__';
+import {
+  accountsMockData,
+  menuMockData,
+  orderMockData,
+  reviewsMockData,
+  authMockData,
+  storeMockData,
+} from 'mocks/__fixtures__';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -37,7 +44,7 @@ export const accountsHandlers = [
     }
 
     return HttpResponse.json(accountsMockData.updateProfile);
-  })
+  }),
 ];
 
 // 메뉴 관련 API 요청 핸들러 정의
@@ -50,23 +57,47 @@ const menuHandlers = [
 // Store 관련 API 요청 핸들러 정의
 export const storeHandlers = [
   http.post(`${BASE_URL}/stores`, async () => {
-    return HttpResponse.json(menuMockData.create);
+    return HttpResponse.json(storeMockData.store.create);
   }),
   http.get(`${BASE_URL}/stores/:storeId`, async () => {
-    return HttpResponse.json(menuMockData.list);
+    return HttpResponse.json(storeMockData.store.list);
   }),
   http.get(`${BASE_URL}/stores/:storeId`, async () => {
-    return HttpResponse.json(menuMockData.detail);
+    return HttpResponse.json(storeMockData.store.detail);
   }),
   http.patch(`${BASE_URL}/stores/:storeId`, async () => {
-    return HttpResponse.json(menuMockData.update);
+    return HttpResponse.json(storeMockData.store.update);
   }),
 ];
 
 // Order 관련 API 요청 핸들러 정의
 export const orderHandlers = [
-  http.get(`${BASE_URL}/stores/:storeId/orders`, async () => {
-    return HttpResponse.json(orderMockData.list);
+  http.get(`${BASE_URL}/stores/:storeId/orders`, async (req) => {
+    const { request } = req;
+    const url = new URL(request.url);
+
+    const page = url.searchParams.get('page') ?? 1;
+    const status = url.searchParams.get('status') ?? 'all';
+
+    const filteredOrders = orderMockData.list.response.orders
+      .filter((order) => {
+        if (status === 'all') {
+          return true;
+        }
+
+        return order.status === status;
+      })
+      .slice(10 * (Number(page) - 1), Number(page) * 10);
+
+    const data = {
+      response: {
+        status,
+        orders: filteredOrders,
+        totalCount: orderMockData.list.response.orders.length,
+      },
+    };
+
+    return HttpResponse.json(data);
   }),
   http.get(`${BASE_URL}/stores/:storeId/orders/:orderId`, async () => {
     return HttpResponse.json(orderMockData.detail);
@@ -90,6 +121,8 @@ export const handlers = [
   ...menuHandlers,
   ...storeHandlers,
   ...reviewHandlers,
+  ...orderHandlers,
   ...accountsHandlers,
+  ...orderHandlers,
   ...authHandlers,
-]
+];

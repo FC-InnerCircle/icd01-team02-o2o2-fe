@@ -29,7 +29,7 @@ export default function Button({
 
 const _Button = styled.button<ButtonProps>`
   padding: 12px 24px;
-
+  transition: opacity 0.3s;
   ${({ textColor = "white" }) => css`
     color: ${colors[textColor]};
   `};
@@ -49,6 +49,9 @@ const _Button = styled.button<ButtonProps>`
   &:disabled {
     color: ${colors.white};
     background-color: ${colors.textMuted};
+  }
+  :hover {
+    opacity: 0.8;
   }
 `;
 

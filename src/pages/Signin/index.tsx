@@ -1,15 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import colors from "styles/color";
+import { css } from '@emotion/react';
+import colors from 'styles/color';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { type SubmitHandler } from "react-hook-form";
+import { type SubmitHandler } from 'react-hook-form';
 
-import * as z from "zod";
-import { loginSchema } from "schema";
-import { Input } from "common/components";
+import * as z from 'zod';
+import { loginSchema } from 'schema';
+import { Input } from 'common/components';
 import useAuth from 'common/hooks/useAuth';
 
 type SignInFormType = z.infer<typeof loginSchema>;
@@ -39,7 +39,7 @@ const SignIn = () => {
           css={_input}
           type="text"
           placeholder="Email"
-          {...register("accountId")}
+          {...register('accountId')}
         />
         {errors.accountId && <p css={_errorText}>{errors.accountId.message}</p>}
 
@@ -47,7 +47,7 @@ const SignIn = () => {
           css={_input}
           type="password"
           placeholder="Password"
-          {...register("password")}
+          {...register('password')}
         />
         {errors.password && <p css={_errorText}>{errors.password.message}</p>}
 
@@ -66,7 +66,7 @@ const _container = css`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url("/src/assets/login.jpg") no-repeat center center;
+  background: url('/src/assets/login.jpg') no-repeat center center;
   background-size: cover;
 
   @media (max-width: 768px) {

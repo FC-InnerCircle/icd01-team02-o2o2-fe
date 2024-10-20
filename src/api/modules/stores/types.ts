@@ -10,7 +10,7 @@ export type CreateStoreRequest = {
   closeTime: string;
   categories: string[];
   minimumOrderAmount: number;
-}
+};
 
 export type CreateStoreResponse = {
   id: number;
@@ -26,17 +26,19 @@ export type CreateStoreResponse = {
   categories: string[];
   minimumOrderAmount: number;
   createdAt: string;
-}
+};
 
 export type GetStoreResponse = CreateStoreResponse & {
   deliveryArea: string;
   updatedAt: string;
 };
 
+export type UpdateStorePayload = GetStoreResponse;
+
 export type StoresParams = {
   page?: number;
   size?: number;
-}
+};
 
 export type Menu = {
   id: number;
@@ -45,16 +47,16 @@ export type Menu = {
   desc: string;
   price: number;
   images: Image[];
-}
+};
 
 export type Image = {
   seq: number;
   imageUrl: string;
-}
+};
 
 export type GetStoresMenuParams = StoresParams & {
-  status?: "SOLDOUT" | "DISABLED" | "ENABLED"
-}
+  status?: 'SOLDOUT' | 'DISABLED' | 'ENABLED';
+};
 
 export type GetStoresMenuResponse = {
   response: {
@@ -62,67 +64,48 @@ export type GetStoresMenuResponse = {
     page: number;
     totalLength: number;
     size: number;
-  }
+  };
   statusCode: number;
   msg: string;
-}
+};
 
 export type OptionGroup = {
   optionGroupId: number;
-  seq: number;
+  ordering: number;
   isRequired: boolean;
+  isMultiple: boolean;
   title: string;
   details: OptionDetail[];
 };
 
 export type OptionDetail = {
   optionId: number;
-  seq: number;
+  ordering: number;
   name: string;
   price: number;
-  desc: string;
 };
 
-export type GetMenuDetailResponse = {
-  response: {
-    menuId: number;
-    status: string;
-    name: string;
-    desc: string;
-    price: number;
-    images: Image[];
-    options: OptionGroup[];
-  };
-};
-
-export type CreateMenuRequest = {
+export type MenuDetailInfo = {
+  menuId: number;
   status: string;
   name: string;
   desc: string;
   price: number;
   images: Image[];
   options: OptionGroup[];
-}
+};
 
-export type CreateMenuResponse = {
-  response: {
-    menuId: number;
-    status: string;
-    name: string;
-    desc: string;
-    price: number;
-    images: Image[];
-    options: OptionGroup[];
-  }
-}
+export type GetMenuDetailResponse = {
+  response: MenuDetailInfo;
+};
 
 export type GetOrderRequest = {
   startDate: string;
   endDate: string;
-  status: "ORDER" | "CANCEL"
+  status: 'ORDER' | 'CANCEL';
   page: number;
   size: number;
-}
+};
 
 export type Store = {
   storeId: number;
@@ -143,17 +126,15 @@ export type OrderMenu = {
 };
 
 export type Order = {
+  orderId: number;
   status: string;
-  store: Store;
-  orderer: Orderer;
-  menu: OrderMenu;
+  storeName: string;
+  ordererName: string;
+  menutotalPrice: number;
 };
 
 export type GetOrderResponse = {
-  response: {
-    status: string;
-    orders: Order[];
-  };
+  orders: Order[];
 };
 
 export type GetOrderDetailResponse = {
@@ -191,7 +172,7 @@ export type GetOrderDetailResponse = {
 export type UpdateOrderRequest = {
   orderId: number;
   reason: string;
-}
+};
 
 export type Review = {
   id: number;
@@ -206,7 +187,7 @@ export type Review = {
   };
   menus: {
     name: string;
-  }
+  };
 };
 
 export type ReviewImage = {
@@ -215,7 +196,7 @@ export type ReviewImage = {
 };
 
 export type GetReviewsParams = StoresParams & {
-  sort?: "GRADE" | "ID";
+  sort?: 'GRADE' | 'ID';
 };
 
 export type GetReviewsResponse = {
