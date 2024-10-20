@@ -61,7 +61,7 @@ const Order = ({ ...rest }) => {
           page: 1,
           orderStatus: event.target.value,
         },
-      })
+      }),
     );
   };
 
@@ -99,7 +99,7 @@ const Order = ({ ...rest }) => {
         enableSorting: true,
       },
     ],
-    []
+    [],
   );
 
   const table = useReactTable({
@@ -120,7 +120,7 @@ const Order = ({ ...rest }) => {
           orderStatus,
           page,
         },
-      })
+      }),
     );
   };
 
@@ -132,7 +132,7 @@ const Order = ({ ...rest }) => {
           orderStatus,
           page: Number(page) - 1,
         },
-      })
+      }),
     );
   };
 
@@ -144,7 +144,7 @@ const Order = ({ ...rest }) => {
           orderStatus,
           page: Number(page) + 1,
         },
-      })
+      }),
     );
   };
 
@@ -197,7 +197,7 @@ const Order = ({ ...rest }) => {
                     <div>
                       {flexRender(
                         header.column.columnDef.header,
-                        header.getContext()
+                        header.getContext(),
                       )}
                     </div>
                   </th>

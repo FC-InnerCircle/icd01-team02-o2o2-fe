@@ -10,6 +10,7 @@ import { type SubmitHandler } from 'react-hook-form';
 import * as z from 'zod';
 import { loginSchema } from 'schema';
 import { Input } from 'common/components';
+import useAuth from 'common/hooks/useAuth';
 
 type SignInFormType = z.infer<typeof loginSchema>;
 
@@ -23,8 +24,15 @@ const SignIn = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<SignInFormType> = () => {
-    // console.log(data);
+  const { login: loginFn } = useAuth(['admin', 'guest', 'owner']);
+
+  const onSubmit: SubmitHandler<SignInFormType> = async (data) => {
+    try {
+      await loginFn(data);
+      reset();
+    } catch {
+      alert('로그인 실패');
+    }
     reset();
   };
 

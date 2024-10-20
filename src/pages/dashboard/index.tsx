@@ -1,26 +1,18 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-
+import useAuth from 'common/hooks/useAuth';
 import OwnerHome from './OwnerHome';
-import AdminHome from './AdminHome';
-import { DashboardProps } from './types';
-import fonts from 'styles/font';
 
-const Home = ({ role }: DashboardProps) => {
+const Home = () => {
+  const { AuthGuard } = useAuth(['admin', 'owner']);
+
+  /**
+   * atom에 따라 구별하여
+   */
   return (
-    <div css={_container}>
-      <div css={_mainTxt}>Dashboard</div>
-      <div>{role === 'admin' ? <AdminHome /> : <OwnerHome />}</div>
-    </div>
+    <AuthGuard>
+      {/* {<AdminHome />} */}
+      <OwnerHome />
+    </AuthGuard>
   );
 };
 
 export default Home;
-
-const _container = css`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const _mainTxt = [css``, fonts['24_800']];

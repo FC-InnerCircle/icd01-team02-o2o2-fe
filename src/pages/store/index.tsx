@@ -21,8 +21,10 @@ import { storeSchema } from './schema';
 import { useEffect } from 'react';
 
 import type { UpdateStorePayload } from 'api/modules/stores/types';
+import useAuth from 'common/hooks/useAuth';
 
 const Store = ({ ...rest }) => {
+  const { AuthGuard } = useAuth(['admin']);
   const { data } = useGetStoresQueryTest(1);
   const { mutate: updateStoreQuery } = useUpdateStoresQuery();
 
@@ -56,30 +58,32 @@ const Store = ({ ...rest }) => {
   }, [methods, storeData]);
 
   return (
-    <FormProvider {...methods}>
-      <div css={[_container]} {...rest}>
-        <h3>{name}</h3>
+    <AuthGuard>
+      <FormProvider {...methods}>
+        <div css={[_container]} {...rest}>
+          <h3>{name}</h3>
 
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <div css={_contentsContainer}>
-            <section css={_wrapperTxt}>
-              <span css={[_titleText]}>기본 정보</span>
-              <ImageUpload />
-              <span css={[_titleText]}>영업 및 금액 정보</span>
-              <OpeningHoursAndFees />
-            </section>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <div css={_contentsContainer}>
+              <section css={_wrapperTxt}>
+                <span css={[_titleText]}>기본 정보</span>
+                <ImageUpload />
+                <span css={[_titleText]}>영업 및 금액 정보</span>
+                <OpeningHoursAndFees />
+              </section>
 
-            <section css={_bcontainer}>
-              <Category address={address} addressDetail={addressDetail} />
-            </section>
-          </div>
+              <section css={_bcontainer}>
+                <Category address={address} addressDetail={addressDetail} />
+              </section>
+            </div>
 
-          <div css={_btnStyleContainer}>
-            <Button type="submit">저장</Button>
-          </div>
-        </form>
-      </div>
-    </FormProvider>
+            <div css={_btnStyleContainer}>
+              <Button type="submit">저장</Button>
+            </div>
+          </form>
+        </div>
+      </FormProvider>
+    </AuthGuard>
   );
 };
 
