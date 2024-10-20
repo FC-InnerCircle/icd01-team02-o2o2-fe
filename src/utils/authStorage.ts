@@ -1,7 +1,7 @@
 const b64Encode = (str: string) => {
   try {
     const b64En = window.btoa(
-      encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+      encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (_, p1) {
         return String.fromCharCode(parseInt(p1, 16));
       }),
     );
@@ -26,7 +26,10 @@ const b64Decode = (str: string) => {
   }
 };
 
-const saveTokenToLocalStorage = (accessToken: string | null, refreshToken: string | null) => {
+const saveTokenToLocalStorage = (
+  accessToken: string | null,
+  refreshToken: string | null,
+) => {
   if (!accessToken || !refreshToken) {
     return;
   }
@@ -44,8 +47,8 @@ const saveTokenToLocalStorage = (accessToken: string | null, refreshToken: strin
 };
 
 const getTokenFromLocalStorage = () => {
-  const encodedAccessToken = window.localStorage.getItem("accessToken");
-  const encodedRefreshToken = window.localStorage.getItem("refreshToken");
+  const encodedAccessToken = window.localStorage.getItem('accessToken');
+  const encodedRefreshToken = window.localStorage.getItem('refreshToken');
 
   // 토큰이 없는 경우
   if (!encodedAccessToken || !encodedRefreshToken) {
@@ -69,4 +72,4 @@ export {
   saveTokenToLocalStorage,
   getTokenFromLocalStorage,
   removeTokenFromLocalStorage,
-}
+};

@@ -20,7 +20,7 @@ export const tokenAtom = atom<TokenState>({
 
 export const setTokenAtom = atom<null, [LoginResponse], void>(
   null, // 읽기 용도로 사용되지 않음
-  (get, set, { accessToken, refreshToken }: LoginResponse) => {
+  (_, set, { accessToken, refreshToken }: LoginResponse) => {
     // 로컬 스토리지에 저장
     saveTokenToLocalStorage(accessToken, refreshToken);
     // tokenAtom 상태 업데이트
