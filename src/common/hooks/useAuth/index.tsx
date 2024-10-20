@@ -1,11 +1,11 @@
 import { roleAtom, setTokenAtom, tokenAtom, UserRole } from 'atoms/authAtom';
 import { useAtom } from 'jotai';
 
-import { Navigate, useNavigate } from "react-router-dom";
-import { AuthResult } from './types';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuthLogin, useAuthLogout } from 'queries/modules/auth/useAuthQuery';
 import { removeTokenFromLocalStorage } from 'utils/authStorage';
 import { LoginRequest } from 'api/modules/auth/types';
+import { ROUTES } from 'common/constants/routes';
 
 /**
  *
@@ -22,10 +22,13 @@ import { LoginRequest } from 'api/modules/auth/types';
  * - logout: 로그아웃 함수
  */
 
-const useAuth = (requiredRoles: UserRole[], redirectPath: string = "/sign-in"): AuthResult => {
+const useAuth = (
+  requiredRoles: UserRole[],
+  redirectPath: string = '/sign-in',
+) => {
   const [role] = useAtom(roleAtom);
   const [token] = useAtom(tokenAtom);
-  const setToken = useAtom(setTokenAtom)[1];  // 쓰기 전용 토큰 설정 함수 사용
+  const [, setToken] = useAtom(setTokenAtom); // 쓰기 전용 토큰 설정 함수 사용
 
   const navigate = useNavigate();
 
@@ -33,10 +36,10 @@ const useAuth = (requiredRoles: UserRole[], redirectPath: string = "/sign-in"): 
   const { mutate: loginMutate, error: loginError } = useAuthLogin({
     onSuccess: (data) => {
       // 로그인 성공 시 토큰과 역할 저장
-      const { accessToken, refreshToken } = data.response
+      const { accessToken, refreshToken } = data.response;
 
       setToken({ accessToken, refreshToken }); // 토큰 저장
-      navigate('/'); // 로그인 후 메인 페이지로 이동
+      navigate(ROUTES.HOME); // 로그인 후 메인 페이지로 이동
     },
   });
 
@@ -63,12 +66,14 @@ const useAuth = (requiredRoles: UserRole[], redirectPath: string = "/sign-in"): 
   // });
 
   // 인증된 사용자인지 확인
-  const isAuthenticated = !!token.accessToken && requiredRoles.includes(role);
+  const isAuthenticated = !!token.accessToken && requiredRoles?.includes(role);
 
   // AuthGurad
   const AuthGuard = ({ children }: { children: JSX.Element }) => {
     if (!token) {
-      return <Navigate to={redirectPath} state={{ from: location }} replace />; // 로그인 안된 경우 리디렉트
+      return (
+        <Navigate to={redirectPath} state={{ from: window.location }} replace />
+      ); // 로그인 안된 경우 리디렉트
     }
 
     if (!isAuthenticated) {
@@ -77,16 +82,23 @@ const useAuth = (requiredRoles: UserRole[], redirectPath: string = "/sign-in"): 
     return children;
   };
 
-    // 로그인 함수
+  // 로그인 함수
   const login = async (payload: LoginRequest) => {
     loginMutate(payload);
   };
 
   const logout = () => {
     logoutMutate({ refreshToken: token.refreshToken! });
-  }
+  };
 
-  return { isAuthenticated, AuthGuard, login, logout, error: loginError?.message ?? null, role };
+  return {
+    isAuthenticated,
+    AuthGuard,
+    login,
+    loginError: loginError?.message ?? null,
+    logout,
+    role,
+  };
 };
 
 export default useAuth;

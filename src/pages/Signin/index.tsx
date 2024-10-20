@@ -26,8 +26,13 @@ const SignIn = () => {
 
   const { login: loginFn } = useAuth(['admin', 'guest', 'owner']);
 
-  const onSubmit: SubmitHandler<SignInFormType> = (data) => {
-    loginFn(data);
+  const onSubmit: SubmitHandler<SignInFormType> = async (data) => {
+    try {
+      await loginFn(data);
+      reset();
+    } catch {
+      alert('로그인 실패');
+    }
     reset();
   };
 
