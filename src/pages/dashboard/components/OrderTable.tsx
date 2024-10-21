@@ -148,11 +148,13 @@ const OrderTable = () => {
           이전 페이지
         </button>
         <span>
-          {`${pageIndex + 1} / ${Math.ceil(orderData.length / PAGE_SIZE)} 페이지`}
+          {`${pageIndex + 1} / ${Math.ceil(
+            orderData.length / PAGE_SIZE,
+          )} 페이지`}
         </span>
         <button
           onClick={() => setPageIndex((prev) => prev + 1)}
-          disabled={currentPageData.length < PAGE_SIZE}
+          disabled={currentPageData.length < PAGE_SIZE + 1}
         >
           다음 페이지
         </button>
