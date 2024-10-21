@@ -12,12 +12,26 @@
 - 테스트 : StoryBook, Cypress(미정)
 - node : node v20.16.0 이상
 
-## 실행
+## 실행 방법
+
+### 환경변수
+
+```
+VITE_USE_MSW="true" // MSW 사용하는 경우
+VITE_API_BASE_URL="/api/v1"
+VITE_KAKAO_MAP_KEY=ab8c859d7d2f6ccd51454ffee6559ff4
+```
+
+### 실행
 
 ```bash
 npm install
 npm run dev
 ```
+
+### 버그바운티를 위한 현재까지 진행된 사항에 관련한 문서
+
+- [버그바운티:구현 안내사항](https://github.com/FC-InnerCircle/icd01-team02-o2o2-fe/blob/main/docs/Bug.md)
 
 ## 구조
 
@@ -68,7 +82,7 @@ project-root/
 - src
 
 ```js
-import { counterAtom } from "atoms/sample";
+import { counterAtom } from 'atoms/sample';
 ```
 
 ## Rules
