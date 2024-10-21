@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import colors from 'styles/color';
 import Menus from 'common/components/layout/menus';
 import { Search, Logo } from 'common/components/icons';
+import useAuth from 'common/hooks/useAuth';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
 const Layout = ({ children }: Props) => {
+  const { logout } = useAuth([]);
   return (
     <div css={_container}>
       <aside css={_sideMenu}>
@@ -22,6 +24,9 @@ const Layout = ({ children }: Props) => {
         <nav aria-label="Sidebar navigation" css={_menuContainer}>
           <Menus />
         </nav>
+        <button onClick={logout} css={_signout}>
+          Sign out
+        </button>
       </aside>
       <div css={_wrapper}>
         <header css={_header}>
@@ -58,6 +63,10 @@ const _sideMenu = css`
   width: 345px;
   background-color: rgba(255, 255, 255, 1);
   filter: drop-shadow(18px 4px 30px #00000002);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 24px;
 `;
 
 const _wrapper = css`
@@ -144,4 +153,13 @@ const _main = css`
   overflow-y: scroll;
 
   padding: 32px; // 메인 컴포넌트 기본 패딩
+`;
+
+const _signout = css`
+  margin-top: auto;
+  cursor: pointer;
+  transition: opacity 0.7s;
+  :hover {
+    opacity: 0.5;
+  }
 `;

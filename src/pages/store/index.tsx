@@ -24,7 +24,7 @@ import type { UpdateStorePayload } from 'api/modules/stores/types';
 import useAuth from 'common/hooks/useAuth';
 
 const Store = ({ ...rest }) => {
-  const { AuthGuard } = useAuth(['admin']);
+  const { AuthGuard } = useAuth(['admin', 'owner']);
   const { data } = useGetStoresQueryTest(1);
   const { mutate: updateStoreQuery } = useUpdateStoresQuery();
 
