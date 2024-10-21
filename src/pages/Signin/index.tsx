@@ -24,11 +24,23 @@ const SignIn = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const { login: loginFn } = useAuth(['admin', 'guest', 'owner']);
+  const { login } = useAuth(['admin', 'guest', 'owner']);
+
+  const loginTestData = {
+    accountId: 'test@naver.com',
+    password: '123!@#',
+  };
 
   const onSubmit: SubmitHandler<SignInFormType> = async (data) => {
     try {
-      await loginFn(data);
+      if (
+        data.accountId === loginTestData.accountId &&
+        data.password === loginTestData.password
+      ) {
+        await login(data);
+      } else {
+        alert('로그인 실패');
+      }
       reset();
     } catch {
       alert('로그인 실패');
