@@ -18,6 +18,9 @@ export const authHandlers = [
   http.post(`${BASE_URL}/auth/refresh`, async () => {
     return HttpResponse.json(authMockData.refresh);
   }),
+  http.post(`${BASE_URL}/auth/logout`, async () => {
+    return HttpResponse.json(authMockData.logout);
+  }),
 ];
 
 // 계정 관련 API 요청 핸들러 정의
