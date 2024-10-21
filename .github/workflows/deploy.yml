@@ -1,0 +1,47 @@
+name: Deploy React App to S3
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Node.js 설치
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 3. 의존성 설치 (npm install)
+      - name: Install dependencies
+        run: npm install
+
+      # 4. React 앱 빌드
+      - name: Build React app
+
+        run: |
+          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" >> .env
+          echo "VITE_USE_MSW=${{ secrets.VITE_USE_MSW }}" >> .env
+          echo "VITE_KAKAO_MAP_KEY=${{ secrets.VITE_KAKAO_MAP_KEY }}" >> .env
+          npm run build
+
+      # 5. AWS S3로 파일 업로드
+      - name: Deploy to S3
+        uses: awact/s3-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'ap-northeast-2'
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET_NAME }}
+          SOURCE_DIR: './dist' # 빌드된 React 앱이 있는 디렉터리
