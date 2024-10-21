@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 import colors from 'styles/color';
-import StarRating from 'pages/reviews/components/StarRating';
+import StarRating from 'pages/Reviews/components/StarRating';
 
 import { hexToRgba } from 'utils/hexToRgba';
-import { CardProps } from './types';
+import { CardProps } from 'pages/Reviews/components/types';
 import { getProfileImg } from 'utils/getProfileImg';
-
 
 const Card = ({ content, member, menus, reviewDate, grade }: CardProps) => {
   const { profileImage, nickname } = member;
@@ -36,11 +35,10 @@ const Card = ({ content, member, menus, reviewDate, grade }: CardProps) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Card;
-
 
 const _cardContainer = css`
   border: 1px solid ${colors.icy};
@@ -48,15 +46,17 @@ const _cardContainer = css`
   margin: 16px 0;
   border-radius: 8px;
   background-color: ${colors.white};
-  max-width: 100%;  // 하단 가로 스크롤 방지
+  max-width: 100%; // 하단 가로 스크롤 방지
   overflow: hidden;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
-  @media (max-width: 768px) {  // 테블릿 대응
+  @media (max-width: 768px) {
+    // 테블릿 대응
     padding: 12px;
   }
 
-  @media (max-width: 480px) {  // 모바일 대응
+  @media (max-width: 480px) {
+    // 모바일 대응
     padding: 8px;
   }
 `;
@@ -71,11 +71,11 @@ const _reviewContainer = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;  // 반응형을 위해 요소들을 줄 바꿈
-  gap: 16px;  // 간격을 설정하여 반응형 레이아웃에서의 간격 유지
+  flex-wrap: wrap; // 반응형을 위해 요소들을 줄 바꿈
+  gap: 16px; // 간격을 설정하여 반응형 레이아웃에서의 간격 유지
 
   @media (max-width: 768px) {
-    flex-direction: column;  // 테블릿에서 세로 정렬
+    flex-direction: column; // 테블릿에서 세로 정렬
     align-items: flex-start;
   }
 `;
@@ -86,7 +86,8 @@ const _profileContainer = css`
   align-items: flex-start;
   width: 85%;
 
-  @media (max-width: 480px) {  // 모바일 대응
+  @media (max-width: 480px) {
+    // 모바일 대응
     gap: 12px;
   }
 `;
@@ -155,11 +156,11 @@ const _gradeContainer = css`
   width: 10%;
 
   @media (max-width: 768px) {
-    align-self: flex-end;  // 테블릿에서 오른쪽 정렬
+    align-self: flex-end; // 테블릿에서 오른쪽 정렬
   }
 
   @media (max-width: 480px) {
-    align-self: flex-start;  // 모바일에서는 세로로 정렬
+    align-self: flex-start; // 모바일에서는 세로로 정렬
     margin-top: 12px;
   }
 `;
@@ -174,5 +175,3 @@ const _grade = css`
     font-size: 1.2rem;
   }
 `;
-
-

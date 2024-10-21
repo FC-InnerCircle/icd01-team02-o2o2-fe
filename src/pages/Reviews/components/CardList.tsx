@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 import { useGetStoresReview } from 'queries/modules/stores/useStoresQuery';
-import Card from './Card';
+import Card from 'pages/Reviews/components/Card';
 
 import get from 'lodash/get';
 import isUndefined from 'lodash/isUndefined';
-import StarRating from 'pages/reviews/components/StarRating';
+import StarRating from 'pages/Reviews/components/StarRating';
 
 const CardList = () => {
   const { data: storeReviewData } = useGetStoresReview(1);
 
-  const reviews = get(storeReviewData, ['response', 'reviews']) ;
+  const reviews = get(storeReviewData, ['response', 'reviews']);
   const grade = get(storeReviewData, ['response', 'grade']);
 
   return (
@@ -19,10 +19,11 @@ const CardList = () => {
         <div css={_score}>내 음식점 리뷰 평균 평점</div>
         <StarRating rating={grade ?? 0} size={18} />
       </div>
-      {isUndefined(reviews) ?
+      {isUndefined(reviews) ? (
         <div css={__emptyReviewContainer}>
           <div css={_emptyReview}>리뷰가 없습니다.</div>
-        </div> :
+        </div>
+      ) : (
         <>
           {reviews?.map((review) => (
             <Card
@@ -36,10 +37,10 @@ const CardList = () => {
             />
           ))}
         </>
-      }
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default CardList;
 
@@ -60,22 +61,22 @@ const _score = css`
   color: #333;
 
   @media (max-width: 480px) {
-    font-size: 1.0rem;
+    font-size: 1rem;
   }
-`
+`;
 
 const _emptyReview = css`
-  font-size: 1.0rem;
+  font-size: 1rem;
   color: #888;
   margin-top: 20px;
-`
+`;
 
 const __emptyReviewContainer = css`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100px;
-  font-size: 1.0rem;
+  font-size: 1rem;
   color: #888;
   margin-top: 20px;
-`
+`;
