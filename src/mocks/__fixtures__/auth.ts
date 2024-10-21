@@ -8,7 +8,6 @@ export const authMockData = {
     message: '성공',
   },
   logout: {
-    response: {},
     code: '200',
     message: '성공',
   },
