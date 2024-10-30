@@ -10,6 +10,11 @@ interface TrendingItem {
   sales: number;
   percentageChange: number;
   imageUrl: string;
+  id: number;
+  chartData: {
+    month: string;
+    value: number;
+  }[];
 }
 
 interface TrendingItemsProps extends HTMLAttributes<HTMLDivElement> {
@@ -39,13 +44,9 @@ const TrendingItems = ({ items = dummyItems, ...rest }: TrendingItemsProps) => {
               <ItemCategory>{item.category}</ItemCategory>
             </ItemDetails>
             <SalesInfo>
-              <SalesValue>{item.sales}</SalesValue>
-              <PercentageChange positive={item.percentageChange >= 0}>
-                Sales ({item.percentageChange}%)
-              </PercentageChange>
               <ChartContainer>
                 <ResponsiveContainer width="100%" height={60}>
-                  <AreaChart data={dummyChartData}>
+                  <AreaChart data={item.chartData}>
                     <XAxis dataKey="month" hide />
                     <Area
                       type="monotone"
@@ -59,6 +60,12 @@ const TrendingItems = ({ items = dummyItems, ...rest }: TrendingItemsProps) => {
                   </AreaChart>
                 </ResponsiveContainer>
               </ChartContainer>
+              <SalePercent>
+                <SalesValue>{item.sales}</SalesValue>
+                <PercentageChange positive={item.percentageChange >= 0}>
+                  Sales ({item.percentageChange}%)
+                </PercentageChange>
+              </SalePercent>
             </SalesInfo>
           </Item>
         ))}
@@ -164,9 +171,12 @@ const ItemCategory = styled.p`
 `;
 
 const SalesInfo = styled.div`
-  text-align: right;
+  text-align: center;
+  display: flex;
+  gap: 12px;
 `;
 
+const SalePercent = styled.div``;
 const SalesValue = styled.p`
   font-size: 24px;
   font-weight: bold;
@@ -188,6 +198,7 @@ const ChartContainer = styled.div`
 
 const dummyItems = [
   {
+    id: 1,
     rank: 1,
     name: '카라멜 마키아토',
     price: '₩4500',
@@ -195,8 +206,15 @@ const dummyItems = [
     sales: 524,
     percentageChange: 60,
     imageUrl: '/src/assets/caramel.webp',
+    chartData: [
+      { month: 'Jan', value: 100 },
+      { month: 'Feb', value: 150 },
+      { month: 'Mar', value: 200 },
+      { month: 'Apr', value: 250 },
+    ],
   },
   {
+    id: 2,
     rank: 2,
     name: '바닐라 라떼',
     price: '₩4000',
@@ -204,8 +222,15 @@ const dummyItems = [
     sales: 215,
     percentageChange: -2,
     imageUrl: '/src/assets/vanila.webp',
+    chartData: [
+      { month: 'Jan', value: 200 },
+      { month: 'Feb', value: 180 },
+      { month: 'Mar', value: 160 },
+      { month: 'Apr', value: 150 },
+    ],
   },
   {
+    id: 3,
     rank: 3,
     name: '에스프레소',
     price: '₩3000',
@@ -213,8 +238,15 @@ const dummyItems = [
     sales: 120,
     percentageChange: 5,
     imageUrl: '/src/assets/espresso.webp',
+    chartData: [
+      { month: 'Jan', value: 120 },
+      { month: 'Feb', value: 130 },
+      { month: 'Mar', value: 140 },
+      { month: 'Apr', value: 150 },
+    ],
   },
   {
+    id: 4,
     rank: 4,
     name: '카푸치노',
     price: '₩4000',
@@ -222,8 +254,15 @@ const dummyItems = [
     sales: 76,
     percentageChange: 12,
     imageUrl: '/src/assets/cappuccino.webp',
+    chartData: [
+      { month: 'Jan', value: 80 },
+      { month: 'Feb', value: 90 },
+      { month: 'Mar', value: 100 },
+      { month: 'Apr', value: 110 },
+    ],
   },
   {
+    id: 5,
     rank: 5,
     name: '플랫 화이트',
     price: '₩4200',
@@ -231,13 +270,11 @@ const dummyItems = [
     sales: 215,
     percentageChange: -2,
     imageUrl: '/src/assets/latte.webp',
+    chartData: [
+      { month: 'Jan', value: 180 },
+      { month: 'Feb', value: 170 },
+      { month: 'Mar', value: 160 },
+      { month: 'Apr', value: 150 },
+    ],
   },
-];
-
-// 차트 더미 데이터
-const dummyChartData = [
-  { month: 'Jan', value: 100 },
-  { month: 'Feb', value: 200 },
-  { month: 'Mar', value: 150 },
-  { month: 'Apr', value: 250 },
 ];

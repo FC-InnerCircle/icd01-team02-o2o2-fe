@@ -174,6 +174,7 @@ const ViewMore = styled.p`
 
 const dummyData = [
   {
+    id: 1,
     rank: 1,
     name: '카라멜 마키아토',
     price: '₩4500',
@@ -183,6 +184,7 @@ const dummyData = [
     imageUrl: '/src/assets/caramel.webp',
   },
   {
+    id: 2,
     rank: 2,
     name: '바닐라 라떼',
     price: '₩4000',
@@ -192,6 +194,7 @@ const dummyData = [
     imageUrl: '/src/assets/vanila.webp',
   },
   {
+    id: 3,
     rank: 3,
     name: '에스프레소',
     price: '₩3000',
@@ -201,6 +204,7 @@ const dummyData = [
     imageUrl: '/src/assets/espresso.webp',
   },
   {
+    id: 4,
     rank: 4,
     name: '카푸치노',
     price: '₩4000',
@@ -210,6 +214,7 @@ const dummyData = [
     imageUrl: '/src/assets/cappuccino.webp',
   },
   {
+    id: 5,
     rank: 5,
     name: '플랫 화이트',
     price: '₩4200',
@@ -219,6 +224,7 @@ const dummyData = [
     imageUrl: '/src/assets/latte.webp',
   },
   {
+    id: 6,
     rank: 6,
     name: '모카',
     price: '₩4800',
