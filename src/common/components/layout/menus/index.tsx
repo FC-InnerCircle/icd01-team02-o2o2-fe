@@ -32,7 +32,11 @@ const MENUS = {
     link: ROUTES.REVIEW,
     icon: <Review width={'100%'} height={'100%'} fill="currentColor" />,
   },
-  // analytics: { title: "Analytics", link: "/", icon: <Dashboard /> },
+  analytics: {
+    title: 'Analytics',
+    link: ROUTES.ANALYTICS,
+    icon: <Dashboard width={'100%'} height={'100%'} fill="currentColor" />,
+  },
 } as const;
 
 //TODO API 연동후 맞는 Store id로 수정할 것
