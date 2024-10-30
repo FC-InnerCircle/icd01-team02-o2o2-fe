@@ -12,7 +12,7 @@ export const ROUTES = {
   REVIEW: '/:storeId/review',
   PROFILE: '/profile',
   SIGN_IN: '/sign-in',
-  ANALYTICS: '/analytics',
+  ANALYTICS: '/:storeId/analytics',
 } as const;
 
 export const BASE_URL = '/api/v1/';
