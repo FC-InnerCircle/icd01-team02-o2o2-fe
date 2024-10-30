@@ -1,5 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface SellingItem {
   rank: number;
@@ -9,6 +10,7 @@ interface SellingItem {
   serves: string;
   time: string;
   imageUrl: string;
+  id: number;
 }
 
 interface SellingItemsProps extends HTMLAttributes<HTMLDivElement> {
@@ -16,6 +18,8 @@ interface SellingItemsProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const SellingItems = ({ items = dummyData, ...rest }: SellingItemsProps) => {
+  const { storeId } = useParams<{ storeId: string }>();
+  const navigate = useNavigate();
   return (
     <SellingContainer {...rest}>
       <Header>
@@ -29,7 +33,10 @@ const SellingItems = ({ items = dummyData, ...rest }: SellingItemsProps) => {
       </Header>
       <ItemsList>
         {items.map((item) => (
-          <Item key={item.rank}>
+          <Item
+            key={item.rank}
+            onClick={() => navigate(`/${storeId}/menu/${item.id}`)}
+          >
             <ItemImage src={item.imageUrl} alt={item.name} />
             <ItemDetails>
               <ItemName>{item.name}</ItemName>
@@ -108,6 +115,7 @@ const Item = styled.div`
   background: #f9f9f9;
   padding: 16px;
   border-radius: 12px;
+  cursor: pointer;
 `;
 
 const ItemImage = styled.img`

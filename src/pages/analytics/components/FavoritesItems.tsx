@@ -1,5 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface FavoriteItem {
   rank: number;
@@ -9,6 +10,7 @@ interface FavoriteItem {
   sales: number;
   percentageChange: number;
   imageUrl: string;
+  id: number;
 }
 
 interface FavoriteItemsProps extends HTMLAttributes<HTMLDivElement> {
@@ -16,6 +18,8 @@ interface FavoriteItemsProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const FavoriteItems = ({ items = dummyData, ...rest }: FavoriteItemsProps) => {
+  const { storeId } = useParams<{ storeId: string }>();
+  const navigate = useNavigate();
   return (
     <FavoriteContainer {...rest}>
       <Header>
@@ -29,7 +33,10 @@ const FavoriteItems = ({ items = dummyData, ...rest }: FavoriteItemsProps) => {
       </Header>
       <ItemsGrid>
         {items.map((item) => (
-          <Item key={item.rank}>
+          <Item
+            key={item.rank}
+            onClick={() => navigate(`/${storeId}/menu/${item.id}`)}
+          >
             <ItemImage src={item.imageUrl} alt={item.name} />
             <ItemDetails>
               <ItemName>{item.name}</ItemName>
@@ -123,6 +130,7 @@ const Item = styled.div`
   padding: 16px;
   border-radius: 12px;
   align-items: center;
+  cursor: pointer;
 `;
 
 const ItemImage = styled.img`

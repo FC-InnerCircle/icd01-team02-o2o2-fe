@@ -1,6 +1,7 @@
 import React, { HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { AreaChart, Area, XAxis, ResponsiveContainer } from 'recharts';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface TrendingItem {
   rank: number;
@@ -22,6 +23,8 @@ interface TrendingItemsProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const TrendingItems = ({ items = dummyItems, ...rest }: TrendingItemsProps) => {
+  const { storeId } = useParams<{ storeId: string }>();
+  const navigate = useNavigate();
   return (
     <TrendingContainer {...rest}>
       <Header>
@@ -35,7 +38,10 @@ const TrendingItems = ({ items = dummyItems, ...rest }: TrendingItemsProps) => {
       </Header>
       <ItemsList>
         {items.map((item) => (
-          <Item key={item.rank}>
+          <Item
+            key={item.rank}
+            onClick={() => navigate(`/${storeId}/menu/${item.id}`)}
+          >
             <Rank>#{item.rank}</Rank>
             <ItemImage src={item.imageUrl} alt={item.name} />
             <ItemDetails>
@@ -133,6 +139,7 @@ const Item = styled.div`
   padding: 12px;
   border-radius: 8px;
   background: #f9f9f9;
+  cursor: pointer;
 `;
 
 const Rank = styled.div`
