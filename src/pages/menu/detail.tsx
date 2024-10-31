@@ -17,11 +17,13 @@ import type {
 } from 'api/modules/stores/types';
 import useMenuDetail from './hooks/useMenuDetail';
 import useMenuOption from './hooks/useMenuOption';
+import MenuPreviewModal from './components/menuPreviewModal';
 
 //TODO status 뭐로 추가하지?
 const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
   const { options } = data;
   const [isOptionModalOpen, setIsOptionModalOpen] = useState<boolean>(false);
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState<boolean>(false);
   const [selectedOptionToEdit, setSelectedOptionToEdit] = useState<{
     data: CreateMenuOptionGroupReq;
     index: number;
@@ -41,12 +43,29 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
   const handleCloseEditModal = () => setSelectedOptionToEdit(null);
   const handleOptionModalOpen = () => setIsOptionModalOpen((prev) => !prev);
 
+  const menuPreviewModel = {
+    menuImage: imageMetadata ? imageMetadata.src : originalImage,
+    menuTitle: data.name,
+    menuDescription: data.desc,
+    optionSections: data.options.map((optionGroup) => ({
+      title: optionGroup.title,
+      requirement: optionGroup.isRequired ? '필수' : '선택',
+      type: optionGroup.isMultiple ? '다중' : '단일',
+      options: optionGroup.details.map((detail) => ({
+        name: detail.name,
+        price: detail.price,
+        checked: false, // 기본값으로 false 설정
+      })),
+    })),
+  };
   return (
     <>
       <div css={[_container]}>
         <div css={_titleWrap}>
           <h2>Menu</h2>
-          <button css={_subButton}>미리보기</button>
+          <button css={_subButton} onClick={() => setIsPreviewModalOpen(true)}>
+            미리보기
+          </button>
         </div>
         <section css={_menuContainer}>
           <h3 css={_subtitle}>기본 정보</h3>
@@ -130,6 +149,12 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
               ...optionGroup,
             });
           }}
+        />
+      )}
+      {isPreviewModalOpen && (
+        <MenuPreviewModal
+          onClose={() => setIsPreviewModalOpen(false)}
+          {...menuPreviewModel}
         />
       )}
     </>
