@@ -5,6 +5,7 @@ import MenuCard from './components/menuCard';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'common/components';
 import { MenuListProps } from './types';
+import useAuth from 'common/hooks/useAuth';
 
 const MenuList = ({ data }: MenuListProps) => {
   const { storeId } = useParams<{ storeId: string }>();
@@ -39,6 +40,8 @@ const MenuList = ({ data }: MenuListProps) => {
 };
 
 const MenuListWrapper = () => {
+  const { AuthGuard } = useAuth(['admin', 'owner']);
+
   const MENU_LIST_RES: GetStoresMenuResponse = {
     response: {
       menus: [
@@ -138,8 +141,14 @@ const MenuListWrapper = () => {
     statusCode: 200,
     msg: '',
   };
-  return <MenuList data={MENU_LIST_RES.response} />;
+
+  return (
+    <AuthGuard>
+      <MenuList data={MENU_LIST_RES.response} />
+    </AuthGuard>
+  )
 };
+
 export default MenuListWrapper;
 
 const _container = css`
