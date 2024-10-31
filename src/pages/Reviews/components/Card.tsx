@@ -2,10 +2,10 @@
 import { css } from '@emotion/react';
 
 import colors from 'styles/color';
-import StarRating from 'pages/Reviews/components/StarRating';
+import StarRating from 'pages/reviews/components/StarRating';
 
 import { hexToRgba } from 'utils/hexToRgba';
-import { CardProps } from 'pages/Reviews/components/types';
+import { CardProps } from 'pages/reviews/components/types';
 import { getProfileImg } from 'utils/getProfileImg';
 
 const Card = ({ content, member, menus, reviewDate, grade }: CardProps) => {
