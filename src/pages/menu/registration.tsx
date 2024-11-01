@@ -1,17 +1,17 @@
 /** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
-import { ImageLoader } from "@pic-pik/react";
-import { useState } from "react";
-import colors from "styles/color";
-import fonts from "styles/font";
+import { css } from '@emotion/react';
+import { ImageLoader } from '@pic-pik/react';
+import { useState } from 'react';
+import colors from 'styles/color';
+import fonts from 'styles/font';
 import {
   LabelInput,
   LabelTextarea,
   MenuOption,
   OptionModal,
-} from "pages/menu/components";
-import type { CreateMenuOptionGroupReq } from "api/modules/menu/types";
-import useCreateMenu from "./hooks/useCreateMenu";
+} from 'pages/menu/components';
+import type { CreateMenuOptionGroupReq } from 'api/modules/menu/types';
+import useCreateMenu from './hooks/useCreateMenu';
 
 //TODO status 뭐로 추가하지?
 const MenuRegistration = () => {
@@ -29,12 +29,14 @@ const MenuRegistration = () => {
     editOption,
     imageMetadata,
     addImageFile,
+    isCreatingMenu,
+    handleMenuSubmit,
   } = useCreateMenu();
 
   const isSelectedOptionModalOpen = !!selectedOptionToEdit;
   const handleEditOption = (
     optionGroup: CreateMenuOptionGroupReq,
-    index: number
+    index: number,
   ) => setSelectedOptionToEdit({ data: optionGroup, index });
   const handleCloseEditModal = () => setSelectedOptionToEdit(null);
   const handleOptionModalOpen = () => setIsOptionModalOpen((prev) => !prev);
@@ -53,7 +55,7 @@ const MenuRegistration = () => {
               <ImageLoader onMetadataLoaded={addImageFile}>
                 {imageMetadata ? (
                   <div css={_imageLoader}>
-                    <img src={imageMetadata.src} width={"100%"} />
+                    <img src={imageMetadata.src} width={'100%'} />
                   </div>
                 ) : (
                   <div css={_imageLoader}>메뉴의 이미지를 선택해주세요</div>
@@ -64,18 +66,18 @@ const MenuRegistration = () => {
               <LabelInput
                 title="메뉴 이름"
                 css={_input}
-                {...register("name")}
+                {...register('name')}
               />
               <LabelTextarea
                 title="설명"
                 css={_textarea}
-                {...register("desc")}
+                {...register('desc')}
               />
               <LabelInput
                 title="가격"
                 css={_input}
-                prefix={"₩"}
-                {...register("price")}
+                prefix={'₩'}
+                {...register('price')}
               />
             </form>
           </div>
@@ -103,7 +105,13 @@ const MenuRegistration = () => {
             </div>
           )}
         </section>
-        <button css={_submit}>등록하기</button>
+        <button
+          css={_submit}
+          onClick={handleMenuSubmit}
+          disabled={isCreatingMenu}
+        >
+          등록하기
+        </button>
       </div>
       {isOptionModalOpen && (
         <OptionModal
@@ -199,7 +207,7 @@ const _subtitle = [
     color: ${colors.primary};
     margin-bottom: 8px;
   `,
-  fonts["24_600"],
+  fonts['24_600'],
 ];
 
 const _subButton = [
@@ -218,7 +226,7 @@ const _subButton = [
       opacity: 0.7;
     }
   `,
-  fonts["16_800"],
+  fonts['16_800'],
 ];
 
 const _addButton = [
@@ -242,7 +250,7 @@ const _submit = [
       opacity: 0.7;
     }
   `,
-  fonts["28_600"],
+  fonts['28_600'],
 ];
 
 const _optionContainer = css`
