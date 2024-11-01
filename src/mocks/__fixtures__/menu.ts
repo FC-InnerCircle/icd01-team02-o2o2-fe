@@ -99,87 +99,261 @@ export const menuMockData = {
     msg: '',
   },
   detail: {
-    response: {
-      menuId: 1,
-      status: 'SOLDOUT',
-      name: '비빔밥',
-      desc: '나물만 들어간 비빔밥',
-      price: 8000,
-      images: [
-        {
-          imageId: 1,
-          ordering: 1,
-          imageUrl: '',
-        },
-        {
-          imageId: 2,
-          ordering: 2,
-          imageUrl: '',
-        },
-      ],
-      optionGroups: [
-        {
-          optionGroupId: 1,
-          ordering: 1,
-          isRequired: true,
-          title: '토핑 추가',
-          options: [
-            {
-              optionId: 3,
-              ordering: 1,
-              name: '토핑 없음',
-              price: 0,
-              desc: '나물만?ㄷㄷ',
-            },
-            {
-              optionId: 1,
-              ordering: 2,
-              name: '육회',
-              price: 4000,
-              desc: '육 비',
-            },
-            {
-              optionId: 2,
-              ordering: 3,
-              name: '연어',
-              price: 4000,
-              desc: '생연어 추가',
-            },
-          ],
-        },
-        {
-          optionGroupId: 2,
-          ordering: 2,
-          isRequired: false,
-          title: '리뷰 이벤트',
-          options: [
-            {
-              optionId: 1,
-              ordering: 1,
-              name: '참여 x',
-              price: 0,
-              desc: '',
-            },
-            {
-              optionId: 2,
-              ordering: 2,
-              name: '참여 o (콜라 500ml)',
-              price: 0,
-              desc: '',
-            },
-            {
-              optionId: 3,
-              ordering: 3,
-              name: '참여 o (장국 추가)',
-              price: 0,
-              desc: '',
-            },
-          ],
-        },
-      ],
+    1: {
+      response: {
+        name: '카라멜 마키아토',
+        desc: '에스프레소, 스팀 밀크, 카라멜 시럽이 완벽하게 조화된 음료.',
+        menuId: 1,
+        price: 4500,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/caramel.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 0,
+            title: '시럽 추가',
+            isMultiple: false,
+            isRequired: false,
+            ordering: 0,
+            details: [
+              { name: '바닐라 시럽', optionId: 0, ordering: 0, price: 500 },
+              { name: '헤이즐넛 시럽', optionId: 1, ordering: 1, price: 500 },
+            ],
+          },
+        ],
+      },
     },
-    code: '200',
-    message: '성공',
+    2: {
+      response: {
+        name: '바닐라 라떼',
+        desc: '부드러운 라떼에 바닐라의 달콤함을 더한 음료.',
+        menuId: 2,
+        price: 4000,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/vanila.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 1,
+            title: '우유 종류 선택',
+            isMultiple: false,
+            isRequired: true,
+            ordering: 0,
+            details: [
+              { name: '일반 우유', optionId: 0, ordering: 0, price: 0 },
+              { name: '저지방 우유', optionId: 1, ordering: 1, price: 0 },
+              { name: '두유', optionId: 2, ordering: 2, price: 300 },
+            ],
+          },
+        ],
+      },
+    },
+    3: {
+      response: {
+        name: '에스프레소',
+        desc: '진하고 풍부한 맛의 순수 에스프레소 샷.',
+        menuId: 3,
+        price: 3000,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/espresso.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 2,
+            title: '샷 추가',
+            isMultiple: false,
+            isRequired: false,
+            ordering: 0,
+            details: [
+              { name: '추가 샷 1개', optionId: 0, ordering: 0, price: 1000 },
+              { name: '추가 샷 2개', optionId: 1, ordering: 1, price: 2000 },
+            ],
+          },
+        ],
+      },
+    },
+    4: {
+      response: {
+        name: '카푸치노',
+        desc: '에스프레소, 스팀 밀크, 폼이 균등하게 조화된 클래식 이탈리아 커피.',
+        menuId: 4,
+        price: 4000,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/cappuccino.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 3,
+            title: '시나몬 추가',
+            isMultiple: false,
+            isRequired: false,
+            ordering: 0,
+            details: [
+              { name: '시나몬 가루 추가', optionId: 0, ordering: 0, price: 0 },
+            ],
+          },
+        ],
+      },
+    },
+    5: {
+      response: {
+        name: '플랫 화이트',
+        desc: '에스프레소와 우유의 비율이 높은 부드럽고 벨벳같은 커피.',
+        menuId: 5,
+        price: 4200,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/latte.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 4,
+            title: '온도 선택',
+            isMultiple: false,
+            isRequired: true,
+            ordering: 0,
+            details: [
+              { name: '뜨겁게', optionId: 0, ordering: 0, price: 0 },
+              { name: '미지근하게', optionId: 1, ordering: 1, price: 0 },
+            ],
+          },
+        ],
+      },
+    },
+    6: {
+      response: {
+        name: '모카',
+        desc: '에스프레소, 스팀 밀크, 초콜릿 시럽의 맛있는 조합.',
+        menuId: 6,
+        price: 4800,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/mocha.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 5,
+            title: '휘핑 크림 추가',
+            isMultiple: false,
+            isRequired: false,
+            ordering: 0,
+            details: [
+              { name: '휘핑 크림 추가', optionId: 0, ordering: 0, price: 500 },
+            ],
+          },
+        ],
+      },
+    },
+    7: {
+      response: {
+        name: '아메리카노',
+        desc: '에스프레소에 뜨거운 물을 더해 부드러운 맛을 내는 커피.',
+        menuId: 7,
+        price: 3500,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/hotamericano.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 6,
+            title: '물 양 선택',
+            isMultiple: false,
+            isRequired: true,
+            ordering: 0,
+            details: [
+              { name: '적게', optionId: 0, ordering: 0, price: 0 },
+              { name: '보통', optionId: 1, ordering: 1, price: 0 },
+              { name: '많이', optionId: 2, ordering: 2, price: 0 },
+            ],
+          },
+        ],
+      },
+    },
+    8: {
+      response: {
+        name: '차이 라떼',
+        desc: '블랙 티와 향신료, 스팀 밀크로 만들어진 달콤하고 매콤한 티 라떼.',
+        menuId: 8,
+        price: 4000,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/chailatte.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 7,
+            title: '향신료 선택',
+            isMultiple: true,
+            isRequired: false,
+            ordering: 0,
+            details: [
+              { name: '카르다몸', optionId: 0, ordering: 0, price: 200 },
+              { name: '계피', optionId: 1, ordering: 1, price: 200 },
+            ],
+          },
+        ],
+      },
+    },
+    9: {
+      response: {
+        name: '말차 라떼',
+        desc: '말차 가루와 우유로 만든 크리미하고 생동감 넘치는 녹차 라떼.',
+        menuId: 9,
+        price: 4500,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/matcha.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 8,
+            title: '당도 선택',
+            isMultiple: false,
+            isRequired: true,
+            ordering: 0,
+            details: [
+              { name: '적게', optionId: 0, ordering: 0, price: 0 },
+              { name: '보통', optionId: 1, ordering: 1, price: 0 },
+              { name: '많이', optionId: 2, ordering: 2, price: 0 },
+            ],
+          },
+        ],
+      },
+    },
+    10: {
+      response: {
+        name: '아이스 커피',
+        desc: '차갑게 추출한 커피를 얼음 위에 제공.',
+        menuId: 10,
+        price: 3000,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/iceamericano.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 9,
+            title: '얼음 양 선택',
+            isMultiple: false,
+            isRequired: true,
+            ordering: 0,
+            details: [
+              { name: '적게', optionId: 0, ordering: 0, price: 0 },
+              { name: '보통', optionId: 1, ordering: 1, price: 0 },
+              { name: '많이', optionId: 2, ordering: 2, price: 0 },
+            ],
+          },
+        ],
+      },
+    },
+    11: {
+      response: {
+        name: '핫 초콜릿',
+        desc: '생크림을 얹은 풍부하고 크리미한 핫 초콜릿.',
+        menuId: 11,
+        price: 4000,
+        status: 'available',
+        images: [{ imageUrl: '/src/assets/hotchoco.webp', seq: 0 }],
+        options: [
+          {
+            optionGroupId: 10,
+            title: '토핑 선택',
+            isMultiple: true,
+            isRequired: false,
+            ordering: 0,
+            details: [
+              { name: '마시멜로우', optionId: 0, ordering: 0, price: 300 },
+              { name: '초콜릿 칩', optionId: 1, ordering: 1, price: 200 },
+            ],
+          },
+        ],
+      },
+    },
   },
   create: {
     response: {

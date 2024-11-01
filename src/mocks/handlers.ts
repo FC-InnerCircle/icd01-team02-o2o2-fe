@@ -87,6 +87,19 @@ const menuHandlers = [
 
     return HttpResponse.json(createdMenu, { status: 201 });
   }),
+  http.get(`${BASE_URL}/stores/:storeId/menus/:menuId`, async ({ params }) => {
+    const { menuId } = params;
+
+    const menuIdNumber = parseInt(menuId as string, 10);
+    const menuDetail =
+      menuMockData.detail[menuIdNumber as keyof typeof menuMockData.detail];
+
+    if (menuDetail) {
+      return HttpResponse.json(menuDetail);
+    } else {
+      return new HttpResponse('Menu not found', { status: 404 });
+    }
+  }),
 ];
 // Store 관련 API 요청 핸들러 정의
 export const storeHandlers = [
