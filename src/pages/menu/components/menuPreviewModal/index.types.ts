@@ -17,4 +17,5 @@ export type MenuPreviewModalProps = {
   menuTitle: string;
   menuDescription: string;
   optionSections: OptionSectionData[];
+  menuPrice: number;
 };
