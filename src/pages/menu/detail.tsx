@@ -29,8 +29,15 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
     index: number;
   } | null>(null);
 
-  const { register, originalImage, imageMetadata, addImageFile, getValues } =
-    useMenuDetail({ menu: data });
+  const {
+    register,
+    originalImage,
+    imageMetadata,
+    addImageFile,
+    getValues,
+    isLoadingSubmit,
+    handleMenuSubmit,
+  } = useMenuDetail({ menu: data });
   const { addOption, deleteOption, updateOption, options } = useMenuOption({
     menuId: data.menuId,
     originOptions,
@@ -90,7 +97,13 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
               />
             </form>
           </div>
-          <button css={_submit}>저장</button>
+          <button
+            css={_submit}
+            disabled={isLoadingSubmit}
+            onClick={handleMenuSubmit}
+          >
+            저장
+          </button>
         </section>
         <section>
           <p css={_optionNotice}>
@@ -153,7 +166,6 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
 };
 
 const MenuDetailWrapper = () => {
-  /* TODO API 연결 */
   const { storeId, menuId } = useParams<{ storeId: string; menuId: string }>();
 
   const { data } = useGetStoresMenuDetailQuery(
