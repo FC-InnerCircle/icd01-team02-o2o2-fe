@@ -121,6 +121,8 @@ export const menuMockData = {
           },
         ],
       },
+      statusCode: 200,
+      msg: '',
     },
     2: {
       response: {
@@ -145,6 +147,8 @@ export const menuMockData = {
           },
         ],
       },
+      statusCode: 200,
+      msg: '',
     },
     3: {
       response: {
@@ -168,8 +172,12 @@ export const menuMockData = {
           },
         ],
       },
+      statusCode: 200,
+      msg: '',
     },
     4: {
+      statusCode: 200,
+      msg: '',
       response: {
         name: '카푸치노',
         desc: '에스프레소, 스팀 밀크, 폼이 균등하게 조화된 클래식 이탈리아 커피.',
@@ -192,6 +200,8 @@ export const menuMockData = {
       },
     },
     5: {
+      statusCode: 200,
+      msg: '',
       response: {
         name: '플랫 화이트',
         desc: '에스프레소와 우유의 비율이 높은 부드럽고 벨벳같은 커피.',
@@ -215,6 +225,8 @@ export const menuMockData = {
       },
     },
     6: {
+      statusCode: 200,
+      msg: '',
       response: {
         name: '모카',
         desc: '에스프레소, 스팀 밀크, 초콜릿 시럽의 맛있는 조합.',
@@ -237,6 +249,8 @@ export const menuMockData = {
       },
     },
     7: {
+      statusCode: 200,
+      msg: '',
       response: {
         name: '아메리카노',
         desc: '에스프레소에 뜨거운 물을 더해 부드러운 맛을 내는 커피.',
@@ -261,6 +275,8 @@ export const menuMockData = {
       },
     },
     8: {
+      statusCode: 200,
+      msg: '',
       response: {
         name: '차이 라떼',
         desc: '블랙 티와 향신료, 스팀 밀크로 만들어진 달콤하고 매콤한 티 라떼.',
@@ -284,6 +300,8 @@ export const menuMockData = {
       },
     },
     9: {
+      statusCode: 200,
+      msg: '',
       response: {
         name: '말차 라떼',
         desc: '말차 가루와 우유로 만든 크리미하고 생동감 넘치는 녹차 라떼.',
@@ -308,6 +326,8 @@ export const menuMockData = {
       },
     },
     10: {
+      statusCode: 200,
+      msg: '',
       response: {
         name: '아이스 커피',
         desc: '차갑게 추출한 커피를 얼음 위에 제공.',
@@ -332,6 +352,8 @@ export const menuMockData = {
       },
     },
     11: {
+      statusCode: 200,
+      msg: '',
       response: {
         name: '핫 초콜릿',
         desc: '생크림을 얹은 풍부하고 크리미한 핫 초콜릿.',

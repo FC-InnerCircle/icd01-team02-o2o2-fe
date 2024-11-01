@@ -7,7 +7,11 @@ import {
   authMockData,
   storeMockData,
 } from 'mocks/__fixtures__';
-import { Menu } from 'api/modules/stores/types';
+import {
+  GetMenuDetailResponse,
+  Menu,
+  MenuDetailInfo,
+} from 'api/modules/stores/types';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -54,7 +58,9 @@ export const accountsHandlers = [
 // 메뉴 관련 API 요청 핸들러 정의
 // 메뉴 관련 API 요청 핸들러 정의
 const menuList: Menu[] = [...menuMockData.list.response.menus]; // 기존 더미 메뉴 리스트 초기화
-
+const menuDetailList: Record<number, GetMenuDetailResponse> = {
+  ...menuMockData.detail,
+}; // 기존 메뉴 상세 더미 데이터 초기화
 const menuHandlers = [
   // 메뉴 리스트 조회 핸들러
   http.get(`${BASE_URL}/stores/:storeId/menus`, async () => {
@@ -92,7 +98,7 @@ const menuHandlers = [
 
     const menuIdNumber = parseInt(menuId as string, 10);
     const menuDetail =
-      menuMockData.detail[menuIdNumber as keyof typeof menuMockData.detail];
+      menuDetailList[menuIdNumber as keyof typeof menuMockData.detail];
 
     if (menuDetail) {
       return HttpResponse.json(menuDetail);
@@ -100,6 +106,30 @@ const menuHandlers = [
       return new HttpResponse('Menu not found', { status: 404 });
     }
   }),
+  // 메뉴 업데이트 핸들러
+  http.put(
+    `${BASE_URL}/stores/:storeId/menus/:menuId/update`,
+    async ({ params, request }) => {
+      const { menuId } = params;
+      const menuIdNumber = parseInt(menuId as string, 10);
+      const updatedData = (await request.json()) as MenuDetailInfo;
+
+      const menuIndex = menuList.findIndex((menu) => menu.id === menuIdNumber);
+      if (menuIndex !== -1) {
+        menuList[menuIndex] = { ...menuList[menuIndex], ...updatedData };
+        menuDetailList[menuIdNumber] = {
+          ...menuDetailList[menuIdNumber],
+          response: {
+            ...menuDetailList[menuIdNumber].response,
+            ...updatedData,
+          },
+        };
+        return HttpResponse.json(menuDetailList[menuIdNumber]);
+      } else {
+        return new HttpResponse('Menu not found', { status: 404 });
+      }
+    },
+  ),
 ];
 // Store 관련 API 요청 핸들러 정의
 export const storeHandlers = [
