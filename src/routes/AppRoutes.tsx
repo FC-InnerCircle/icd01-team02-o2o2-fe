@@ -18,6 +18,7 @@ import MenuRegistration from 'pages/menu/registration';
 
 import { ROUTES } from 'common/constants/routes';
 import Layout from 'common/components/layout';
+import Analytics from 'pages/analytics';
 
 // Layout을 사용하는 라우트 그룹
 const LayoutRoutes = () => {
@@ -48,6 +49,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.ORDER_DETAIL} element={<OrderDetail />} />
         <Route path={ROUTES.REVIEW} element={<Reviews />} />
         <Route path={ROUTES.PROFILE} element={<Profile />} />
+        <Route path={ROUTES.ANALYTICS} element={<Analytics />} />
 
         <Route path="/components" element={<Component />} />
       </Route>
