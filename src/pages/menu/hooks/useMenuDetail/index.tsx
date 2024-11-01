@@ -63,7 +63,7 @@ const useMenuDetail = ({ menu }: { menu: MenuDetailInfo }) => {
 
   return {
     register,
-    originalImage: menu.images[0].imageUrl,
+    originalImage: menu.images?.[0]?.imageUrl,
     imageMetadata: metadata,
     addImageFile: setOriginalImageMetadata,
     getValues,

@@ -78,10 +78,14 @@ const menuHandlers = [
   // 메뉴 등록 핸들러
   http.post(`${BASE_URL}/stores/:storeId/menus`, async ({ request }) => {
     // 요청 본문에서 JSON 데이터를 가져옴
-    const newMenu = (await request.json()) as Omit<Menu, 'id' | 'status'>;
+    const newMenu = (await request.json()) as Omit<
+      MenuDetailInfo,
+      'id' | 'status'
+    >;
 
+    const lastKey = Math.max(...Object.keys(menuList).map(Number));
     // 새로운 메뉴에 ID 할당 (기존 리스트 길이 + 1)
-    const newId = menuList.length + 1;
+    const newId = lastKey + 1;
     const createdMenu = {
       id: newId,
       status: 'available', // 기본 상태 설정
@@ -90,6 +94,8 @@ const menuHandlers = [
 
     // 더미 메뉴 리스트에 새로운 메뉴 추가
     menuList.push(createdMenu);
+
+    menuDetailList[lastKey + 1] = { response: createdMenu };
 
     return HttpResponse.json(createdMenu, { status: 201 });
   }),
