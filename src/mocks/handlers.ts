@@ -7,6 +7,7 @@ import {
   authMockData,
   storeMockData,
 } from 'mocks/__fixtures__';
+import { Menu } from 'api/modules/stores/types';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -51,12 +52,42 @@ export const accountsHandlers = [
 ];
 
 // 메뉴 관련 API 요청 핸들러 정의
+// 메뉴 관련 API 요청 핸들러 정의
+const menuList: Menu[] = [...menuMockData.list.response.menus]; // 기존 더미 메뉴 리스트 초기화
+
 const menuHandlers = [
+  // 메뉴 리스트 조회 핸들러
   http.get(`${BASE_URL}/stores/:storeId/menus`, async () => {
-    return HttpResponse.json(menuMockData.list);
+    const response = {
+      ...menuMockData.list,
+      response: {
+        ...menuMockData.list.response,
+        menus: menuList, // 업데이트된 메뉴 리스트 사용
+        totalLength: menuList.length,
+      },
+    };
+    return HttpResponse.json(response);
+  }),
+
+  // 메뉴 등록 핸들러
+  http.post(`${BASE_URL}/stores/:storeId/menus`, async ({ request }) => {
+    // 요청 본문에서 JSON 데이터를 가져옴
+    const newMenu = (await request.json()) as Omit<Menu, 'id' | 'status'>;
+
+    // 새로운 메뉴에 ID 할당 (기존 리스트 길이 + 1)
+    const newId = menuList.length + 1;
+    const createdMenu = {
+      id: newId,
+      status: 'available', // 기본 상태 설정
+      ...newMenu,
+    };
+
+    // 더미 메뉴 리스트에 새로운 메뉴 추가
+    menuList.push(createdMenu);
+
+    return HttpResponse.json(createdMenu, { status: 201 });
   }),
 ];
-
 // Store 관련 API 요청 핸들러 정의
 export const storeHandlers = [
   http.post(`${BASE_URL}/stores`, async () => {
