@@ -18,10 +18,11 @@ import type {
 import useMenuDetail from './hooks/useMenuDetail';
 import useMenuOption from './hooks/useMenuOption';
 import MenuPreviewModal from './components/menuPreviewModal';
+import usePreviewModal from './models/usePreviewModal';
 
 //TODO status 뭐로 추가하지?
 const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
-  const { options } = data;
+  const { options: originOptions } = data;
   const [isOptionModalOpen, setIsOptionModalOpen] = useState<boolean>(false);
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState<boolean>(false);
   const [selectedOptionToEdit, setSelectedOptionToEdit] = useState<{
@@ -29,10 +30,16 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
     index: number;
   } | null>(null);
 
-  const { register, originalImage, imageMetadata, addImageFile } =
+  const { register, originalImage, imageMetadata, addImageFile, getValues } =
     useMenuDetail({ menu: data });
-  const { addOption, deleteOption, updateOption } = useMenuOption({
+  const { addOption, deleteOption, updateOption, options } = useMenuOption({
     menuId: data.menuId,
+    originOptions,
+  });
+
+  const menuPreviewModel = usePreviewModal({
+    getData: getValues,
+    isOpenPreview: isPreviewModalOpen,
   });
 
   const isSelectedOptionModalOpen = !!selectedOptionToEdit;
@@ -43,21 +50,21 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
   const handleCloseEditModal = () => setSelectedOptionToEdit(null);
   const handleOptionModalOpen = () => setIsOptionModalOpen((prev) => !prev);
 
-  const menuPreviewModel = {
-    menuImage: imageMetadata ? imageMetadata.src : originalImage,
-    menuTitle: data.name,
-    menuDescription: data.desc,
-    optionSections: data.options.map((optionGroup) => ({
-      title: optionGroup.title,
-      requirement: optionGroup.isRequired ? '필수' : '선택',
-      type: optionGroup.isMultiple ? '다중' : '단일',
-      options: optionGroup.details.map((detail) => ({
-        name: detail.name,
-        price: detail.price,
-        checked: false, // 기본값으로 false 설정
-      })),
-    })),
-  };
+  // const menuPreviewModel = {
+  //   menuImage: imageMetadata ? imageMetadata.src : originalImage,
+  //   menuTitle: data.name,
+  //   menuDescription: data.desc,
+  //   optionSections: data.options.map((optionGroup) => ({
+  //     title: optionGroup.title,
+  //     requirement: optionGroup.isRequired ? '필수' : '선택',
+  //     type: optionGroup.isMultiple ? '다중' : '단일',
+  //     options: optionGroup.details.map((detail) => ({
+  //       name: detail.name,
+  //       price: detail.price,
+  //       checked: false, // 기본값으로 false 설정
+  //     })),
+  //   })),
+  // };
   return (
     <>
       <div css={[_container]}>
@@ -179,19 +186,19 @@ const MenuDetailWrapper = () => {
           ordering: 0,
           details: [
             { name: '과테말라', optionId: 0, ordering: 0, price: 0 },
-            { name: '코스타리카', optionId: 0, ordering: 0, price: 0 },
-            { name: '브라질', optionId: 0, ordering: 0, price: 0 },
+            { name: '코스타리카', optionId: 1, ordering: 0, price: 0 },
+            { name: '브라질', optionId: 2, ordering: 0, price: 0 },
           ],
         },
         {
-          optionGroupId: 0,
+          optionGroupId: 1,
           title: '빨대 여부',
           isMultiple: false,
           isRequired: true,
           ordering: 1,
           details: [
             { name: '필요함', optionId: 0, ordering: 0, price: 0 },
-            { name: '필요없음', optionId: 0, ordering: 0, price: 0 },
+            { name: '필요없음', optionId: 1, ordering: 0, price: 0 },
           ],
         },
       ],
