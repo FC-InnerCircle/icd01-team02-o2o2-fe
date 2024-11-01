@@ -12,9 +12,12 @@ import {
 } from 'pages/menu/components';
 import type { CreateMenuOptionGroupReq } from 'api/modules/menu/types';
 import useCreateMenu from './hooks/useCreateMenu';
+import MenuPreviewModal from './components/menuPreviewModal';
+import usePreviewModal from './models/usePreviewModal';
 
 //TODO status 뭐로 추가하지?
 const MenuRegistration = () => {
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState<boolean>(false);
   const [isOptionModalOpen, setIsOptionModalOpen] = useState<boolean>(false);
   const [selectedOptionToEdit, setSelectedOptionToEdit] = useState<{
     data: CreateMenuOptionGroupReq;
@@ -31,7 +34,13 @@ const MenuRegistration = () => {
     addImageFile,
     isCreatingMenu,
     handleMenuSubmit,
+    getValues,
   } = useCreateMenu();
+
+  const menuPreviewModel = usePreviewModal({
+    getData: getValues,
+    isOpenPreview: isPreviewModalOpen,
+  });
 
   const isSelectedOptionModalOpen = !!selectedOptionToEdit;
   const handleEditOption = (
@@ -46,7 +55,9 @@ const MenuRegistration = () => {
       <div css={[_container]}>
         <div css={_titleWrap}>
           <h2>Menu</h2>
-          <button css={_subButton}>미리보기</button>
+          <button css={_subButton} onClick={() => setIsPreviewModalOpen(true)}>
+            미리보기
+          </button>
         </div>
         <section css={_menuContainer}>
           <h3 css={_subtitle}>기본 정보</h3>
@@ -130,6 +141,12 @@ const MenuRegistration = () => {
           onSave={(optionGroup) => {
             editOption(selectedOptionToEdit.index, optionGroup);
           }}
+        />
+      )}
+      {isPreviewModalOpen && (
+        <MenuPreviewModal
+          onClose={() => setIsPreviewModalOpen(false)}
+          {...menuPreviewModel}
         />
       )}
     </>

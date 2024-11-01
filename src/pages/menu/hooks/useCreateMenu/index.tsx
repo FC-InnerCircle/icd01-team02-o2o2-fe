@@ -30,7 +30,7 @@ const useCreateMenu = () => {
     },
   });
 
-  const { control, register, handleSubmit, setValue } =
+  const { control, register, handleSubmit, setValue, getValues } =
     useForm<CreateMenuRequest>();
   const { fields, append, update, remove } = useFieldArray({
     control,
@@ -94,6 +94,7 @@ const useCreateMenu = () => {
     addImageFile: setOriginalImageMetadata,
     handleMenuSubmit,
     isCreatingMenu,
+    getValues,
   };
 };
 
