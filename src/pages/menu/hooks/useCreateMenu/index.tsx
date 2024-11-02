@@ -82,7 +82,7 @@ const useCreateMenu = () => {
     //테스트 환경
     if (import.meta.env.VITE_USE_MSW === 'true' && metadata)
       setValue('images', [{ imageUrl: metadata?.src, seq: 0 }]);
-  }, [metadata]);
+  }, [metadata, setValue]);
 
   return {
     register,
