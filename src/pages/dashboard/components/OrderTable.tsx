@@ -152,7 +152,7 @@ const OrderTable = () => {
         </span>
         <button
           onClick={() => setPageIndex((prev) => prev + 1)}
-          disabled={currentPageData.length < PAGE_SIZE}
+          disabled={currentPageData.length <= PAGE_SIZE}
         >
           다음 페이지
         </button>

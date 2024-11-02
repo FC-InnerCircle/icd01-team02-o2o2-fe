@@ -26,6 +26,7 @@ import {
 import queryString from 'query-string';
 import { commaize } from 'utils/commaize';
 import colors from 'styles/color';
+import useAuth from 'common/hooks/useAuth';
 
 const STATUS_OPTIONS = [
   {
@@ -43,6 +44,9 @@ const STATUS_OPTIONS = [
 ];
 
 const Order = ({ ...rest }) => {
+  // 권한 설정
+  const { AuthGuard } = useAuth(['admin', 'owner']);
+
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { pathname } = useLocation();
@@ -157,99 +161,101 @@ const Order = ({ ...rest }) => {
   }
 
   return (
-    <div css={_container} {...rest}>
-      <div css={_header}>
-        <div>
-          <h1>주문</h1>
-          <div>주문 내역을 확인하실 수 있어요.</div>
-        </div>
-        <div css={_filterWrapper}>
-          <Filter
-            leftSlot={<Lightning />}
-            backgroundColor="lightBlue"
-            placeholder="주문 상태"
-            value={orderStatus}
-            onChange={handleChangeOrderStatus}
-            options={STATUS_OPTIONS}
-          />
-          {/* TODO: datepicker는 추후에 개발 */}
-          {/* <Filter
+    <AuthGuard>
+      <div css={_container} {...rest}>
+        <div css={_header}>
+          <div>
+            <h1>주문</h1>
+            <div>주문 내역을 확인하실 수 있어요.</div>
+          </div>
+          <div css={_filterWrapper}>
+            <Filter
+              leftSlot={<Lightning />}
+              backgroundColor="lightBlue"
+              placeholder="주문 상태"
+              value={orderStatus}
+              onChange={handleChangeOrderStatus}
+              options={STATUS_OPTIONS}
+            />
+            {/* TODO: datepicker는 추후에 개발 */}
+            {/* <Filter
             leftSlot={<Calendar />}
             backgroundColor="lightBlue"
             placeholder="주문 기간"
           /> */}
+          </div>
         </div>
-      </div>
 
-      <div css={_tableContainer}>
-        <table>
-          <thead>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    css={css`
+        <div css={_tableContainer}>
+          <table>
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th
+                      css={css`
                       padding: 20px;
                     `}
-                    key={header.id}
-                    colSpan={header.colSpan}
-                  >
-                    <div>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                css={css`
+                      key={header.id}
+                      colSpan={header.colSpan}
+                    >
+                      <div>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr
+                  css={css`
                   cursor: pointer;
                   &:hover {
                     background-color: ${colors.secondary};
                   }
                 `}
-                key={row.id}
-                onClick={() => gotoOrderDetail(row.original.orderId)}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    css={css`
+                  key={row.id}
+                  onClick={() => gotoOrderDetail(row.original.orderId)}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td
+                      key={cell.id}
+                      css={css`
                       padding: 20px;
                     `}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div css={_paginationContainer}>
-        <div
-          css={css`
+                    >
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div css={_paginationContainer}>
+          <div
+            css={css`
             color: #3e4954;
           `}
-        >
-          총 주문 건수: {(orders as any)?.response?.totalCount}건
+          >
+            총 주문 건수: {(orders as any)?.response?.totalCount}건
+          </div>
+          <Pagination
+            currentPage={Number(page)}
+            // @ts-expect-error 타입이 useQuery에서 안잡혀서 임시로 타입을 무시합니다.
+            totalCount={orders?.response?.totalCount}
+            onClickPage={handleClickPage}
+            onClickPrevPage={handleClickPrevPage}
+            onClickNextPage={handleClickNextPage}
+          />
         </div>
-        <Pagination
-          currentPage={Number(page)}
-          // @ts-expect-error 타입이 useQuery에서 안잡혀서 임시로 타입을 무시합니다.
-          totalCount={orders?.response?.totalCount}
-          onClickPage={handleClickPage}
-          onClickPrevPage={handleClickPrevPage}
-          onClickNextPage={handleClickNextPage}
-        />
       </div>
-    </div>
+    </AuthGuard>
   );
 };
 

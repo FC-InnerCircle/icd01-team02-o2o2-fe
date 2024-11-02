@@ -4,6 +4,7 @@ import MenuCard from './components/menuCard';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'common/components';
 import { MenuListProps } from './types';
+import useAuth from 'common/hooks/useAuth';
 import { useGetStoresMenuQuery } from 'queries/modules/stores/useStoresQuery';
 
 const MenuList = ({ data }: MenuListProps) => {
@@ -39,6 +40,7 @@ const MenuList = ({ data }: MenuListProps) => {
 };
 
 const MenuListWrapper = () => {
+  const { AuthGuard } = useAuth(['admin', 'owner']);
   const storeId = 1;
 
   // useGetStoresMenuQuery 훅을 사용해 데이터 받아오기
@@ -47,8 +49,13 @@ const MenuListWrapper = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading menus</div>;
   if (!data) return <></>;
-  return <MenuList data={data?.response} />;
+  return (
+    <AuthGuard>
+      <MenuList data={data?.response} />
+    </AuthGuard>
+  );
 };
+
 export default MenuListWrapper;
 
 const _container = css`
