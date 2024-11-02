@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import ChartOrders from './components/ChartOrders';
 import FavoritesItems from './components/FavoritesItems';

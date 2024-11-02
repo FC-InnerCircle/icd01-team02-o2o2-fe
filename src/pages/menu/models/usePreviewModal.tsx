@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { CreateMenuRequest } from 'api/modules/menu/types';
 import { MenuDetailInfo } from 'api/modules/stores/types';
 import { useMemo } from 'react';
