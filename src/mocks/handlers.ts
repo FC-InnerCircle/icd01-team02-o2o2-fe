@@ -7,6 +7,11 @@ import {
   authMockData,
   storeMockData,
 } from 'mocks/__fixtures__';
+import {
+  GetMenuDetailResponse,
+  Menu,
+  MenuDetailInfo,
+} from 'api/modules/stores/types';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -51,12 +56,87 @@ export const accountsHandlers = [
 ];
 
 // 메뉴 관련 API 요청 핸들러 정의
+// 메뉴 관련 API 요청 핸들러 정의
+const menuList: Menu[] = [...menuMockData.list.response.menus]; // 기존 더미 메뉴 리스트 초기화
+const menuDetailList: Record<number, GetMenuDetailResponse> = {
+  ...menuMockData.detail,
+}; // 기존 메뉴 상세 더미 데이터 초기화
 const menuHandlers = [
+  // 메뉴 리스트 조회 핸들러
   http.get(`${BASE_URL}/stores/:storeId/menus`, async () => {
-    return HttpResponse.json(menuMockData.list);
+    const response = {
+      ...menuMockData.list,
+      response: {
+        ...menuMockData.list.response,
+        menus: menuList, // 업데이트된 메뉴 리스트 사용
+        totalLength: menuList.length,
+      },
+    };
+    return HttpResponse.json(response);
   }),
-];
 
+  // 메뉴 등록 핸들러
+  http.post(`${BASE_URL}/stores/:storeId/menus`, async ({ request }) => {
+    // 요청 본문에서 JSON 데이터를 가져옴
+    const newMenu = (await request.json()) as Omit<
+      MenuDetailInfo,
+      'id' | 'status'
+    >;
+
+    const lastKey = Math.max(...Object.keys(menuList).map(Number));
+    // 새로운 메뉴에 ID 할당 (기존 리스트 길이 + 1)
+    const newId = lastKey + 1;
+    const createdMenu = {
+      id: newId,
+      status: 'available', // 기본 상태 설정
+      ...newMenu,
+    };
+
+    // 더미 메뉴 리스트에 새로운 메뉴 추가
+    menuList.push(createdMenu);
+
+    menuDetailList[lastKey + 1] = { response: createdMenu };
+
+    return HttpResponse.json(createdMenu, { status: 201 });
+  }),
+  http.get(`${BASE_URL}/stores/:storeId/menus/:menuId`, async ({ params }) => {
+    const { menuId } = params;
+
+    const menuIdNumber = parseInt(menuId as string, 10);
+    const menuDetail =
+      menuDetailList[menuIdNumber as keyof typeof menuMockData.detail];
+
+    if (menuDetail) {
+      return HttpResponse.json(menuDetail);
+    } else {
+      return new HttpResponse('Menu not found', { status: 404 });
+    }
+  }),
+  // 메뉴 업데이트 핸들러
+  http.put(
+    `${BASE_URL}/stores/:storeId/menus/:menuId/update`,
+    async ({ params, request }) => {
+      const { menuId } = params;
+      const menuIdNumber = parseInt(menuId as string, 10);
+      const updatedData = (await request.json()) as MenuDetailInfo;
+
+      const menuIndex = menuList.findIndex((menu) => menu.id === menuIdNumber);
+      if (menuIndex !== -1) {
+        menuList[menuIndex] = { ...menuList[menuIndex], ...updatedData };
+        menuDetailList[menuIdNumber] = {
+          ...menuDetailList[menuIdNumber],
+          response: {
+            ...menuDetailList[menuIdNumber].response,
+            ...updatedData,
+          },
+        };
+        return HttpResponse.json(menuDetailList[menuIdNumber]);
+      } else {
+        return new HttpResponse('Menu not found', { status: 404 });
+      }
+    },
+  ),
+];
 // Store 관련 API 요청 핸들러 정의
 export const storeHandlers = [
   http.post(`${BASE_URL}/stores`, async () => {

@@ -11,26 +11,41 @@ import {
   OptionModal,
 } from 'pages/menu/components';
 import type { CreateMenuOptionGroupReq } from 'api/modules/menu/types';
-import type {
-  GetMenuDetailResponse,
-  MenuDetailInfo,
-} from 'api/modules/stores/types';
+import type { MenuDetailInfo } from 'api/modules/stores/types';
 import useMenuDetail from './hooks/useMenuDetail';
 import useMenuOption from './hooks/useMenuOption';
+import MenuPreviewModal from './components/menuPreviewModal';
+import usePreviewModal from './models/usePreviewModal';
+import { useGetStoresMenuDetailQuery } from 'queries/modules/stores/useStoresQuery';
+import { useParams } from 'react-router-dom';
 
 //TODO status 뭐로 추가하지?
 const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
-  const { options } = data;
+  const { options: originOptions } = data;
   const [isOptionModalOpen, setIsOptionModalOpen] = useState<boolean>(false);
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState<boolean>(false);
   const [selectedOptionToEdit, setSelectedOptionToEdit] = useState<{
     data: CreateMenuOptionGroupReq;
     index: number;
   } | null>(null);
 
-  const { register, originalImage, imageMetadata, addImageFile } =
-    useMenuDetail({ menu: data });
-  const { addOption, deleteOption, updateOption } = useMenuOption({
+  const {
+    register,
+    originalImage,
+    imageMetadata,
+    addImageFile,
+    getValues,
+    isLoadingSubmit,
+    handleMenuSubmit,
+  } = useMenuDetail({ menu: data });
+  const { addOption, deleteOption, updateOption, options } = useMenuOption({
     menuId: data.menuId,
+    originOptions,
+  });
+
+  const menuPreviewModel = usePreviewModal({
+    getData: getValues,
+    isOpenPreview: isPreviewModalOpen,
   });
 
   const isSelectedOptionModalOpen = !!selectedOptionToEdit;
@@ -46,7 +61,9 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
       <div css={[_container]}>
         <div css={_titleWrap}>
           <h2>Menu</h2>
-          <button css={_subButton}>미리보기</button>
+          <button css={_subButton} onClick={() => setIsPreviewModalOpen(true)}>
+            미리보기
+          </button>
         </div>
         <section css={_menuContainer}>
           <h3 css={_subtitle}>기본 정보</h3>
@@ -80,7 +97,13 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
               />
             </form>
           </div>
-          <button css={_submit}>저장</button>
+          <button
+            css={_submit}
+            disabled={isLoadingSubmit}
+            onClick={handleMenuSubmit}
+          >
+            저장
+          </button>
         </section>
         <section>
           <p css={_optionNotice}>
@@ -132,49 +155,25 @@ const MenuDetail = ({ data }: { data: MenuDetailInfo }) => {
           }}
         />
       )}
+      {isPreviewModalOpen && (
+        <MenuPreviewModal
+          onClose={() => setIsPreviewModalOpen(false)}
+          {...menuPreviewModel}
+        />
+      )}
     </>
   );
 };
 
 const MenuDetailWrapper = () => {
-  /* TODO API 연결 */
-  const MENU: GetMenuDetailResponse = {
-    response: {
-      name: '아메리카노',
-      desc: '베스트셀러! 시그니처 원두를 비롯한 다양한 원두를 즐겨보세요!',
-      menuId: 3,
-      price: 5000,
-      status: 'publish',
-      options: [
-        {
-          optionGroupId: 0,
-          title: '원두 선택',
-          isMultiple: false,
-          isRequired: true,
-          ordering: 0,
-          details: [
-            { name: '과테말라', optionId: 0, ordering: 0, price: 0 },
-            { name: '코스타리카', optionId: 0, ordering: 0, price: 0 },
-            { name: '브라질', optionId: 0, ordering: 0, price: 0 },
-          ],
-        },
-        {
-          optionGroupId: 0,
-          title: '빨대 여부',
-          isMultiple: false,
-          isRequired: true,
-          ordering: 1,
-          details: [
-            { name: '필요함', optionId: 0, ordering: 0, price: 0 },
-            { name: '필요없음', optionId: 0, ordering: 0, price: 0 },
-          ],
-        },
-      ],
-      images: [{ imageUrl: '/src/assets/americano.webp', seq: 0 }],
-    },
-  };
+  const { storeId, menuId } = useParams<{ storeId: string; menuId: string }>();
 
-  return <MenuDetail data={MENU.response} />;
+  const { data } = useGetStoresMenuDetailQuery(
+    storeId ? Number(storeId) : 1,
+    menuId ? Number(menuId) : 1,
+  );
+  if (!data) return <></>;
+  return <MenuDetail data={data.response} />;
 };
 
 export default MenuDetailWrapper;

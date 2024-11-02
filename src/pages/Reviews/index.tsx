@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { Button } from 'common/components';
 import useAuth from 'common/hooks/useAuth';
 
-import CardList from 'pages/reviews/components/CardList';
+import CardList from 'pages/Reviews/components/CardList';
 
 import colors from 'styles/color';
 

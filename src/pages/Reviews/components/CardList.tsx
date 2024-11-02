@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { useGetStoresReview } from 'queries/modules/stores/useStoresQuery';
-import Card from 'pages/reviews/components/Card';
+import Card from 'pages/Reviews/components/Card';
 
 import get from 'lodash/get';
 import isUndefined from 'lodash/isUndefined';
-import StarRating from 'pages/reviews/components/StarRating';
+import StarRating from 'pages/Reviews/components/StarRating';
 
 const CardList = () => {
   const { data: storeReviewData } = useGetStoresReview(1);

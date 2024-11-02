@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import { Star, StarEmpty } from 'common/components/icons';
-import { StarRatingProps } from 'pages/reviews/components/types';
+import { StarRatingProps } from 'pages/Reviews/components/types';
 
 const StarRating = ({ rating, size = 12 }: StarRatingProps) => {
   const filledStars = Math.floor(rating); // 꽉 찬 별의 개수
