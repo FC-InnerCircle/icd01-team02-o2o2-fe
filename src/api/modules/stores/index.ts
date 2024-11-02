@@ -14,6 +14,7 @@ import type {
   GetReviewsParams,
   UpdateStorePayload,
   GetMenuDetailResponse,
+  MenuDetailInfo,
 } from 'api/modules/stores/types';
 import type { CommonResponseReturnType } from 'api/modules/commonType';
 import type { CreateMenuRequest, CreateMenuResponse } from '../menu/types';
@@ -99,6 +100,17 @@ export const storeAPI = {
     ): Promise<void> => {
       const res = await axiosInstance.delete(
         `${URL_ROOT}/${storeId}/menus/${menuId}`,
+      );
+      return res.data;
+    },
+    updateStoresMenu: async (
+      storeId: number,
+      menuId: number,
+      payload: Partial<MenuDetailInfo>,
+    ): Promise<void> => {
+      const res = await axiosInstance.put(
+        `${URL_ROOT}/${storeId}/menus/${menuId}/update`,
+        payload,
       );
       return res.data;
     },

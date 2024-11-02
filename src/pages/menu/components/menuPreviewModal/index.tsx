@@ -91,16 +91,19 @@ const MenuPreviewModal: React.FC<MenuPreviewModalProps> = ({
   menuTitle,
   menuDescription,
   optionSections,
+  menuPrice,
 }) => {
   return (
     <ModalOverlay>
       <ModalContent>
         <MenuImageWrap>
-          <MenuImage src={menuImage} alt={`preview_${menuTitle}`} />
+          {menuImage && (
+            <MenuImage src={menuImage} alt={`preview_${menuTitle}`} />
+          )}
         </MenuImageWrap>
         <MenuTitle>{menuTitle}</MenuTitle>
         <MenuDescription>{menuDescription}</MenuDescription>
-
+        <Price style={{ fontWeight: 700 }}>₩{menuPrice.toLocaleString()}</Price>
         {optionSections.map((section, sectionIndex) => (
           <OptionSection key={sectionIndex}>
             <OptionTitle>

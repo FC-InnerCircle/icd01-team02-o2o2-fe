@@ -25,6 +25,7 @@ import {
   GetStoreResponse,
   GetStoresMenuParams,
   GetStoresMenuResponse,
+  MenuDetailInfo,
   StoresParams,
   UpdateOrderRequest,
   UpdateStorePayload,
@@ -268,6 +269,61 @@ export const useDeleteStoresMenuQuery = (
   });
 };
 
+//메뉴 업데이트
+export const useUpdateStoresMenuQuery = (
+  options?: UseMutationOptions<
+    void,
+    Error,
+    {
+      storeId: number;
+      menuId: number;
+      payload: Partial<MenuDetailInfo> | Partial<CreateMenuRequest>;
+    }
+  >,
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      storeId,
+      menuId,
+      payload,
+    }: {
+      storeId: number;
+      menuId: number;
+      payload: Partial<MenuDetailInfo>;
+    }) => storeAPI.menu.updateStoresMenu(storeId, menuId, payload),
+
+    // 성공 시 실행할 작업
+    onSuccess: (data, variables, context) => {
+      if (options?.onSuccess) {
+        options.onSuccess(data, variables, context);
+      }
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.stores.menus.detail(
+          variables.storeId,
+          variables.menuId,
+        ),
+        exact: false,
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.stores.menus.list(variables.storeId),
+        exact: false,
+      });
+    },
+
+    // 에러 처리
+    onError: (error, variables, context) => {
+      if (options?.onError) {
+        options.onError(error, variables, context);
+      }
+      console.error('메뉴 업데이트 중 오류 발생:', error);
+    },
+    ...options,
+  });
+};
 // 주문 정보 조회 hooks
 export const useGetStoresOrders = (
   storeId: number,
